@@ -51,18 +51,16 @@ const module = (function (global, $, _, moment, thisPage) {
                 formData.append("file", blob);
                 formData.append("userId", "123456789");
                 formData.append("filename", $('#selectImage')[0].files[0].name);
-                $.ajaxUpload($.reqPost(CTX + "crop/upload/image")
+                $.ajaxUpload($.reqPost(CTX + "example/crop/upload/image")
                     .setData(formData).build()).done(function (response) {
                     console.log("response===>", response);
-                    if (response === "OK") {
-                        window.alert("지정한 이미지가 저장되었습니다.");
-                        $('#previewModal').modal('hide');
-                        $('#selectImage').val('');
-                        const urlCreator = window.URL || window.webkitURL;
-                        const imageUrl = urlCreator.createObjectURL(blob);
-                        $("#croppedImage").attr("src", imageUrl);
-                        $("#saveImage").show();
-                    }
+                    window.alert("지정한 이미지가 저장되었습니다.");
+                    $('#previewModal').modal('hide');
+                    $('#selectImage').val('');
+                    const urlCreator = window.URL || window.webkitURL;
+                    const imageUrl = urlCreator.createObjectURL(blob);
+                    $("#croppedImage").attr("src", imageUrl);
+                    $("#saveImage").show();
                 });
             });
         });

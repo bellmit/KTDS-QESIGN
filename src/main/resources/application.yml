@@ -1,6 +1,5 @@
 server:
   port: 8080
-
   servlet:
     encoding:
       charset: UTF-8
@@ -13,4 +12,6 @@ logging:
 spring:
   profiles:
     active: local # default profile
+  banner:
+      location: classpath:banner/banner.txt
 

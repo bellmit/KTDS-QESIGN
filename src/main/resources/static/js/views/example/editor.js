@@ -9,23 +9,25 @@ const module = (function (global, $, _, moment, thisPage) {
      * @ 모듈 함수 선언
      **************************************************************************/
     function initCKEditor() {
+
         CKEDITOR.replace('editor', {
-            filebrowserImageUploadUrl: CTX + 'editor/upload/image',
+            filebrowserImageUploadUrl: CTX + 'example/editor/upload/image',
             height: 400
         });
+
         CKEDITOR.on('dialogDefinition', function (ev) {
             // Take the dialog name and its definition from the event data.
             const dialogName = ev.data.name;
             const dialogDefinition = ev.data.definition;
             // Check if the definition is from the dialog we're
             // interested in (the 'image' dialog). This dialog name found using DevTools plugin
-            if (dialogName == 'image') {
+            if (dialogName === 'image') {
                 // Remove the 'Link' and 'Advanced' tabs from the 'Image' dialog.
-                dialogDefinition.removeContents('Link');    //링크 탭 제거
-                dialogDefinition.removeContents('advanced');  //상세정보 탭 제거
+                dialogDefinition.removeContents('Link');    // 링크 탭 제거
+                dialogDefinition.removeContents('advanced');  // 상세정보 탭 제거
 
                 // Get a reference to the 'Image Info' tab.
-                var infoTab = dialogDefinition.getContents('info');  //info탭을 제거하면 이미지 업로드가 안된다.
+                const infoTab = dialogDefinition.getContents('info');  // info탭을 제거하면 이미지 업로드가 안된다.
                 // Remove unnecessary widgets/elements from the 'Image Info' tab.
                 // infoTab.remove('txtHSpace'); //info 탭 내에 불필요한 엘레멘트들 제거
                 // infoTab.remove('txtVSpace');
@@ -51,27 +53,17 @@ const module = (function (global, $, _, moment, thisPage) {
             const content = CKEDITOR.instances.editor.getData();
             const images = [];
 
-            // const data = {
-            //     title: $("#title").val(),
-            //     content: CKEDITOR.instances.editor.getData()
-            // };
-
             const post = content;
-            console.log("post==========>", post);
             const $images = $(post).find('img');
-            console.log("images========>", images);
-            $images.each(function(index) {
-                console.log( "this====>", $(this).attr('src').split("/").pop());
+            $images.each(function() {
                 images.push($(this).attr('src').split("/").pop());
-            })
+            });
 
             const data = {
                 title: title,
                 content: content,
                 images: images
             }
-
-            console.log("data==========>", data);
 
             if (!data.title) {
                 alert("title must not be empty!");
@@ -83,7 +75,7 @@ const module = (function (global, $, _, moment, thisPage) {
                 return;
             }
 
-            $.ajaxRest($.reqPost(CTX + "editor/save")
+            $.ajaxRest($.reqPost(CTX + "example/editor/save")
                 .setData(data).build()).done(function (response) {
                 console.log("response===>", response);
                 window.alert("게시글이 저장되었습니다."); // error 처리는 error callback에서 일괄 처리

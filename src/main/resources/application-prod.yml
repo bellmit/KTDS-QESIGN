@@ -1,0 +1,31 @@
+spring:
+  banner:
+    location: classpath:banner/banner-prod.txt
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/dswc
+    driver-class-name: org.postgresql.Driver
+    username: devops
+    password: new1234@
+
+    hikari:
+      connection-timeout: 30000
+      minimum-idle: 5
+      maximum-pool-size: 10
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate.ddl-auto: create
+    properties:
+      hibernate:
+        jdbc.lob.non_contextual_creation: true
+        default_batch_fetch_size: 500
+        query:
+          in_clause_parameter_padding: true
+        naming:
+          physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+app:
+  file:
+    upload:
+      path: /upload/files/

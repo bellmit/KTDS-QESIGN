@@ -67,26 +67,16 @@
         const status = jqxhr.status;
         console.error("status:", status);
 
-        // abnormal disconnect
-        if (status === 0) {
-            global.alert("서버와 연결이 끊어졌습니다.");
-            return;
+        if (status === 0) { // abnormal disconnect
+            $('.modal').modal("hide");
+            $('#commonErrorMessage').html("서버와 연결이 끊어졌습니다.");
+            $('#commonErrorPop').modal({backdrop: 'static', keyboard: false});
+        } else {
+            $('.modal').modal("hide");
+            $('#commonErrorMessage').html("custom message here" || '알 수 없는 오류가 발생했습니다. 관리자에게 문의하세요.');
+            $('#commonErrorPop').modal({backdrop: 'static', keyboard: false});
         }
-        
-        // login session expired
-        // if (status === 403) {
-        //     global.alert(msg);
-        //     location.replace(_CTX);
-        //     return;
-        // }
-        
-        // custom define error
-        // if (msg) {
-        //     global.alert(msg);
-        // } else {
-        //     global.alert("서버 오류가 발생했습니다. 관리자에게 문의하세요.");
-        // }
-        
+
     });
 
     /**
