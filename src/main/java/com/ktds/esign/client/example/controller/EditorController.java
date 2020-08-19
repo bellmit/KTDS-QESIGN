@@ -23,7 +23,6 @@ import javax.servlet.http.HttpServletRequest;
 public class EditorController {
 
     private final CommonUtil commonUtil;
-    private final HttpServletRequest request;
     private final EditorService editorService;
 
     @Value("${app.file.upload.path}")
@@ -41,7 +40,7 @@ public class EditorController {
     }
 
     @PostMapping(value = "/upload/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<?> saveImage(@RequestPart MultipartFile upload) { //CKEditor 에서 "upload" 로 보냄
+    public ResponseEntity<?> saveImage(@RequestPart MultipartFile upload, HttpServletRequest request) { //CKEditor 에서 "upload" 로 보냄
         log.info("@editor/upload/image======================>{}", upload.getOriginalFilename());
         log.info("@editor/upload/fileUploadPath=============>{}", fileUploadPath);
         String originalFilename = upload.getOriginalFilename();

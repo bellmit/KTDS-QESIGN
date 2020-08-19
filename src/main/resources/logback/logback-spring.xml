@@ -58,12 +58,12 @@
             <appender-ref ref="STDOUT" />
         </logger>
 
-        <!-- jpa transaction trace -->
-        <logger name="org.springframework.orm.jpa" level="trace" additivity="false">
+        <!-- jpa transaction: set "trace" for detail -->
+        <logger name="org.springframework.orm.jpa" level="ERROR" additivity="false">
             <appender-ref ref="STDOUT" />
         </logger>
 
-        <logger name="org.springframework.transaction.interceptor" level="trace" additivity="false">
+        <logger name="org.springframework.transaction.interceptor" level="ERROR" additivity="false">
             <appender-ref ref="STDOUT" />
         </logger>
 
