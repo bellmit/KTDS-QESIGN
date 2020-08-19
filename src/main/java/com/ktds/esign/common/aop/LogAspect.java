@@ -52,7 +52,6 @@ public class LogAspect {
         return result;
     }
 
-
     /**
      * print controller, service method params in json format
      *
