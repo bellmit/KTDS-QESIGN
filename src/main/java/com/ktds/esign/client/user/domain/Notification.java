@@ -13,7 +13,7 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_notification")
+@Table(name = "tb_noti")
 public class Notification {
 
     @Id
@@ -22,5 +22,5 @@ public class Notification {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private NotiTypeCode name;
+    private NotiTypeCode notiType;
 }

@@ -30,7 +30,7 @@ public class Department extends BaseEntity {
     private String deptName;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "parent_dept_id", foreignKey = @ForeignKey(name = "fk_tb_parent_department"))
+    @JoinColumn(name = "parent_dept_id", foreignKey = @ForeignKey(name = "fk_tb_department_parent_dept_id"))
     private Department parent;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
@@ -40,7 +40,7 @@ public class Department extends BaseEntity {
     private String deptLevel;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_tb_company"))
+    @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_tb_department_cmpn_id"))
     private Company company;
 
 }

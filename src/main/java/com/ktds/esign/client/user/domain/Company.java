@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
+@ToString(exclude = "departments")
 @EqualsAndHashCode(callSuper = false, of = {"id", "cmpnId"})
 @NoArgsConstructor
 @Entity
@@ -32,7 +32,7 @@ public class Company extends BaseEntity {
     @Column(length = 75)
     private String displayOrder;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "company")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.ALL)
     private List<Department> departments = new ArrayList<>();
 
 }
