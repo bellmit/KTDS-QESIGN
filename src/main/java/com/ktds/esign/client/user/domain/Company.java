@@ -35,4 +35,12 @@ public class Company extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.ALL)
     private List<Department> departments = new ArrayList<>();
 
+    // utility methods
+    public void addDepartment(Department department) {
+        this.departments.add(department);
+        if (department.getCompany() != this) {
+            department.changeCompany(this);
+        }
+    }
+
 }

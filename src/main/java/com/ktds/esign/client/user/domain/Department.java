@@ -43,4 +43,12 @@ public class Department extends BaseEntity {
     @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_tb_department_cmpn_id"))
     private Company company;
 
+    // utility methods
+    public void changeCompany(Company company) {
+        this.company = company;
+        if (!company.getDepartments().contains(this)) {
+            company.getDepartments().add(this);
+        }
+    }
+
 }

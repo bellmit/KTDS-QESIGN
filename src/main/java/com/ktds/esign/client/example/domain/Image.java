@@ -37,7 +37,7 @@ public class Image extends BaseEntity {
     }
 
     // utility method
-    public void setImage(Board board) {
+    public void changeBoard(Board board) {
         this.board = board;
         if (!board.getImages().contains(this)) {
             board.getImages().add(this);

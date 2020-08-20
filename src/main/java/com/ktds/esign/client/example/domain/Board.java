@@ -42,7 +42,7 @@ public class Board extends BaseEntity {
     public void addImage(Image image) {
         this.images.add(image);
         if (image.getBoard() != this) {
-            image.setBoard(this);
+            image.changeBoard(this);
         }
     }
 
