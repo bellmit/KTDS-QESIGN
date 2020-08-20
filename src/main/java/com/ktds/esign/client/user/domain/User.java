@@ -1,20 +1,21 @@
 package com.ktds.esign.client.user.domain;
 
 import com.ktds.esign.common.audit.BaseEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
+@ToString(exclude = "roles")
+@EqualsAndHashCode(callSuper = false, of = {"id", "empNo", "email"})
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_users",
-        indexes = {@Index(name = "tb_users_index", columnList = "empNo, cmpnId")},
+@Table(name = "tb_user",
         uniqueConstraints =
-        @UniqueConstraint(name = "tb_users_unique", columnNames = {"empNo", "cmpnId", "deptId", "email"})
+        @UniqueConstraint(name = "tb_user_unique", columnNames = {"empNo", "email"})
 )
 public class User extends BaseEntity {
 
@@ -34,17 +35,13 @@ public class User extends BaseEntity {
     @Column(length = 75)
     private String phone;
 
-    @Column(length = 75, nullable = false)
-    private String cmpnId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_tb_company"))
+    private Company company;
 
-    @Column(length = 75, nullable = false)
-    private String cmpnName;
-
-    @Column(length = 75)
-    private String deptId;
-
-    @Column(length = 75)
-    private String deptName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dept_id", foreignKey = @ForeignKey(name = "fk_tb_department"))
+    private Department department;
 
     @Column(length = 75)
     private String positionId;
@@ -62,10 +59,28 @@ public class User extends BaseEntity {
 
     // 협력사 여부
     @Column(columnDefinition = "boolean default false", nullable = false)
-    private String isPartner;
+    private String partnerYn;
 
     // 삭제 여부
     @Column(columnDefinition = "boolean default false", nullable = false)
-    private String isDeleted;
+    private String deleteYn;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_user")),
+            inverseJoinColumns = @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "fk_tb_role")),
+            foreignKey = @ForeignKey(name = "fk_tb_user"),
+            inverseForeignKey = @ForeignKey(name = "fk_tb_role")
+    )
+    private Set<Role> roles = new HashSet<>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "tb_user_notification",
+            joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_user")),
+            inverseJoinColumns = @JoinColumn(name = "notification_id", foreignKey = @ForeignKey(name = "fk_tb_notification")),
+            foreignKey = @ForeignKey(name = "fk_tb_user"),
+            inverseForeignKey = @ForeignKey(name = "fk_tb_notification")
+    )
+    private Set<Notification> notifications = new HashSet<>();
 
 }
