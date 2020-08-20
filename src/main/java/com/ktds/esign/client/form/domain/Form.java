@@ -9,10 +9,11 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
-@Setter
-@ToString(exclude = {"user", "forImages"})
+@ToString(exclude = {"user", "formImages", "formUsers"})
 @EqualsAndHashCode(callSuper = false, of = {"id", "formCode"})
+@AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Table(name = "tb_form",
@@ -54,11 +55,17 @@ public class Form extends BaseEntity {
     @Column(columnDefinition = "boolean default false", nullable = false)
     private boolean useYn;
 
+    // form 생성자
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_form_user_id"))
     private User user;
 
+    // form 이미지
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "form", cascade = CascadeType.ALL)
-    private List<FormImage> forImages = new ArrayList<>();
+    private final List<FormImage> formImages = new ArrayList<>();
+
+    // form 지정자
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "form")
+    private final List<FormUser> formUsers = new ArrayList<>();
 
 }

@@ -5,11 +5,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
-@Setter
 @ToString
 @EqualsAndHashCode(callSuper = false, of = {"id", "groupCode", "code"})
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_common_code")
 public class CommonCode extends BaseEntity {

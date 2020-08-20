@@ -5,11 +5,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
-@Setter
-@ToString
-@EqualsAndHashCode(callSuper = false, exclude = "form")
+@ToString(exclude = "form")
+@EqualsAndHashCode(callSuper = false, of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_form_image")
 public class FormImage extends BaseEntity {

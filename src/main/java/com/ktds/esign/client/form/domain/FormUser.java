@@ -5,10 +5,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
-@Setter
-@EqualsAndHashCode(callSuper = false, exclude = {"form", "user"})
+@ToString(exclude = {"form", "user"})
+@EqualsAndHashCode(callSuper = false, of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_form_user")
 public class FormUser {

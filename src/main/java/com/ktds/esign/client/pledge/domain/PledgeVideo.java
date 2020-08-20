@@ -5,11 +5,13 @@ import lombok.*;
 
 import javax.persistence.*;
 
+
+@Builder
 @Getter
-@Setter
 @ToString(exclude = "pledge")
-@EqualsAndHashCode(callSuper = false, exclude = "pledge")
+@EqualsAndHashCode(callSuper = false, of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_pledge_video")
 public class PledgeVideo extends BaseEntity {
@@ -26,7 +28,7 @@ public class PledgeVideo extends BaseEntity {
 
     // 비디오 필수 재생 시간(초단위: 1분 ==> 60 )
     @Column(length = 5, columnDefinition = "integer default 0")
-    private Integer demandTime;
+    private Integer watchTimes;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "pledgeVideo")
     private Pledge pledge;

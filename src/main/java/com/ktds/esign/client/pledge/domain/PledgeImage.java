@@ -6,10 +6,10 @@ import lombok.*;
 import javax.persistence.*;
 
 @Getter
-@Setter
-@ToString
-@EqualsAndHashCode(callSuper = false, exclude = "pledge")
+@ToString(exclude = "pledge")
+@EqualsAndHashCode(callSuper = false, of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_pledge_image")
 public class PledgeImage extends BaseEntity {

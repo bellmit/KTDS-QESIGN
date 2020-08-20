@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
-@Setter
-@ToString(exclude = {"parent", "children"})
+@ToString(exclude = {"parent", "children", "company"})
 @EqualsAndHashCode(callSuper = false, of = {"id", "deptId"})
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_department",
         uniqueConstraints =
@@ -29,15 +30,15 @@ public class Department extends BaseEntity {
     @Column(length = 75, nullable = false)
     private String deptName;
 
+    @Column(length = 75)
+    private String deptLevel;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "parent_dept_id", foreignKey = @ForeignKey(name = "fk_tb_department_parent_dept_id"))
     private Department parent;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "parent")
-    private List<Department> children = new ArrayList<>();
-
-    @Column(length = 75)
-    private String deptLevel;
+    private final List<Department> children = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_tb_department_cmpn_id"))

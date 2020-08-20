@@ -1,17 +1,16 @@
 package com.ktds.esign.client.user.domain;
 
 import com.ktds.esign.common.enums.NotiTypeCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
-@Setter
 @ToString
+@EqualsAndHashCode
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_noti")
 public class Notification {

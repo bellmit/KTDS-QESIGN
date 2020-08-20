@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
-@Setter
 @ToString(exclude = "departments")
 @EqualsAndHashCode(callSuper = false, of = {"id", "cmpnId"})
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_company",
         uniqueConstraints =
@@ -33,7 +34,7 @@ public class Company extends BaseEntity {
     private String displayOrder;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "company", cascade = CascadeType.ALL)
-    private List<Department> departments = new ArrayList<>();
+    private final List<Department> departments = new ArrayList<>();
 
     // utility methods
     public void addDepartment(Department department) {

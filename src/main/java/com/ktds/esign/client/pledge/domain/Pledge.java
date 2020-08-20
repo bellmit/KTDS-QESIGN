@@ -4,7 +4,7 @@ import com.ktds.esign.client.form.domain.Form;
 import com.ktds.esign.client.user.domain.User;
 import com.ktds.esign.common.audit.BaseEntity;
 import com.ktds.esign.common.enums.PledgeTypeCode;
-import com.ktds.esign.common.enums.PledgeProgStatusCode;
+import com.ktds.esign.common.enums.PledgeWorkStatusCode;
 import lombok.*;
 
 import javax.persistence.*;
@@ -12,11 +12,12 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Builder
 @Getter
-@Setter
-@ToString(exclude = {"pledgeImages", "pledgeUsers"})
+@ToString(exclude = {"form", "user", "pledgeImages", "pledgeUsers", "pledgeVideo"})
 @EqualsAndHashCode(callSuper = false, of = {"id", "pledgeCode"})
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_pledge")
 public class Pledge extends BaseEntity {
@@ -39,10 +40,10 @@ public class Pledge extends BaseEntity {
     @Column(length = 20)
     private PledgeTypeCode pledgeType;
 
-    // 서약 진행 상태
+    // 서약 작업 상태
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private PledgeProgStatusCode progStatus;
+    private PledgeWorkStatusCode pledgeWorkStatus;
 
     // 서약 개시일
     private LocalDateTime startDt;
@@ -63,10 +64,10 @@ public class Pledge extends BaseEntity {
     private User user;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pledge", cascade = CascadeType.ALL)
-    private List<PledgeImage> pledgeImages = new ArrayList<>();
+    private final List<PledgeImage> pledgeImages = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pledge", cascade = CascadeType.ALL)
-    private List<PledgeUser> pledgeUsers = new ArrayList<>();
+    private final List<PledgeUser> pledgeUsers = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "video_id", foreignKey = @ForeignKey(name = "fk_tb_pledge_video_id"))

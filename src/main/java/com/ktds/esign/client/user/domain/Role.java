@@ -5,9 +5,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
+@Builder
 @Getter
-@Setter
+@EqualsAndHashCode
+@ToString
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_role")
 public class Role {

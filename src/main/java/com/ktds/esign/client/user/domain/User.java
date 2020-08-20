@@ -7,11 +7,12 @@ import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Builder
 @Getter
-@Setter
-@ToString(exclude = {"roles", "notifications"})
+@ToString(exclude = {"company", "department", "roles", "notifications"})
 @EqualsAndHashCode(callSuper = false, of = {"id", "empNo", "email"})
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tb_user",
         uniqueConstraints =
@@ -35,14 +36,6 @@ public class User extends BaseEntity {
     @Column(length = 75)
     private String phone;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_tb_user_cmpn_id"))
-    private Company company;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dept_id", foreignKey = @ForeignKey(name = "fk_tb_user_dept_id"))
-    private Department department;
-
     @Column(length = 75)
     private String positionId;
 
@@ -65,6 +58,14 @@ public class User extends BaseEntity {
     @Column(columnDefinition = "boolean default false", nullable = false)
     private String deleteYn;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_tb_user_cmpn_id"))
+    private Company company;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "dept_id", foreignKey = @ForeignKey(name = "fk_tb_user_dept_id"))
+    private Department department;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_user_role",
             joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_user_role_user_id")),
@@ -72,7 +73,7 @@ public class User extends BaseEntity {
             foreignKey = @ForeignKey(name = "fk_tb_user_role_user_id"),
             inverseForeignKey = @ForeignKey(name = "fk_tb_user_role_role_id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private final Set<Role> roles = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_user_noti",
@@ -81,6 +82,6 @@ public class User extends BaseEntity {
             foreignKey = @ForeignKey(name = "fk_tb_user_noti_user_id"),
             inverseForeignKey = @ForeignKey(name = "fk_tb_user_noti_noti_id")
     )
-    private Set<Notification> notifications = new HashSet<>();
+    private final Set<Notification> notifications = new HashSet<>();
 
 }
