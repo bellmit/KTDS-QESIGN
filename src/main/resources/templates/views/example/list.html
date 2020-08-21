@@ -103,9 +103,9 @@
             </form>
             <!-- //검색박스 -->
             <p class="total-num">
-                총<span class="font-red">100</span>건
+                총<span id="total" class="font-red">100</span>건
             </p>
-            <select class="selectpicker float-right">
+            <select id="size" class="selectpicker float-right">
                 <option>10개씩보기</option>
                 <option>30개씩보기</option>
             </select>
@@ -113,7 +113,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="proceeding" role="tabpanel" aria-labelledby="proceeding-tab">
                     <div class="list-wrap">
-                        <ul class="list-group l-head list-group-horizontal">
+                        <ul id="thead" class="list-group l-head list-group-horizontal">
                             <li class="d-inline-block w-5">No.</li>
                             <li class="d-inline-block w-10">진행상태</li>
                             <li class="d-inline-block w-10">유형</li>
@@ -123,57 +123,26 @@
                             <li class="d-inline-block w-10">요청자</li>
                             <li class="d-inline-block w-10">마감일</li>
                         </ul>
-                        <ul class="list-group l-body list-group-horizontal">
-                            <li>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="d-inline-block w-5">10</li>
-                                    <li class="d-inline-block w-10 font-blue">진행</li>
-                                    <li class="d-inline-block w-10">일반</li>
-                                    <li class="d-inline-block w-30 text-left">
-                                        <a class="text-truncate" href="">2020년 정보보안서약서 동의요청</a>
-                                    </li>
-                                    <li class="d-inline-block w-10">2020.11.23</li>
-                                    <li class="d-inline-block w-15">우리팀</li>
-                                    <li class="d-inline-block w-10">케이트</li>
-                                    <li class="d-inline-block w-10 font-red">2020.11.24</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="d-inline-block w-5">10</li>
-                                    <li class="d-inline-block w-10 font-blue">진행</li>
-                                    <li class="d-inline-block w-10">일반</li>
-                                    <li class="d-inline-block w-30 text-left">
-                                        <a class="text-truncate" href="">2020년 정보보안서약서 동의요청</a>
-                                    </li>
-                                    <li class="d-inline-block w-10">2020.11.23</li>
-                                    <li class="d-inline-block w-15">우리팀</li>
-                                    <li class="d-inline-block w-10">케이트</li>
-                                    <li class="d-inline-block w-10 font-red">2020.11.24</li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-group list-group-horizontal">
-                                    <li class="d-inline-block w-5">10</li>
-                                    <li class="d-inline-block w-10 font-blue">진행</li>
-                                    <li class="d-inline-block w-10">일반</li>
-                                    <li class="d-inline-block w-30 text-left">
-                                        <a class="text-truncate" href="">2020년 정보보안서약서 동의요청</a>
-                                    </li>
-                                    <li class="d-inline-block w-10">2020.11.23</li>
-                                    <li class="d-inline-block w-15">우리팀</li>
-                                    <li class="d-inline-block w-10">케이트</li>
-                                    <li class="d-inline-block w-10 font-red">2020.11.24</li>
-                                </ul>
-                            </li>
+                        <ul id="tbody" class="list-group l-body list-group-horizontal">
+<!--                            <li>-->
+<!--                                <ul class="list-group list-group-horizontal">-->
+<!--                                    <li class="d-inline-block w-5">10</li>-->
+<!--                                    <li class="d-inline-block w-10 font-blue">진행</li>-->
+<!--                                    <li class="d-inline-block w-10">일반</li>-->
+<!--                                    <li class="d-inline-block w-30 text-left">-->
+<!--                                        <a class="text-truncate" href="">2020년 정보보안서약서 동의요청</a>-->
+<!--                                    </li>-->
+<!--                                    <li class="d-inline-block w-10">2020.11.23</li>-->
+<!--                                    <li class="d-inline-block w-15">우리팀</li>-->
+<!--                                    <li class="d-inline-block w-10">케이트</li>-->
+<!--                                    <li class="d-inline-block w-10 font-red">2020.11.24</li>-->
+<!--                                        &lt;!&ndash;<li class="d-inline-block w-100">요청 받은 전자서명이 없습니다.</li>&ndash;&gt;-->
+<!--                                </ul>-->
+<!--                            </li>-->
                         </ul>
-
-                        <div class="list-none-area">
-                            <span class="icon-area"></span>
-                            <p>요청 받은 전자서명이 없습니다.</p>
-                        </div>
                     </div>
 
+                    <!-- pagination -->
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
                             <li class="page-item">
@@ -193,62 +162,7 @@
                             </li>
                         </ul>
                     </nav>
-                </div>
-                <div class="tab-pane fade" id="complete" role="tabpanel" aria-labelledby="complete-tab">
-                    <!-- 리스트가 없는걍우 .list-wrap에 .list-none 클래스 추가 -->
-                    <div class="list-wrap list-none">
-                        <ul class="list-group l-head list-group-horizontal">
-                            <li class="d-inline-block w-5">No.</li>
-                            <li class="d-inline-block w-10">진행상태</li>
-                            <li class="d-inline-block w-10">유형</li>
-                            <li class="d-inline-block w-30">서약 업무명</li>
-                            <li class="d-inline-block w-10">요청일</li>
-                            <li class="d-inline-block w-15">요청부서</li>
-                            <li class="d-inline-block w-10">요청자</li>
-                            <li class="d-inline-block w-10">마감일</li>
-                        </ul>
-                        <!-- <ul class="list-group l-body list-group-horizontal">
-                          <li>
-                            <ul class="list-group list-group-horizontal">
-                              <li class="d-inline-block w-5">10</li>
-                              <li class="d-inline-block w-10">완료</li>
-                              <li class="d-inline-block w-10">일반</li>
-                              <li class="d-inline-block w-30 text-left">
-                                <a class="text-truncate" href="">2020년 정보보안서약서 동의요청</a>
-                              </li>
-                              <li class="d-inline-block w-10">2020.11.23</li>
-                              <li class="d-inline-block w-15">우리팀</li>
-                              <li class="d-inline-block w-10">케이트</li>
-                              <li class="d-inline-block w-10 font-red">2020.11.24</li>
-                            </ul>
-                          </li>
-                        </ul> -->
-
-                        <div class="list-none-area">
-                            <span class="icon-area"></span>
-                            <p>요청 받은 전자서명이 없습니다.</p>
-                        </div>
-                    </div>
-
-                    <!-- <nav aria-label="Page navigation example">
-                      <ul class="pagination justify-content-center">
-                        <li class="page-item">
-                          <a class="page-link page-prev first" href="#" aria-label="Previous" title="맨앞으로"></a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link page-prev" href="#" aria-label="Previous"></a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                          <a class="page-link page-next" href="#" aria-label="Next"></a>
-                        </li>
-                        <li class="page-item">
-                          <a class="page-link page-next last" href="#" aria-label="Next" title="맨뒤로"></a>
-                        </li>
-                      </ul>
-                    </nav> -->
+                    <!-- //pagination -->
                 </div>
             </div>
         </div>

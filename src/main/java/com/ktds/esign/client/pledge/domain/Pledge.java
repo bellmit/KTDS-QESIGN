@@ -45,10 +45,10 @@ public class Pledge extends BaseEntity {
     @Column(length = 20)
     private PledgeWorkStatusCode pledgeWorkStatus;
 
-    // 서약 개시일
+    // 서약 개시일(요청일)
     private LocalDateTime startDt;
 
-    // 서약 종료일
+    // 서약 종료일(마감일)
     private LocalDateTime endDt;
 
     // 삭제 여부
