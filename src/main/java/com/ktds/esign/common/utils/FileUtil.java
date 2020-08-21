@@ -9,12 +9,11 @@
  */
 package com.ktds.esign.common.utils;
 
-import groovyjarjarantlr.StringUtils;
+import com.ktds.esign.common.exception.StorageException;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
-import org.apache.poi.util.StringUtil;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,12 +21,10 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Slf4j
 @Component
-public class CommonUtil {
+public class FileUtil {
 
     /**
      *  단건 파일 저장
@@ -40,7 +37,7 @@ public class CommonUtil {
     public String storeFile(MultipartFile file, String fileUploadPath, String originalFilename) {
 
         if (file.isEmpty()) {
-            return null;
+            throw new StorageException("Failed to store empty file ");
         }
 
         String extension = FilenameUtils.getExtension(originalFilename);

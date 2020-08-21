@@ -6,12 +6,18 @@ server:
       enabled: true
       force: true
 
+
+
 logging:
   config: classpath:logback/logback-spring.xml
-        
+
 spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
   profiles:
     active: local # default profile
   banner:
-      location: classpath:banner/banner.txt
+    location: classpath:banner/banner.txt
 

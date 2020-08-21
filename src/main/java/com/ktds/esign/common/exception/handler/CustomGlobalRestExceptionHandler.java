@@ -57,6 +57,13 @@ public class CustomGlobalRestExceptionHandler {
         return buildError(ErrorCode.EMAIL_DUPLICATION, ex.getMessage(), request);
     }
 
+    // StorageException failed
+    @ExceptionHandler(StorageException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // 405
+    protected ResponseError handlerStorageException(StorageException ex, WebRequest request) {
+        return buildError(ErrorCode.STORAGE_FAILED, ex.getMessage(), request);
+    }
+
     // Authentication failed
     @ExceptionHandler(AuthenticationFailedException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401

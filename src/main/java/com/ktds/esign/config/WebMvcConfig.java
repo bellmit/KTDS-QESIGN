@@ -13,7 +13,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final String uploadFilePath;
 
-    public WebMvcConfig(@Value("${app.file.upload.path}") String uploadFilePath) {
+    public WebMvcConfig(@Value("${app.file.location}") String uploadFilePath) {
         this.uploadFilePath = uploadFilePath;
     }
 

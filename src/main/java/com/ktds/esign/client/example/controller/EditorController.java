@@ -3,7 +3,7 @@ package com.ktds.esign.client.example.controller;
 import com.ktds.esign.client.example.payload.BoardReq.BoardDto;
 import com.ktds.esign.client.example.payload.FileUploadDto;
 import com.ktds.esign.client.example.service.EditorService;
-import com.ktds.esign.common.utils.CommonUtil;
+import com.ktds.esign.common.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,10 +22,10 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("example/editor")
 public class EditorController {
 
-    private final CommonUtil commonUtil;
+    private final FileUtil commonUtil;
     private final EditorService editorService;
 
-    @Value("${app.file.upload.path}")
+    @Value("${app.file.location}")
     private String fileUploadPath;
 
     @GetMapping

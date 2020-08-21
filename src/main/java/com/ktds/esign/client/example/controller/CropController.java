@@ -2,7 +2,7 @@ package com.ktds.esign.client.example.controller;
 
 import com.ktds.esign.client.example.payload.CropFileDto;
 import com.ktds.esign.common.response.ResponseDto;
-import com.ktds.esign.common.utils.CommonUtil;
+import com.ktds.esign.common.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,9 +16,9 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/example/crop")
 public class CropController {
 
-    private final CommonUtil commonUtil;
+    private final FileUtil commonUtil;
 
-    @Value("${app.file.upload.path}")
+    @Value("${app.file.location}")
     private String fileUploadPath;
 
     @GetMapping

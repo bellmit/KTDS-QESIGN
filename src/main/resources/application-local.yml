@@ -27,5 +27,4 @@ spring:
 
 app:
   file:
-    upload:
-      path: /upload/files/
+    location: /upload/files/

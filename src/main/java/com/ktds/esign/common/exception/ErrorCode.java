@@ -10,6 +10,7 @@ public enum ErrorCode {
 	USER_NOT_FOUND("AUTH_ERR001", "해당 사용자를 찾을 수 없습니다.", HttpStatus.NOT_FOUND.value()), 
 	USER_EXISTS("AUTH_ERR002", "이미 등록된 사용자입니다.", HttpStatus.BAD_REQUEST.value()), 
 	EMAIL_DUPLICATION("AUTH_ERR003", "사용 중인 이메일입니다.", HttpStatus.BAD_REQUEST.value()),
+	STORAGE_FAILED("AUTH_ERR004", "파일 처리 시 문제가 발생했습니다.", HttpStatus.BAD_REQUEST.value()),
 	AUTHENTICATION_FAILED("AUTH_ERR004", "이메일과 비밀번호가 정확하지 않습니다.", HttpStatus.UNAUTHORIZED.value()),
 	JWT_TOKEN_INVALID("AUTH_ERR005", "토큰이 유효하지 않습니다.", HttpStatus.UNAUTHORIZED.value()),
 	INPUT_VALUE_INVALID("INVALID_ERR001", "입력 값이 올바르지 않습니다.", HttpStatus.BAD_REQUEST.value()),
