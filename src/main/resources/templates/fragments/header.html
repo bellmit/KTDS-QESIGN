@@ -1,40 +1,42 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-    <!-- Header div -->
-    <div id="header" th:fragment="headerFragment">
 
-        <div class="blog-header py-3">
-            <div class="row flex-nowrap justify-content-between align-items-center">
-                <div class="col-4 pt-1">
-                    <a class="text-muted" th:href="@{/main}">Main</a>
-                </div>
-                <div class="col-4 text-center">
-                    <a class="blog-header-logo text-dark" href="#">Oh My Examples!</a>
-                </div>
-                <div class="col-4 d-flex justify-content-end align-items-center">
-                    <a class="btn btn-sm btn-outline-secondary" href="#">Sign up</a>
+    <!-- Header div -->
+    <header id="header" th:fragment="headerFragment">
+        <div class="header-inner">
+            <h1 class="logo">
+                <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="ktds전자서명" /></a>
+            </h1>
+            <div class="gnb-wrap">
+                <ul class="main-menu">
+                    <!-- li .on 추가시 mouseover와 같은상태 -->
+                    <li class="on"><span>내가 받은 서약</span></li>
+                    <li><span>양식 관리</span></li>
+                    <li><span>서약 관리</span></li>
+                </ul>
+                <div class="sub-menu">
+                    <ul>
+                        <!-- a .on 추가시 mouseover와 같은상태 -->
+                        <li><a href="">요청 받은 서약</a></li>
+                        <li class="on"><a href="">진행 중 서약</a></li>
+                        <li><a href="">완료된 서약</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="">양식 조회</a></li>
+                        <li><a href="">개인 양식 등록</a></li>
+                    </ul>
+                    <ul>
+                        <li><a href="">서약 조회</a></li>
+                        <li><a href="">서약 업무 만들기</a></li>
+                    </ul>
                 </div>
             </div>
+            <button class="btn-setting">
+                <span class="icon-area"></span>
+                개인설정
+            </button>
         </div>
-
-        <div class="nav-scroller py-1 mb-2">
-            <nav class="nav d-flex justify-content-between">
-                <a class="p-2 text-muted" href="#">World</a>
-                <a class="p-2 text-muted" href="#">U.S.</a>
-                <a class="p-2 text-muted" href="#">Technology</a>
-                <a class="p-2 text-muted" href="#">Design</a>
-                <a class="p-2 text-muted" href="#">Culture</a>
-                <a class="p-2 text-muted" href="#">Business</a>
-                <a class="p-2 text-muted" href="#">Politics</a>
-                <a class="p-2 text-muted" href="#">Opinion</a>
-                <a class="p-2 text-muted" href="#">Science</a>
-                <a class="p-2 text-muted" href="#">Health</a>
-                <a class="p-2 text-muted" href="#">Style</a>
-                <a class="p-2 text-muted" href="#">Travel</a>
-            </nav>
-        </div>
-
-    </div>
+    </header>
 
 </html>

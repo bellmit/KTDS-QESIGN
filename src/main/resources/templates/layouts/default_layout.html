@@ -5,16 +5,16 @@
 
     <body>
         <!-- wrap div -->
-        <div class="container">
+        <div class="wrap">
         
             <!-- header -->
             <header th:replace="fragments/header :: headerFragment"></header>
             
             <!--s:container-->
-            <div class="content">
+            <div class="content-wrap">
                 
                <!-- Left wrap div -->
-               <!--<div th:replace="fragments/leftAside :: leftAsideFragment"></div>-->
+               <!--<div th:replace="fragments/left :: leftFragment"></div>-->
                <!-- end Left wrap div -->
                 
                <!-- contents -->
@@ -30,13 +30,12 @@
                    <!-- contents are here -->
                </div>
 
-                <!-- footer -->
-                <footer th:replace="fragments/footer :: footerFragment"></footer>
-
             </div>
             <!--e:container-->
-
         </div>
+
+        <!-- footer -->
+        <footer th:replace="fragments/footer :: footerFragment"></footer>
         <!-- end wrap div -->
     </body>
 
