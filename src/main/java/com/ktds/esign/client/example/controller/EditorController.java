@@ -1,7 +1,7 @@
 package com.ktds.esign.client.example.controller;
 
 import com.ktds.esign.client.example.payload.BoardReq.BoardDto;
-import com.ktds.esign.client.example.payload.FileUploadDto;
+import com.ktds.esign.client.example.payload.FileUploadReq.FileUploadDto;
 import com.ktds.esign.client.example.service.EditorService;
 import com.ktds.esign.common.utils.FileUtil;
 import lombok.RequiredArgsConstructor;

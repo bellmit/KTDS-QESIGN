@@ -1,0 +1,22 @@
+package com.ktds.esign.client.example.controller;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+@Slf4j
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("example/list")
+public class ListController {
+
+    @GetMapping
+    public ModelAndView video(ModelAndView mav) {
+        mav.setViewName("views/example/list");
+        return mav;
+    }
+
+}

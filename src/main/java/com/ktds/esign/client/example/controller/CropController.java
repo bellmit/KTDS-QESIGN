@@ -1,6 +1,6 @@
 package com.ktds.esign.client.example.controller;
 
-import com.ktds.esign.client.example.payload.CropFileDto;
+import com.ktds.esign.client.example.payload.CropReq.CropFileDto;
 import com.ktds.esign.common.response.ResponseDto;
 import com.ktds.esign.common.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
