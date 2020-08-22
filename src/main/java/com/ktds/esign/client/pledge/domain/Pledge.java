@@ -3,8 +3,8 @@ package com.ktds.esign.client.pledge.domain;
 import com.ktds.esign.client.form.domain.Form;
 import com.ktds.esign.client.user.domain.User;
 import com.ktds.esign.common.audit.BaseEntity;
-import com.ktds.esign.common.enums.PledgeTypeCode;
-import com.ktds.esign.common.enums.PledgeWorkStatusCode;
+import com.ktds.esign.common.enums.PledgeType;
+import com.ktds.esign.common.enums.PledgeWorkStatusType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,12 +38,12 @@ public class Pledge extends BaseEntity {
     // 서약 타입
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private PledgeTypeCode pledgeType;
+    private PledgeType pledgeType;
 
     // 서약 작업 상태
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private PledgeWorkStatusCode pledgeWorkStatus;
+    private PledgeWorkStatusType pledgeWorkStatus;
 
     // 서약 개시일(요청일)
     private LocalDateTime startDt;

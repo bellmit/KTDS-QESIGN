@@ -2,7 +2,7 @@ package com.ktds.esign.client.pledge.domain;
 
 import com.ktds.esign.client.user.domain.User;
 import com.ktds.esign.common.audit.BaseEntity;
-import com.ktds.esign.common.enums.PledgeUserStatusCode;
+import com.ktds.esign.common.enums.UserPledgeStatusType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -33,7 +33,7 @@ public class PledgeUser extends BaseEntity {
     // 서약 대상자의 서약 진행 상태
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private PledgeUserStatusCode pledgeUserStatus;
+    private UserPledgeStatusType userPledgeStatus;
 
     // 서약 서명일
     private LocalDateTime pledgeDt;

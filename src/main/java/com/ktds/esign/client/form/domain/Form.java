@@ -2,7 +2,7 @@ package com.ktds.esign.client.form.domain;
 
 import com.ktds.esign.client.user.domain.User;
 import com.ktds.esign.common.audit.BaseEntity;
-import com.ktds.esign.common.enums.FormTypeCode;
+import com.ktds.esign.common.enums.FormType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -34,7 +34,7 @@ public class Form extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private FormTypeCode formType;
+    private FormType formType;
 
     @Column(columnDefinition = "text")
     private String formContent;

@@ -1,38 +1,38 @@
 /****************************************************************************************************
-*    @Description: Ajax Utilites
-*    @Author: 91264983
-*    @Since: 2020.08.15
-*****************************************************************************************************/
-(function(global, $, moment, _, thisPage){
-    
+ *    @Description: Ajax Utilites
+ *    @Author: 91264983
+ *    @Since: 2020.08.15
+ *****************************************************************************************************/
+(function (global, $, moment, _, thisPage) {
+
     /** context root **/
     const _CTX = thisPage['ctxPath'];
-    
+
     /** active ajax **/
     let ACTIVE_AJAX = 0;
-    
+
     /** ajax start status flag **/
     let AJAX_START = false;
-    
+
     /** disable loading indicator urls **/
     const NO_INDICATOR_URLS = ["/aaa/bbb/ccc", "/eee/fff/ggg"];
 
-    const indicatorStart = function() {
+    const indicatorStart = function () {
         let ajaxIndicator = '<div id="indicator" style="display:none;"><span class="radius"></span></div>';
         $('body').append(ajaxIndicator);
         $.blockUI.defaults.css = {};
-        $.blockUI({ 
-            message : $('#indicator'),
-            border : '3px solid #aaa',
-            overlayCSS : {
-                backgroundColor : '#000',
-                opacity : 0.2,
-                cursor : 'default'
+        $.blockUI({
+            message: $('#indicator'),
+            border: '3px solid #aaa',
+            overlayCSS: {
+                backgroundColor: '#000',
+                opacity: 0.2,
+                cursor: 'default'
             }
-        }); 
+        });
     };
-    
-    const indicatorStop = function(){
+
+    const indicatorStop = function () {
         $.unblockUI();
         $(document).find('#indicator').remove();
     };
@@ -42,7 +42,7 @@
      * handle each ajax request
      * control loading indcator : start
      */
-    $(document).ajaxSend(function(event, jqhr, settings) {
+    $(document).ajaxSend(function (event, jqhr, settings) {
         if (AJAX_START) return;
         // if (_.contains(NO_INDICATOR_URLS, settings.url)) return;
         AJAX_START = true;
@@ -54,7 +54,7 @@
      * handl entire ajax request
      * control loading indcator : stop
      */
-    $(document).ajaxStop(function() {
+    $(document).ajaxStop(function () {
         indicatorStop();
         AJAX_START = false;
     });
@@ -62,10 +62,12 @@
     /**
      * Ajax Error Handler
      */
-    $(document).ajaxError(function(event, jqxhr, settings, thrownError) {
+    $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         console.error("e:", jqxhr);
         const status = jqxhr.status;
-        console.error("status:", status);
+        const message = jqxhr['responseJSON']['message'];
+        console.error("status======>", status);
+        console.error("message=====>", message);
 
         if (status === 0) { // abnormal disconnect
             $('.modal').modal("hide");
@@ -73,7 +75,7 @@
             $('#commonErrorPop').modal({backdrop: 'static', keyboard: false});
         } else {
             $('.modal').modal("hide");
-            $('#commonErrorMessage').html("custom message here" || '알 수 없는 오류가 발생했습니다. 관리자에게 문의하세요.');
+            $('#commonErrorMessage').html(message || '알 수 없는 오류가 발생했습니다. 관리자에게 문의하세요.');
             $('#commonErrorPop').modal({backdrop: 'static', keyboard: false});
         }
 
@@ -81,46 +83,46 @@
 
     /**
      * jQuery.extend methods
-     */    
+     */
     $.extend({
-        
+
         /**
          * I. Ajax Proxy(Request by JSON)
          */
-        ajaxRest : function(request) {
-            
+        ajaxRest: function (request) {
+
             const options = {
-                url : request.url,
-                type : request.method,
-                data : request.param && JSON.stringify(request.param),
-                dataType : 'json',
-                contentType : 'application/json; charset=utf-8',
-                cache : false,
+                url: request.url,
+                type: request.method,
+                data: request.param && JSON.stringify(request.param),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
                 timeout: 10000, // 10 seconds
             };
-            
+
             //return $.ajax(options).always(function(){
-            return $.ajax(options).always(function() {
+            return $.ajax(options).done(request.callback).always(function () {
                 //console.log("Ajax Completed");
             });
         },
 
         /**
          * II. Ajax Proxy(Request by Form Submit)
-         */        
-        ajaxForm : function(request) {
-            
+         */
+        ajaxForm: function (request) {
+
             const options = {
-                url : request.url,
-                type : request.method,
-                data : request.param,
-                dataType : 'json',
-                contentType : 'application/x-www-form-urlencoded; charset=utf-8',
-                cache : false,
+                url: request.url,
+                type: request.method,
+                data: request.param,
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+                cache: false,
                 timeout: 10000, // 10 seconds
             };
-            
-            return $.ajax(options).always(function() {
+
+            return $.ajax(options).always(function () {
                 //console.log("Ajax Completed");
             });
         },
@@ -128,105 +130,125 @@
         /**
          * III. Ajax Proxy with blockUI
          */
-        ajaxUpload : function(request) {
-            
+        ajaxUpload: function (request) {
+
             const options = {
-                enctype : 'multipart/form-data',
-                url : request.url,
-                type : request.method, // shoud be "POST"
-                data : request.param,
-                dataType : 'json',
-                processData : false, //prevent jQuery from automatically transforming the data into a query string
-                contentType : false,
-                cache : false,
+                enctype: 'multipart/form-data',
+                url: request.url,
+                type: request.method, // shoud be "POST"
+                data: request.param,
+                dataType: 'json',
+                processData: false, //prevent jQuery from automatically transforming the data into a query string
+                contentType: false,
+                cache: false,
                 timeout: 10000, // 10 seconds
             };
-            
-            return $.ajax(options).always(function() {
+
+            return $.ajax(options).always(function () {
                 //console.log("Ajax Completed");
             });
         },
 
         /**
          * Ajax Post option builder
-         * $.reqPost('/url/abc').setData({city: "A", town: "B"}).build();
+         * $.reqPost('/url/abc').setData({city: "A", town: "B"}).setCallback(callback).build();
          */
-        reqPost : function(reqUrl) {
+        reqPost: function (reqUrl) {
             const url = reqUrl;
             const method = 'POST';
+            let callback = null;
             let param = {};
             return {
-              setData: function(reqParam) {
-                param = reqParam;
-                return this;
-              },
-              build: function() {
-                return {
-                  url: url,
-                  method: method,
-                  param: param
-                };
-              }
+                setData: function (reqParam) {
+                    param = reqParam;
+                    return this;
+                },
+                setCallback: function (resCallback) {
+                    callback = resCallback;
+                    return this;
+                },
+                build: function () {
+                    return {
+                        url: url,
+                        method: method,
+                        param: param,
+                        callback: callback
+                    };
+                }
             };
         },
 
         /**
          * Ajax Get option builder
-         * $.reqGet('/url/abc')).build();
+         * $.reqGet('/url/abc').setData({city: "A", town: "B").setCallback(callback).build();
          */
-        reqGet : function(reqUrl) {
+        reqGet: function (reqUrl) {
             const url = reqUrl;
             const method = 'GET';
+            let callback = null;
+            let param = '';
             return {
-              build: function() {
-                return {
-                  url: url,
-                  method: method
-                };
-              }
+                setData: function (reqParam) {
+                    console.log("reqParam===>", reqParam)
+                    param = reqParam;
+                    return this;
+                },
+                setCallback: function (resCallback) {
+                    callback = resCallback;
+                    return this;
+                },
+                build: function () {
+                    return {
+                        url: param ? (url + '?' + param) : url,
+                        method: method,
+                        callback: callback
+                    };
+                }
             };
         },
 
         /**
          * modal on
          */
-        modalOn : function($target, callback, option){
+        modalOn: function ($target, callback, option) {
             $.blockUI.defaults.css = {};
             $.blockUI({
-                message : $target, // $target element to show
-                css : {
-                    padding : 0,
-                    margin : 0,
-                    textAlign :    option && option.textAlign || '',
-                    color :    '#000',
-                    border : option && option.border || '3px solid #aaa',
-                    backgroundColor : '#fff',
-                    cursor : 'default'
+                message: $target, // $target element to show
+                css: {
+                    padding: 0,
+                    margin: 0,
+                    textAlign: option && option.textAlign || '',
+                    color: '#000',
+                    border: option && option.border || '3px solid #aaa',
+                    backgroundColor: '#fff',
+                    cursor: 'default'
                 },
-                overlayCSS : {
-                    backgroundColor : '#000', // ''
-                    opacity : 0.3, // ''
-                    cursor : 'default'
+                overlayCSS: {
+                    backgroundColor: '#000', // ''
+                    opacity: 0.3, // ''
+                    cursor: 'default'
                 },
-                onBlock : function(){
-                    if(typeof callback === "function"){
+                onBlock: function () {
+                    if (typeof callback === "function") {
                         callback();
                     }
                 }
             });
-            
+
             const modal = $('.blockUI.blockMsg').get(length - 1);
             $(modal).center();
-            
+
         },
 
         /**
          * modal off
          */
-        modalOff : function(callback) {
+        modalOff: function (callback) {
             $.unblockUI({
-                onUnblock: function() {
-                    if(typeof callback === "function") { callback(); }
+                onUnblock: function () {
+                    if (typeof callback === "function") {
+                        callback();
+                    }
                 }
             });
         },
@@ -234,35 +256,35 @@
         /**
          * convert number to currency format(#,###)
          */
-        formatNumber : function(num) {
+        formatNumber: function (num) {
             return num && num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") || 0;
         },
 
         /**
          * abbreviate string length by number(ABC...)
          */
-        abbreviate : function(str, num) {
+        abbreviate: function (str, num) {
             return ($.trim(str).length > num) ? $.trim(str).substring(0, num) + "..." : $.trim(str);
         },
-        
+
         /**
          * convert value to percentFormat format(xx.xx)
          */
-        percentFormat : function(change, reference, nth) {
+        percentFormat: function (change, reference, nth) {
             return Number((change / reference) * 100 || 0).toFixed(nth);
         },
-        
+
         /**
          * number round up to the nth
          */
-        numberRoundUp : function(value, nth) {
+        numberRoundUp: function (value, nth) {
             return Number(value).toFixed(nth);
         },
-        
+
         /**
          * in string replace xss characters
          */
-        sanitize : function (input) {
+        sanitize: function (input) {
             return input != "null" && input.replace(/\&/g, '&amp;')
                 .replace(/\</g, '&lt;')
                 .replace(/\>/g, '&gt;')
@@ -270,46 +292,46 @@
                 .replace(/\'/g, '&#x27')
                 .replace(/\//g, '&#x2F') || '';
         },
-        
+
         /**
          * convert JSON Object to String
          * param : JSON Object
          */
-        jsonStr : function (jsonObj) {
+        jsonStr: function (jsonObj) {
             return global.encodeURIComponent(JSON.stringify(jsonObj));
         },
-        
+
         /**
          * convert String to JSON Object
          * param : JSON Format String
          */
-        jsonObj : function (jsonStr) {
+        jsonObj: function (jsonStr) {
             return JSON.parse(global.decodeURIComponent(jsonStr));
         },
-        
+
         /**
          * Uppercase the first character of string
          */
-        upperCaseFirstChar : function(str) {
+        upperCaseFirstChar: function (str) {
             return str && str.charAt(0).toUpperCase() + str.slice(1) || '';
         },
-        
-        
+
+
         /**
          * convert local date to utc date format
          */
-        utcDateFormat : function(date) {
+        utcDateFormat: function (date) {
             return date && moment(new Date(date)).utc().toISOString() || '';
         },
-        
+
         /**
          * convert date to date format
          */
-        dateFormat : function(date, type) {
+        dateFormat: function (date, type) {
             if (!date) {
                 return '';
             } else if (type === 'D') {
-                return moment(new Date(date)).format("YYYY/MM/DD HH");
+                return moment(new Date(date)).format("YYYY/MM/DD");
             } else if (type === 'H') {
                 return moment(new Date(date)).format("YYYY/MM/DD HH");
             } else if (type === 'M') {
@@ -318,18 +340,18 @@
                 return moment(new Date(date)).format("YYYY/MM/DD HH:mm:ss");
             }
         },
-        
+
         /**
          * convert start date to date format
          */
-        startDateFormat : function(startDate) {
+        startDateFormat: function (startDate) {
             return startDate && moment(new Date(startDate)).format("YYYY/MM/DD HH:mm:ss") || '';
         },
-        
+
         /**
          * convert end date to date format
          */
-        endDateFormat : function(endDate) {
+        endDateFormat: function (endDate) {
             const fnsDt = endDate && moment(new Date(endDate)).format("YYYY/MM/DD HH:mm:ss") || '';
             return (fnsDt !== '9999/12/31 00:00:00' && fnsDt) || '';
         },
@@ -342,7 +364,7 @@
          * $.urlParamValue('city') // Gold%20Coast
          * decodeURIComponent($.urlParam('city'))// Gold Coast
          */
-        urlParamValue : function(name){
+        urlParamValue: function (name) {
             const results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(global.location.href);
             return results[1] || 0;
         }
@@ -359,14 +381,14 @@
      * return : 성공시에는 객체(JSON)을 리턴한다. 실패시에는 null을 리턴
      * usage  : $('#form').serializeForm()
      */
-    $.fn.serializeForm = function() {
+    $.fn.serializeForm = function () {
         let obj = null;
         try {
             if (this[0].tagName && this[0].tagName.toUpperCase() === "FORM") {
                 let arr = this.serializeArray();
                 if (arr) {
                     obj = {};
-                    jQuery.each(arr, function() {
+                    jQuery.each(arr, function () {
                         obj[this.name] = this.value;
                     });
                 }
@@ -374,14 +396,14 @@
         } catch (e) {
             console.error(e.message);
         }
-        
+
         return obj;
     };
 
     /**
      * jQuery BlockUI - Center Modal on the screen
      */
-    $.fn.center = function(){
+    $.fn.center = function () {
         this.css("position", "absolute");
         this.css("top", ($(window).height() - this.height()) / 2 + $(window).scrollTop() + "px");
         this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");
@@ -392,13 +414,13 @@
      * Polyfills for Old Browser
      */
     if (!String.prototype.startsWith) {
-      String.prototype.startsWith = function(search, pos) {
-          return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
-      };
+        String.prototype.startsWith = function (search, pos) {
+            return this.substr(!pos || pos < 0 ? 0 : +pos, search.length) === search;
+        };
     }
-    
+
     if (!String.prototype.endsWith) {
-        String.prototype.endsWith = function(search, pos) {
+        String.prototype.endsWith = function (search, pos) {
             var subjectStr = this.toString();
             if (typeof pos !== 'number' || !isFinite(pos) || Math.floor(pos) !== pos || pos > subjectStr.length) {
                 pos = subjectStr.length;
@@ -408,26 +430,26 @@
             return lastIndex !== -1 && lastIndex === pos;
         };
     }
-    
+
     if (!String.prototype.trim) {
-       String.prototype.trim = function () {
-         return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
-      };
+        String.prototype.trim = function () {
+            return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+        };
     }
-    
+
     if (!String.prototype.includes) {
-        String.prototype.includes = function(search, start) {
+        String.prototype.includes = function (search, start) {
             'use strict';
             if (typeof start !== 'number') {
                 start = 0;
             }
-            
+
             if (start + search.length > this.length) {
                 return false;
             } else {
                 return this.indexOf(search, start) !== -1;
             }
-            
+
         };
     }
 

@@ -8,35 +8,53 @@ const module = (function(global, $, _, moment, thisPage) {
     /***************************************************************************
      * @ 모듈 함수 선언
      **************************************************************************/
+
+    /**
+     * request ajax
+     */
     function getUserPledgeList() {
         console.log("getUserPledgeList=============================================>");
-        $.ajaxRest($.reqGet(CTX + 'example/list/userpledge').build()).done(function(response) {
-            const data = response['data'];
-            console.log("result=========>", data);
-            renderUserPledgeTable(data, null);
+        const data = {
+            page: 1,
+            size : 10,
+            userPledgeStatus : 'complete',
+            pledgeType : 'VIDEO'
+        }
+
+        const param = decodeURI($.param(data));
+        console.log("@param===========>", param);
+
+        // $.ajaxRest($.reqGet(CTX + 'example/list/userpledges?page=' + 1 + '&size=' + 10)
+        $.ajaxRest($.reqGet(CTX + 'example/list/userpledges')
+            .setData(param)
+            .setCallback(renderUserPledgeTable)
+            .build()
+        ).done(function(response) {
+          console.log("end==================>", response);
         });
     }
 
-    function renderUserPledgeTable(data, pagination) {
-        // var pagination = response['data']['pagination'];
-
+    /**
+     * render table
+     */
+    function renderUserPledgeTable(response) {
+        const data = response['data'];
         if (!_.isEmpty(data)) {
-
             let html = '';
-
-            _.each(data, function(v, k) {
+            let total = data.length;
+            _.each(data, function(v, i) {
                 html += '<li>';
                 html += '<ul class="list-group list-group-horizontal">';
-                html += '<li class="d-inline-block w-5">10</li>';
+                html += '<li class="d-inline-block w-5">' + (total - i) + '</li>';
                 html += '<li class="d-inline-block w-10 font-blue">' + v['pledgeUserStatus'] + '</li>';
                 html += '<li class="d-inline-block w-10">' + v['pledgeType'] + '</li>';
                 html += '<li class="d-inline-block w-30 text-left">';
                 html += '<a class="text-truncate" href="">' + v['pledgeName'] + '</a>';
                 html += '</li>';
-                html += '<li class="d-inline-block w-10">' + v['startDt'] + '</li>';
+                html += '<li class="d-inline-block w-10">' + $.dateFormat(v['startDt'], 'D') + '</li>';
                 html += '<li class="d-inline-block w-15">' + v['reqDept'] + '</li>';
                 html += '<li class="d-inline-block w-10">' + v['reqUser'] + '</li>';
-                html += '<li class="d-inline-block w-10 font-red">' + v['endDt'] + '</li>';
+                html += '<li class="d-inline-block w-10">' + $.dateFormat(v['endDt'], 'D') + '</li>';
                 html += '</ul>';
                 html += '</li>';
             });
@@ -45,9 +63,10 @@ const module = (function(global, $, _, moment, thisPage) {
             // $('#pagination').html(pagination).show();
 
         } else {
-            // $('#resultList').html('<tr><td colspan="8">조회된 클러스터가 존재하지 않습니다.</td></tr>');
+            $('#tbody').html('<li><ul><li class="d-inline-block w-100 font-red">요청된 서약이 없습니다.</li></ul></li>');
         }
 
+        return response; // return promise
 
     }
 

@@ -3,7 +3,9 @@ package com.ktds.esign.common.aop;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.apache.commons.lang3.StringUtils;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
@@ -33,7 +35,13 @@ public class LogAspect {
             "HttpServletResponse"
     ));
 
-    @Around("execution(* com.ktds.esign.*.*.controller.*.*(..))")
+    /**
+     * InLogExclusion 선언 시 로깅에서 제외
+     * @param pjp
+     * @return
+     * @throws Throwable
+     */
+    @Around("execution(* com.ktds.esign.*.*.controller.*.*(..)) && !@annotation(com.ktds.esign.common.annos.InLogExclusion)")
     public Object controllerLog(ProceedingJoinPoint pjp) throws Throwable {
         log.info("#################################################################################");
         log.info("@[LogAspect : Start] - {}/{}", pjp.getSignature().getDeclaringTypeName(), pjp.getSignature().getName());
@@ -66,6 +74,22 @@ public class LogAspect {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         log.info("@Request [{}]'s parameters are\r\n # {} #", pjp.getSignature().getName(),
                 !StringUtils.isBlank(gson.toJson(arg)) ? gson.toJson(arg) : "Empty");
+    }
+
+    /**
+     * success logging
+     * OutLogInclusion 선언시 사용가능
+     *
+     * @param jp
+     * @param result
+     */
+    @AfterReturning(value = "execution(* com.ktds.esign.*.*.controller.*.*(..)) " +
+            "&& @annotation(com.ktds.esign.common.annos.OutLogInclusion))",  returning = "result")
+    public void afterReturning(JoinPoint jp, Object result) {
+        log.info("@{} returned with value {}", jp, result);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        log.info("@[{}]'s result are\r\n # {} #", jp.getSignature().getName(),
+                !StringUtils.isBlank(gson.toJson(result)) ? gson.toJson(result) : "Empty");
     }
 
 }

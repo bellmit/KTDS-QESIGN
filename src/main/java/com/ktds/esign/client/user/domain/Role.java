@@ -1,6 +1,6 @@
 package com.ktds.esign.client.user.domain;
 
-import com.ktds.esign.common.enums.RoleTypeCode;
+import com.ktds.esign.common.enums.RoleType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,5 +20,5 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private RoleTypeCode roleType;
+    private RoleType roleType;
 }

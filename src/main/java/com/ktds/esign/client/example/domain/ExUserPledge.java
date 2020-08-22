@@ -1,20 +1,19 @@
 package com.ktds.esign.client.example.domain;
 
-import com.ktds.esign.common.enums.PledgeTypeCode;
-import com.ktds.esign.common.enums.PledgeUserStatusCode;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import com.ktds.esign.common.enums.PledgeType;
+import com.ktds.esign.common.enums.UserPledgeStatusType;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+@Builder
 @Getter
 @Entity
 @ToString
 @EqualsAndHashCode(callSuper = false, of = "id")
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "example_user_pledge")
 public class ExUserPledge {
 
@@ -25,12 +24,12 @@ public class ExUserPledge {
     // 서약 작업 상태
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private PledgeUserStatusCode pledgeUserStatus;
+    private UserPledgeStatusType userPledgeStatus;
 
     // 서약 유형
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private PledgeTypeCode pledgeType;
+    private PledgeType pledgeType;
 
     // 서약서명
     @Column(length = 60, nullable = false)

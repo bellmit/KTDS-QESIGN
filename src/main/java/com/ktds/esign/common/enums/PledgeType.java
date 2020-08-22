@@ -1,6 +1,6 @@
 package com.ktds.esign.common.enums;
 
-public enum PledgeTypeCode {
+public enum PledgeType {
     HTML,
     VIDEO
 }

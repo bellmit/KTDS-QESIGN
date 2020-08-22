@@ -1,6 +1,6 @@
 package com.ktds.esign.client.user.domain;
 
-import com.ktds.esign.common.enums.NotiTypeCode;
+import com.ktds.esign.common.enums.NotiType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -21,5 +21,5 @@ public class Notification {
 
     @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private NotiTypeCode notiType;
+    private NotiType notiType;
 }

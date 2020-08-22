@@ -1,20 +1,18 @@
 package com.ktds.esign.client.example.payload;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.ktds.esign.common.enums.PledgeType;
+import com.ktds.esign.common.enums.UserPledgeStatusType;
 import lombok.Data;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ListReq {
+public class ListRes {
 
     @Data
-    @JsonIgnoreProperties
-    public static class SearchDto implements Serializable {
-        private static final long serialVersionUID = -4087399523870085728L;
+    public static class ExUserPledgeDto {
         private Long id;
-        private String userPledgeStatus;
-        private String pledgeType;
+        private UserPledgeStatusType userPledgeStatus;
+        private PledgeType pledgeType;
         private String pledgeName;
         // 서약 요청일
         private LocalDateTime startDt;
@@ -25,5 +23,4 @@ public class ListReq {
         // 요청자
         private String reqUser;
     }
-
 }
