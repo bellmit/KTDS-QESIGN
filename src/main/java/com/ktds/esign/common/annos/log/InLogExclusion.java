@@ -1,4 +1,4 @@
-package com.ktds.esign.common.annos;
+package com.ktds.esign.common.annos.log;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

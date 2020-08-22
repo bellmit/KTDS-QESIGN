@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 /**
+ * Entity <-> Database Enum Converter
  * @param <T> enum
  * @param <E> code
  */

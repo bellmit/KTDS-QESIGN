@@ -1,7 +1,7 @@
 package com.ktds.esign.client.example.domain;
 
 import com.ktds.esign.common.enums.PledgeType;
-import com.ktds.esign.common.enums.UserPledgeStatusType;
+import com.ktds.esign.common.enums.PledgeAcceptType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -22,13 +22,13 @@ public class ExUserPledge {
     private Long id;
 
     // 서약 작업 상태
-    @Enumerated(EnumType.STRING)
     @Column(length = 20)
-    private UserPledgeStatusType userPledgeStatus;
+    @Convert(converter = PledgeAcceptType.Converter.class)
+    private PledgeAcceptType userPledgeStatus;
 
     // 서약 유형
-    @Enumerated(EnumType.STRING)
     @Column(length = 20)
+    @Convert(converter = PledgeType.Converter.class)
     private PledgeType pledgeType;
 
     // 서약서명

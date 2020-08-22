@@ -41,7 +41,7 @@ public class LogAspect {
      * @return
      * @throws Throwable
      */
-    @Around("execution(* com.ktds.esign.*.*.controller.*.*(..)) && !@annotation(com.ktds.esign.common.annos.InLogExclusion)")
+    @Around("execution(* com.ktds.esign.*.*.controller.*.*(..)) && !@annotation(com.ktds.esign.common.annos.log.InLogExclusion)")
     public Object controllerLog(ProceedingJoinPoint pjp) throws Throwable {
         log.info("#################################################################################");
         log.info("@[LogAspect : Start] - {}/{}", pjp.getSignature().getDeclaringTypeName(), pjp.getSignature().getName());
@@ -84,7 +84,7 @@ public class LogAspect {
      * @param result
      */
     @AfterReturning(value = "execution(* com.ktds.esign.*.*.controller.*.*(..)) " +
-            "&& @annotation(com.ktds.esign.common.annos.OutLogInclusion))",  returning = "result")
+            "&& @annotation(com.ktds.esign.common.annos.log.OutLogInclusion))",  returning = "result")
     public void afterReturning(JoinPoint jp, Object result) {
         log.info("@{} returned with value {}", jp, result);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

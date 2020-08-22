@@ -1,6 +1,6 @@
 package com.ktds.esign.client.example;
 
-import com.ktds.esign.common.enums.UserPledgeStatusType;
+import com.ktds.esign.common.enums.PledgeAcceptType;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,23 +16,24 @@ class EnumTest {
         /**
          * 전달된 string value로 enum type 찾기
          */
-        UserPledgeStatusType type = UserPledgeStatusType.getCode("proceeding");
+        PledgeAcceptType type = PledgeAcceptType.getTypeFromCode("proceeding");
         log.info("@type=================>{}", type);
-        assertThat(type).isEqualTo(UserPledgeStatusType.PROCEEDING);
+        assertThat(type).isEqualTo(PledgeAcceptType.PROCEEDING);
 
-//        UserPledgeStatusType type2 = UserPledgeStatusType.getDesc("진행 중");
-//        log.info("@type2================>{}", type2);
-//        assertThat(type2).isEqualTo(UserPledgeStatusType.PROCEEDING);
+        PledgeAcceptType type2 = PledgeAcceptType.getTypeFromDesc("진행 중");
+        log.info("@type2================>{}", type2);
+        assertThat(type2).isEqualTo(PledgeAcceptType.PROCEEDING);
 
         /**
          * enum Type으로 부터 특정 value 추출
          */
-        String code = UserPledgeStatusType.getCodeFromType(UserPledgeStatusType.COMPLETE);
+        String code = PledgeAcceptType.getCodeFromType(PledgeAcceptType.COMPLETE);
         log.info("@code=================>{}", code);
         assertThat(code).isEqualTo("complete");
 
-        String desc = UserPledgeStatusType.getDescFromType(UserPledgeStatusType.COMPLETE);
+        String desc = PledgeAcceptType.getDescFromType(PledgeAcceptType.COMPLETE);
         log.info("@desc=================>{}", desc);
         assertThat(desc).isEqualTo("완료");
     }
+
 }
