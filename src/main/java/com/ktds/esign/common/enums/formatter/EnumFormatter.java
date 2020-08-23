@@ -6,19 +6,20 @@ import com.ktds.esign.common.enums.PledgeAcceptType;
 import org.springframework.stereotype.Component;
 
 /**
- * DTO to Entity Enum Formatter
+ * DTO to Entity Enum Type Mapping
+ * Entity to DTO Enum Code Mapping
  */
 @Component
-@RootMapper
+@RootEnumMapper
 public class EnumFormatter {
 
-    @UserPledgeStatusTypeMapper
-    public static PledgeAcceptType getUserPledgeStatusType(String code) {
+    @PledgeProgTypeMapper
+    public static PledgeAcceptType getPledgeProgType(String code) {
         return PledgeAcceptType.getTypeFromCode(code);
     }
 
-    @UserPledgeStatusCodeMapper
-    public static String getUserPledgeStatusCode(PledgeAcceptType type) {
+    @PledgeProgCodeMapper
+    public static String getPledgeProgCode(PledgeAcceptType type) {
         return PledgeAcceptType.getCodeFromType(type);
     }
 

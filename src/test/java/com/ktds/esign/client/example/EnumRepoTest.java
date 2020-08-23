@@ -7,6 +7,7 @@ import com.ktds.esign.client.example.payload.ListRes.ExUserPledgeDto;
 import com.ktds.esign.client.example.repository.ListRepository;
 import com.ktds.esign.common.enums.PledgeType;
 import com.ktds.esign.common.enums.PledgeAcceptType;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,10 +18,13 @@ import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+/**
+ * 2020.08.23
+ */
 @SpringBootTest
-class EnumSaveTest {
+class EnumRepoTest {
 
-    private static final Logger log = LoggerFactory.getLogger(EnumSaveTest.class);
+    private static final Logger log = LoggerFactory.getLogger(EnumRepoTest.class);
 
     @Autowired
     private ListRepository listRepository;
@@ -28,8 +32,9 @@ class EnumSaveTest {
     @Autowired
     private UserPledgeMapper userPledgeMapper;
 
-    @Test
     // @Transactional // for rollback
+    @Test
+    @DisplayName("enum 컨버터를 이용해 enum 필드 저장 시 코드 값으로 치환 저장 테스트")
     void runEnumSaveTest() {
         // front ======> backend ========> database
         // string <=====> enum <===========> string
@@ -54,6 +59,7 @@ class EnumSaveTest {
     }
 
     @Test
+    @DisplayName("enum 컨버터를 이용해 조회 시 enum 필드 가 코드 값에서 enum으로 치환 조회 테스트")
     void runEnumSearchTest() {
         String username = "James Bond";
         ExUserPledge exUserPledge = listRepository.findByReqUser(username).get();

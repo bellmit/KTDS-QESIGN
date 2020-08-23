@@ -15,17 +15,17 @@ import java.util.List;
 @Mapper(config = MapStructMapperConfig.class, uses = {EnumFormatter.class})
 public interface UserPledgeMapper {
 
-    @Mapping(target = "userPledgeStatus", qualifiedBy = {RootMapper.class, UserPledgeStatusTypeMapper.class})
-    @Mapping(target = "pledgeType", qualifiedBy = {RootMapper.class, PledgeTypeMapper.class})
+    @Mapping(target = "userPledgeStatus", qualifiedBy = {RootEnumMapper.class, PledgeProgTypeMapper.class})
+    @Mapping(target = "pledgeType", qualifiedBy = {RootEnumMapper.class, PledgeTypeMapper.class})
     ExUserPledge toEntity(SearchDto searchDto);
 
-    @Mapping(target = "userPledgeStatus", qualifiedBy = {RootMapper.class, UserPledgeStatusTypeMapper.class})
-    @Mapping(target = "pledgeType", qualifiedBy = {RootMapper.class, PledgeTypeMapper.class})
+    @Mapping(target = "userPledgeStatus", qualifiedBy = {RootEnumMapper.class, PledgeProgTypeMapper.class})
+    @Mapping(target = "pledgeType", qualifiedBy = {RootEnumMapper.class, PledgeTypeMapper.class})
     @Mapping(target = "id", ignore = true)
     ExUserPledge toEntity(CreateDto createDto);
 
-    @Mapping(target = "userPledgeStatus", qualifiedBy = {RootMapper.class, UserPledgeStatusCodeMapper.class})
-    @Mapping(target = "pledgeType", qualifiedBy = {RootMapper.class, PledgeCodeMapper.class})
+    @Mapping(target = "userPledgeStatus", qualifiedBy = {RootEnumMapper.class, PledgeProgCodeMapper.class})
+    @Mapping(target = "pledgeType", qualifiedBy = {RootEnumMapper.class, PledgeCodeMapper.class})
     ExUserPledgeDto toDto(ExUserPledge exUserPledge);
 
     List<ExUserPledgeDto> toDtoList(List<ExUserPledge> exUserPledge);
