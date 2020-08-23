@@ -34,6 +34,25 @@ public class ResponseDto<T> extends BaseResponse {
 
     /**
      * SUCCESS
+     * return response data with success code, message
+     *
+     * @param data
+     * @param pagination
+     * @return
+     */
+    public static <T> ResponseDto<T> of(T data, String pagination) {
+        ResponseDto<T> response = new ResponseDto<>();
+        response.setData(data); // response payload
+        response.setSuccess(true);
+        response.setCode(ResponseCode.SUCCESS.getCode());
+        response.setMessage(ResponseCode.SUCCESS.getMessage());
+        response.setPagination(pagination);
+        return response;
+    }
+
+
+    /**
+     * SUCCESS
      * return succes status code, message only
      *
      * @return

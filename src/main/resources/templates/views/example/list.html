@@ -103,11 +103,11 @@
             </form>
             <!-- //검색박스 -->
             <p class="total-num">
-                총<span id="total" class="font-red">100</span>건
+                총<span id="total" class="font-red"></span>건
             </p>
-            <select id="size" class="selectpicker float-right">
-                <option>10개씩보기</option>
-                <option>30개씩보기</option>
+            <select id="low-size" class="selectpicker float-right">
+                <option value="10">10개씩보기</option>
+                <option value="30">30개씩보기</option>
             </select>
 
             <div class="tab-content" id="myTabContent">
@@ -143,24 +143,24 @@
                     </div>
 
                     <!-- pagination -->
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            <li class="page-item">
-                                <a class="page-link page-prev first" href="#" aria-label="Previous" title="맨앞으로"></a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link page-prev" href="#" aria-label="Previous"></a>
-                            </li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link page-next" href="#" aria-label="Next"></a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link page-next last" href="#" aria-label="Next" title="맨뒤로"></a>
-                            </li>
-                        </ul>
+                    <nav id="pagination" aria-label="Page navigation example" style="display: none;">
+<!--                        <ul class="pagination justify-content-center">-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link page-prev first" href="#" aria-label="Previous" title="맨앞으로"></a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link page-prev" href="#" aria-label="Previous"></a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+<!--                            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+<!--                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link page-next" href="#" aria-label="Next"></a>-->
+<!--                            </li>-->
+<!--                            <li class="page-item">-->
+<!--                                <a class="page-link page-next last" href="#" aria-label="Next" title="맨뒤로"></a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
                     </nav>
                     <!-- //pagination -->
                 </div>

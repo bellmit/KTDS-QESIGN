@@ -24,8 +24,9 @@ public class ListQuerydslRepository extends Querydsl4RepositorySupport {
         return applyPagination(pageable, contentQuery -> contentQuery
                 .selectFrom(exUserPledge)
                 .orderBy(
-                        exUserPledge.endDt.asc(),
-                        exUserPledge.userPledgeStatus.desc()
+                        exUserPledge.id.asc()
+                        //,exUserPledge.endDt.asc()
+                        //,exUserPledge.userPledgeStatus.desc()
                 ));
     }
 

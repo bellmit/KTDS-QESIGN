@@ -13,4 +13,6 @@ public class BaseResponse {
 
     private String message;
 
+    private String pagination;
+
 }
