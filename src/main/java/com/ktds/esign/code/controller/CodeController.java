@@ -1,14 +1,10 @@
 package com.ktds.esign.code.controller;
 
-import com.ktds.esign.client.example.payload.ListReq;
-import com.ktds.esign.client.example.service.ListService;
 import com.ktds.esign.code.service.CodeService;
 import com.ktds.esign.common.exception.CodeNotFoundException;
 import com.ktds.esign.common.response.ResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

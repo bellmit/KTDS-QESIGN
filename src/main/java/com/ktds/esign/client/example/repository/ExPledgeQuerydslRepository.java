@@ -1,7 +1,7 @@
 package com.ktds.esign.client.example.repository;
 
 import com.ktds.esign.client.example.domain.ExUserPledge;
-import com.ktds.esign.client.example.payload.ListReq.SearchDto;
+import com.ktds.esign.client.example.payload.ExUserPledgeReq.SearchDto;
 import com.ktds.esign.common.enums.PledgeType;
 import com.ktds.esign.common.querydsl.Querydsl4RepositorySupport;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -15,9 +15,9 @@ import java.time.LocalDateTime;
 import static com.ktds.esign.client.example.domain.QExUserPledge.exUserPledge;
 
 @Repository
-public class ListQuerydslRepository extends Querydsl4RepositorySupport {
+public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
 
-    public ListQuerydslRepository() {
+    public ExPledgeQuerydslRepository() {
         super(ExUserPledge.class);
     }
 

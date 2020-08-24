@@ -4,16 +4,20 @@ const module = (function (global, $, _, moment, thisPage) {
      * @ 모듈 변수(상수) 선언
      **************************************************************************/
     const CTX = thisPage['ctxPath'];
-    const formData = {
-        dateType: null,
-        startDt: null,
-        endDt: null,
-        pledgeType: null,
-        pledgeName: null,
-        reqUser: null,
-        reqDetp: null,
-        page: 0,
-        size: 10
+
+    class Pledge {
+        constructor(dateType, startDt, endDt, searchKey, pledgeType, pledgeName, reqUser, reqDetp, page, size) {
+            this.dateType = dateType;
+            this.startDt = startDt;
+            this.endDt = endDt;
+            this.searchKey = searchKey;
+            this.pledgeType = pledgeType;
+            this.pledgeName = pledgeName;
+            this.reqUser = reqUser;
+            this.reqDetp = reqDetp;
+            this.page = page || 0;
+            this.size = size || 10;
+        }
     }
 
     /***************************************************************************
@@ -36,15 +40,12 @@ const module = (function (global, $, _, moment, thisPage) {
      * code render
      */
     function renderCodeElements(response) {
-        console.log("code response=========>", response);
         const contents = response['data'];
-        console.log("contents====>", contents);
         const pledgeProgTypes = contents.filter(content => content['groupCode'] === 'PLEDGE_TYPE');
         let html = '<option value="">전체</option>';
         pledgeProgTypes.forEach(pledgeProgType => {
             html += '<option value="' + pledgeProgType['code'] + '">' + pledgeProgType['codeDesc'] + '</option>';
         });
-        console.log("pledgeProgTypes====>", pledgeProgTypes);
         $("#pledgeType").html(html).selectpicker('refresh');
     }
 
@@ -54,13 +55,9 @@ const module = (function (global, $, _, moment, thisPage) {
     function getUserPledgeList(formData, pageNo) {
         formData.page = pageNo || 0;
         formData.size = $('#low-size').val() || 10;
-        console.log("@formData==========>", formData);
-
         const param = decodeURI($.param(formData));
-        console.log("@param============>", param);
 
-        // $.ajaxRest($.reqGet(CTX + 'example/list/userpledges?page=' + 1 + '&size=' + 10)
-        $.ajaxRest($.reqGet(CTX + 'example/list/userpledges')
+        $.ajaxRest($.reqGet(CTX + 'example/user/pledges/list')
             .setData(param)
             .setCallback(renderUserPledgeTable)
             .build()
@@ -78,12 +75,11 @@ const module = (function (global, $, _, moment, thisPage) {
         const totalElements = response['data']['totalElements'];
         const page = response['data']['number'];
         const size = response['data']['size'];
-        let currentLows = totalElements - (page * size);
-        console.log("currentLows====>", currentLows);
-        let $tbody = $('#tbody');
-        let $listWrap = $('#list-wrap');
-        let $total = $('#total');
-        let $pagination = $('#pagination');
+        const currentLows = totalElements - (page * size);
+        const $tbody = $('#tbody');
+        const $listWrap = $('#list-wrap');
+        const $total = $('#total');
+        const $pagination = $('#pagination');
 
         // result reset
         $tbody.empty();
@@ -92,12 +88,12 @@ const module = (function (global, $, _, moment, thisPage) {
             let html = '';
             content.forEach(function (v, i) {
                 html += '<li>';
-                html += '<ul class="list-group list-group-horizontal">';
+                html += '<ul class="list-group list-group-horizontal" data-id="' + v['id'] + '">';
                 html += '<li class="d-inline-block w-5">' + (currentLows - i) + '</li>';
-                html += '<li class="d-inline-block w-10 font-blue">' + v['pledgeProgType'] + '</li>';
-                html += '<li class="d-inline-block w-10">' + v['pledgeType'] + '</li>';
-                html += '<li class="d-inline-block w-30 text-left">';
-                html += '<a class="text-truncate" href="">' + v['pledgeName'] + '</a>';
+                html += '<li class="d-inline-block w-10 font-blue">' + getDescFromAcceptCode(v['pledgeAcceptType']) + '</li>';
+                html += '<li class="d-inline-block w-10">' + getDescFromCode(v['pledgeType']) + '</li>';
+                html += '<li class="d-inline-block w-30 text-left pledge-name">';
+                html += '<a class="text-truncate" href="javascript:;">' + v['pledgeName'] + '</a>';
                 html += '</li>';
                 html += '<li class="d-inline-block w-10">' + $.dateFormat(v['startDt'], 'D') + '</li>';
                 html += '<li class="d-inline-block w-15">' + v['reqDept'] + '</li>';
@@ -146,7 +142,28 @@ const module = (function (global, $, _, moment, thisPage) {
      * 페이징 클릭 이벤트 처리
      */
     function pageMove(pageNo) {
-        getUserPledgeList(formData, pageNo);
+        getUserPledgeList(new Pledge(), pageNo);
+    }
+
+    /**
+     * PledgeAcceptCode Description
+     */
+    function getDescFromAcceptCode(code) {
+        return {
+            STANDBY: '대기',
+            PROCEEDING: '진행 중',
+            COMPLETE: '완료'
+        }[code];
+    }
+
+    /**
+     * PledgeType Description
+     */
+    function getDescFromCode(code) {
+        return {
+            HTML: '일반',
+            VIDEO: '영상'
+        }[code];
     }
 
     /***************************************************************************
@@ -154,11 +171,12 @@ const module = (function (global, $, _, moment, thisPage) {
      **************************************************************************/
     function moduleEventHandlers() {
 
+        // bootstrap selectpicker init
         $('.selectpicker').selectpicker();
 
         // low-size select event
         $('#low-size').on('change', function () {
-            getUserPledgeList(formData);
+            getUserPledgeList(new Pledge());
         });
 
         // datepicker
@@ -191,40 +209,25 @@ const module = (function (global, $, _, moment, thisPage) {
         // 검색
         $('#search').on('click', function (e) {
             e.preventDefault();
-            const pledgeType = $('#pledgeType').val();
+            // set search formData
+            const formData = new Pledge();
             const searchType = $('#searchType').val();
-            const dateType = $("input[type='radio']:checked").val();
-            const startDt = $('#date-start').val()
-            const endDt = $('#date-end').val()
             const searchKey = $('#searchKey').val();
-            console.log("pledgeType=======>", pledgeType);
-            console.log("searchType=======>", searchType);
-            console.log("dateType=========>", dateType);
-            console.log("startDt==========>", startDt);
-            console.log("endDt============>", endDt);
-            console.log("searchKey========>", searchKey);
-
-            // set search formData (formData is Global Const)
-            formData.pledgeType = pledgeType;
-            formData.dateType = dateType;
-            formData.startDt =  moment(startDt, 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
-            formData.endDt =  moment(endDt, 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
-            console.log("startDt@@@==========>", formData.startDt);
-            console.log("endDt@@@==========>", formData.endDt);
+            formData.searchType = searchType;
+            formData.searchKey = searchKey;
+            formData.pledgeType = $('#pledgeType').val();
+            formData.dateType = $("input[type='radio']:checked").val();
+            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm"); // java LocalDateTime format
+            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
 
             if (searchType === 'pledgeName') {
                 formData.pledgeName = searchKey;
-                formData.reqDept = null;
-                formData.reqUser = null;
             } else if (searchType === 'reqDept') {
-                formData.pledgeName = null;
                 formData.reqDept = searchKey;
-                formData.reqUser = null;
             } else if (searchType === 'reqUser') {
-                formData.pledgeName = null;
-                formData.reqDept = null;
                 formData.reqUser = searchKey;
             }
+            console.log("formData========>", formData);
 
             // search form validation
             if (!validateSearchForm(formData)) return;
@@ -234,6 +237,17 @@ const module = (function (global, $, _, moment, thisPage) {
 
         });
 
+        // 상세
+        $(document).on('click', '.pledge-name', function (e) {
+            e.preventDefault();
+            const userPledgeId = $(this).closest('ul').data('id');
+            if (userPledgeId) {
+                global.location.href = CTX + 'example/user/pledges/detail?userPledgeId=' + userPledgeId;
+                ;
+            }
+        });
+
+
     }
 
     /***************************************************************************
@@ -241,7 +255,7 @@ const module = (function (global, $, _, moment, thisPage) {
      **************************************************************************/
     function moduleInitializr() {
         getCommonCodeList();
-        getUserPledgeList(formData);
+        getUserPledgeList(new Pledge());
     }
 
 

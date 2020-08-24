@@ -4,12 +4,12 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 
-public class ListRes {
+public class ExUserPledgeRes {
 
     @Data
     public static class ExUserPledgeDto {
         private Long id;
-        private String pledgeProgType;
+        private String pledgeAcceptType;
         private String pledgeType;
         private String pledgeName;
         // 서약 요청일

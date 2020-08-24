@@ -8,10 +8,9 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public class ListReq {
+public class ExUserPledgeReq {
 
     @Data
     @JsonIgnoreProperties
@@ -28,11 +27,9 @@ public class ListReq {
         // 날짜 검새 조건(시작, 마감)
         private String dateType;
         // 서약 요청일
-        // @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         private LocalDateTime startDt;
         // 서약 마감일
-        // @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
         private LocalDateTime endDt;
     }
@@ -44,7 +41,7 @@ public class ListReq {
     @JsonIgnoreProperties
     public static class CreateDto implements Serializable {
         private static final long serialVersionUID = -5364399554165748530L;
-        private String pledgeProgType;
+        private String pledgeAcceptType;
         private String pledgeType;
         private String pledgeName;
         // 서약 요청일

@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface ListRepository extends JpaRepository<ExUserPledge, Long> {
-    Page<ExUserPledge> findAllByOrderByStartDtAscPledgeProgTypeDesc(Pageable pageable);
+public interface ExPledgeRepository extends JpaRepository<ExUserPledge, Long> {
+    Page<ExUserPledge> findAllByOrderByStartDtAscPledgeAcceptTypeDesc(Pageable pageable);
     List<ExUserPledge> findAllByOrderByStartDtDesc();
     Optional<ExUserPledge> findByReqUser(String user);
 }
