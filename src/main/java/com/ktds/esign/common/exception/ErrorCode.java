@@ -16,6 +16,7 @@ public enum ErrorCode {
 	INPUT_VALUE_INVALID("INVALID_ERR001", "입력 값이 올바르지 않습니다.", HttpStatus.BAD_REQUEST.value()),
 	METHOD_NOT_ALLOWED("INVALID_ERR002","지원되지 않는 메서드 요청입니다.", HttpStatus.METHOD_NOT_ALLOWED.value()),
 	RESOURCE_NOT_FOUND("INVALID_ERR003","해당 자원을 찾을 수 없습니다.", HttpStatus.NOT_FOUND.value()),
+	CODE_NOT_FOUND("INVALID_ERR004","해당 코드를 찾을 수 없습니다.", HttpStatus.NOT_FOUND.value()),
 	UNKNOWN_EXCEPTION("UNKNOWN_ERR000","알 수 없는 오류가 발생했습니다.", HttpStatus.INTERNAL_SERVER_ERROR.value());
 	
 	private final String code;

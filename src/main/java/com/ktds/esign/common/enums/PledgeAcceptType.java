@@ -14,9 +14,9 @@ import java.util.Optional;
 @Getter
 @AllArgsConstructor
 public enum PledgeAcceptType implements IEnum<String> {
+    STANDBY("STANDBY", "대기"),
     PROCEEDING("PROCEEDING", "진행 중"),
-    COMPLETE("COMPLETE", "완료"),
-    STANDBY("STANDBY", "대기");
+    COMPLETE("COMPLETE", "완료");
 
     private String code; // db_code
     private String Desc; // db_description

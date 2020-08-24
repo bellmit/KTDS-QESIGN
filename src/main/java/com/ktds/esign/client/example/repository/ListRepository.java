@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ListRepository extends JpaRepository<ExUserPledge, Long> {
-    Page<ExUserPledge> findAllByOrderByStartDtAscUserPledgeStatusDesc(Pageable pageable);
+    Page<ExUserPledge> findAllByOrderByStartDtAscPledgeProgTypeDesc(Pageable pageable);
     List<ExUserPledge> findAllByOrderByStartDtDesc();
     Optional<ExUserPledge> findByReqUser(String user);
 }

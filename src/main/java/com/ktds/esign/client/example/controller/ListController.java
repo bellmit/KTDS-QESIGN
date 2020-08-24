@@ -33,12 +33,15 @@ public class ListController {
     /**
      * Get Parameter Mapping Enum Domain convert 작동안함
      * Post @RequestBody Mapping 시에만 작동함
+     *
      * @param searchDto
      * @param pageable
      * @return
      */
     @GetMapping(path = "userpledges")
-    public ResponseDto<?> getUserPledgeList(SearchDto searchDto, @PageableDefault(size = 10) Pageable pageable) {
+    public ResponseDto<?> getUserPledgeList(SearchDto searchDto, Pageable pageable) {
+        log.info("searchDto===========>{}", searchDto);
+        log.info("pageable============>{}", pageable);
         Page page = listService.findUserPledgeList(searchDto, pageable);
         String paginationHtml = paginationUtil.getPagination(page);
         return ResponseDto.of(page, paginationHtml);

@@ -57,7 +57,7 @@ public class CustomGlobalRestExceptionHandler {
         return buildError(ErrorCode.EMAIL_DUPLICATION, ex.getMessage(), request);
     }
 
-    // StorageException failed
+    // StorageException
     @ExceptionHandler(StorageException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) // 405
     protected ResponseError handlerStorageException(StorageException ex, WebRequest request) {
@@ -69,6 +69,13 @@ public class CustomGlobalRestExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
     protected ResponseError handlerAuthenticationFailedException(AuthenticationFailedException ex, WebRequest request) {
         return buildError(ErrorCode.AUTHENTICATION_FAILED, request);
+    }
+
+    // Common Code not found
+    @ExceptionHandler(CodeNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // 405
+    protected ResponseError handlerCodeNotFoundException(CodeNotFoundException ex, WebRequest request) {
+        return buildError(ErrorCode.CODE_NOT_FOUND, request);
     }
 
     //    @ExceptionHandler(PasswordFailedExceededException.class)

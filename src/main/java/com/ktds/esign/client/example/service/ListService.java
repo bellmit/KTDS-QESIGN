@@ -25,8 +25,6 @@ public class ListService {
     private final ListQuerydslRepository listQuerydslRepository;
 
     public Page<ExUserPledgeDto> findUserPledgeList(SearchDto searchDto, Pageable pageable) {
-        ExUserPledge exUserPledge = userPledgeMapper.toEntity(searchDto);
-        log.info("@after mapping===========>{}", exUserPledge);
         return listQuerydslRepository.selectUserPledgeList(searchDto, pageable).map(userPledgeMapper::toDto);
     }
 

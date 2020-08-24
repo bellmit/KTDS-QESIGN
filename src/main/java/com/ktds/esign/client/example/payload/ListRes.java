@@ -9,7 +9,7 @@ public class ListRes {
     @Data
     public static class ExUserPledgeDto {
         private Long id;
-        private String userPledgeStatus;
+        private String pledgeProgType;
         private String pledgeType;
         private String pledgeName;
         // 서약 요청일

@@ -1,8 +1,11 @@
 
-.search-box-wrap {
-  margin-top: 30px;
+.box-wrap {
+  margin-bottom: 30px;
   padding: 30px;
   background-color: #F1F1F1;
+}
+.box-wrap.line-top {
+  border-top: 1px solid #283541;
 }
 .box-title {
   display: block;
@@ -10,6 +13,51 @@
   font-size: 16px;
   font-weight: 400;
   color: #222;
+}
+.box-wrap.detail-box {
+  padding-bottom: 0;
+}
+.box-wrap .detail-info {
+  width: 100%;
+  font-size: 0;
+}
+.box-wrap .detail-info > li {
+  display: inline-block;
+  vertical-align: top;
+  width: 33.333%;
+  margin-bottom: 30px;
+}
+.box-wrap .detail-info > li > .info-label,
+.box-wrap .detail-info > li > p {
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 20px;
+  font-size: 16px;
+  line-height: 18px;
+}
+.box-wrap .detail-info > li > .info-label {
+  width: 30%;
+  font-weight: 600;
+  padding-left: 10px;
+  position: relative;
+}
+.box-wrap .detail-info > li > .info-label:before {
+  content: '·';
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  font-size: 16px;
+}
+.box-wrap .detail-info > li > p {
+  width: 70%;
+  font-weight: 400;
+}
+.search-box-wrap {
+  margin-top: 30px;
 }
 .search-box-wrap .box-inner {
   font-size: 0;
@@ -38,4 +86,60 @@
 }
 .total-num + .bootstrap-select {
   margin-top: 15px;
+}
+.pledge-form-wrap {
+  margin-top: 30px;
+}
+.pledge-form {
+  width: 100%;
+  height: 445px;
+  background-color: #f1f1f1;
+}
+.warning-text {
+  padding-top: 15px;
+  font-size: 14px;
+}
+.my-info .info-area {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 0;
+}
+.my-info .info-area > p:first-child {
+  padding-left: 0;
+}
+.my-info .info-area > p {
+  display: inline-block;
+  padding: 0 15px;
+  font-size: 16px;
+  line-height: 1;
+  color: #222;
+  position: relative;
+}
+.my-info .info-area > p:after {
+  content: '';
+  display: inline-block;
+  width: 1px;
+  height: 12px;
+  background-color: #888;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  margin-top: -6px;
+}
+.my-info .info-area > p.name:after {
+  content: none;
+}
+.my-info .info-area > p.date {
+  display: block;
+  padding-top: 10px;
+  text-align: right;
+}
+.my-info .info-area > p.date:after {
+  content: none;
+}
+.my-info .sign-img {
+  display: inline-block;
+  vertical-align: middle;
+  width: 120px;
+  height: 120px;
 }

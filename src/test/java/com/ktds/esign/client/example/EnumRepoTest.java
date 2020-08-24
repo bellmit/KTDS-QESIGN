@@ -40,7 +40,7 @@ class EnumRepoTest {
         // string <=====> enum <===========> string
         ListReq.CreateDto createDto = ListReq.CreateDto.builder()
                 .pledgeName("우리는 지금 제네바로 간다.")
-                .userPledgeStatus("STANDBY")
+                .pledgeProgType("STANDBY")
                 .pledgeType("VIDEO")
                 .startDt(LocalDateTime.of(2015, 4, 28, 00, 00, 00))
                 .endDt(LocalDateTime.of(2020, 9, 12, 00, 00, 00))
@@ -51,7 +51,7 @@ class EnumRepoTest {
         log.info("@created dto==================>{}", createDto);
         ExUserPledge exUserPledge = userPledgeMapper.toEntity(createDto);
         log.info("@mapping entity===============>{}", exUserPledge);
-        assertThat(exUserPledge.getUserPledgeStatus()).isEqualTo(PledgeAcceptType.STANDBY);
+        assertThat(exUserPledge.getPledgeProgType()).isEqualTo(PledgeAcceptType.STANDBY);
         assertThat(exUserPledge.getPledgeType()).isEqualTo(PledgeType.VIDEO);
         listRepository.save(exUserPledge);
         assertThat(exUserPledge.getId()).isNotNull();
@@ -65,12 +65,12 @@ class EnumRepoTest {
         ExUserPledge exUserPledge = listRepository.findByReqUser(username).get();
         log.info("@search.entity===============>{}", exUserPledge);
         assertThat(exUserPledge).isNotNull();
-        assertThat(exUserPledge.getUserPledgeStatus()).isEqualTo(PledgeAcceptType.STANDBY);
+        assertThat(exUserPledge.getPledgeProgType()).isEqualTo(PledgeAcceptType.STANDBY);
 
         ExUserPledgeDto exUserPledgeDto = userPledgeMapper.toDto(exUserPledge);
         log.info("@mapping.dto=================>{}", exUserPledgeDto);
         assertThat(exUserPledgeDto).isNotNull();
-        assertThat(exUserPledgeDto.getUserPledgeStatus()).isEqualTo("STANDBY");
+        assertThat(exUserPledgeDto.getPledgeProgType()).isEqualTo("STANDBY");
         assertThat(exUserPledgeDto.getPledgeType()).isEqualTo("VIDEO");
     }
 

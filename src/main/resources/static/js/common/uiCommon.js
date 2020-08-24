@@ -20,14 +20,6 @@
             $('.sub-menu').hide();
         });
 
-        // datepicker
-        $('.datepicker-input').datepicker({
-            format: "yyyy.mm.dd",
-            language : "ko",
-            autoclose : true,
-            todayHighlight : true
-        });
-
     });
 
 })(window, jQuery, _, thisPage);

@@ -65,7 +65,7 @@
     $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         console.error("e:", jqxhr);
         const status = jqxhr.status;
-        const message = jqxhr['responseJSON']['message'];
+        const message = jqxhr['responseJSON'] && jqxhr['responseJSON']['message'] || '';
         console.error("status======>", status);
         console.error("message=====>", message);
 

@@ -2,20 +2,21 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
-    <!-- Header div -->
-    <header id="header" th:fragment="headerFragment">
-        <div class="header-inner">
-            <h1 class="logo">
-                <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="ktds전자서명" /></a>
-            </h1>
-            <div class="gnb-wrap">
-                <ul class="main-menu">
-                    <!-- li .on 추가시 mouseover와 같은상태 -->
-                    <li class="on"><span>내가 받은 서약</span></li>
-                    <li><span>양식 관리</span></li>
-                    <li><span>서약 관리</span></li>
-                </ul>
-                <div class="sub-menu">
+<!-- Header div -->
+<header id="header" class="main-color" th:fragment="headerFragment">
+    <div class="header-inner">
+        <h1 class="logo">
+            <a th:href="@{/}"><img th:src="@{/images/logo.png}" alt="ktds전자서명"/></a>
+        </h1>
+        <div class="gnb-wrap">
+            <ul class="main-menu">
+                <!-- li .on 추가시 mouseover와 같은상태 -->
+                <li class="on"><span>내가 받은 서약</span></li>
+                <li><span>양식 관리</span></li>
+                <li><span>서약 관리</span></li>
+            </ul>
+            <div class="sub-menu">
+                <div class="sub-menu-inner">
                     <ul>
                         <!-- a .on 추가시 mouseover와 같은상태 -->
                         <li><a href="">요청 받은 서약</a></li>
@@ -32,11 +33,12 @@
                     </ul>
                 </div>
             </div>
-            <button class="btn-setting">
-                <span class="icon-area"></span>
-                개인설정
-            </button>
         </div>
-    </header>
+        <button type="button" class="btn-setting">
+            <span class="icon-area"></span>
+            개인설정
+        </button>
+    </div>
+</header>
 
 </html>

@@ -6,8 +6,6 @@ server:
       enabled: true
       force: true
 
-
-
 logging:
   config: classpath:logback/logback-spring.xml
 
@@ -20,4 +18,3 @@ spring:
     active: local # default profile
   banner:
     location: classpath:banner/banner.txt
-

@@ -14,9 +14,9 @@ import java.util.Optional;
 @Getter
 @AllArgsConstructor
 public enum PledgeProgType implements IEnum<String> {
-    PROCEED("PROCEED", "진행 중"),
-    COMPLETE("COMPLETE", "완료"),
     STANDBY("STANDBY", "대기"),
+    PROCEED("PROCEEDING", "진행 중"),
+    COMPLETE("COMPLETE", "완료"),
     DELETE("DELETE", "삭제"),
     CANCEL("CANCEL", "취소");
 

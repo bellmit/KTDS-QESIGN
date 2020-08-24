@@ -2,10 +2,13 @@ package com.ktds.esign.common.exception;
 
 public class UserNotFoundException extends Exception {
 
-	private static final long serialVersionUID = 1947411415252441147L;
+    private static final long serialVersionUID = 1947411415252441147L;
 
-	public UserNotFoundException(String message) {
-		super(message);
-	}
+    public UserNotFoundException() {
+    }
+
+    public UserNotFoundException(String message) {
+        super(message);
+    }
 
 }
