@@ -13,9 +13,11 @@ const moduleUI = (function(global, $, _, thisPage) {
      **************************************************************************/
 
     function getSelectorFromGroupCode(commonCode, groupCode) {
-        const codeTypes = commonCode.filter(content => content['groupCode'] === groupCode);
+        const codeTypes = commonCode.filter(function (content) {
+            return content['groupCode'] === groupCode;
+        });
         let html = '<option value="">전체</option>';
-        codeTypes.forEach(codeType => {
+        codeTypes.forEach(function (codeType) {
             html += '<option value="' + codeType['code'] + '">' + codeType['codeDesc'] + '</option>';
         });
         return html;

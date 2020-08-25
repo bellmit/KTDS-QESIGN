@@ -7,17 +7,20 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     const COMMON_CODE = thisPage['commonCode'];
     const userPledgeId = thisPage['userPledgeId'];
 
-    class UserPledge {
-        constructor(pledgeType, pledgeAcceptType, pledgeName) {
-            this.pledgeType = pledgeType;
-            this.pledgeAcceptType = pledgeAcceptType;
-            this.pledgeName = pledgeName;
-        }
-    }
-
     /***************************************************************************
      * @ 모듈 함수 선언
      **************************************************************************/
+
+    /**
+     * create form data object
+     */
+    function createFormDataObject(pledgeType, pledgeAcceptType, pledgeName) {
+        const formData = {};
+        formData.pledgeType = pledgeType || null;
+        formData.pledgeAcceptType = pledgeAcceptType || null;
+        formData.pledgeName = pledgeName || null;
+        return formData;
+    }
 
     /**
      * render code selector
@@ -72,7 +75,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             const pledgeType = $('#pledgeType').val();
             const pledgeAcceptType = $('#pledgeAcceptType').val();
             const pledgeName = $('#pledgeName').val();
-            const formData = new UserPledge(pledgeType, pledgeAcceptType, pledgeName);
+            const formData = createFormDataObject(pledgeType, pledgeAcceptType, pledgeName);
             console.log("formData=========>", formData);
             $.ajaxRest($.reqPut(CTX + 'example/user/pledges/detail/' + userPledgeId)
                 .setData(formData)

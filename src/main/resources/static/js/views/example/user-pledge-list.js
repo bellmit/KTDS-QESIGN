@@ -6,27 +6,29 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     const CTX = thisPage['ctxPath'];
     const COMMON_CODE = thisPage['commonCode'];
     let ACTIVE_TAB = 'proceeding-tab';
-    console.log("ACTIVE_TAB=====>", ACTIVE_TAB);
-
-    class UserPledge {
-        constructor(dateType, startDt, endDt, searchKey, pledgeType, pledgeAcceptType, pledgeName, reqUser, reqDetp, page, size) {
-            this.dateType = dateType;
-            this.startDt = startDt;
-            this.endDt = endDt;
-            this.searchKey = searchKey;
-            this.pledgeType = pledgeType;
-            this.pledgeAcceptType = pledgeAcceptType;
-            this.pledgeName = pledgeName;
-            this.reqUser = reqUser;
-            this.reqDetp = reqDetp;
-            this.page = page || 0;
-            this.size = size || 10;
-        }
-    }
 
     /***************************************************************************
      * @ 모듈 함수 선언
      **************************************************************************/
+
+    /**
+     * create form data object
+     */
+    function createFormDataObject() {
+        const formData = {};
+        formData.dateType = null;
+        formData.startDt = null;
+        formData.endDt = null;
+        formData.searchKey = null;
+        formData.pledgeType = null;
+        formData.pledgeAcceptType = null;
+        formData.pledgeName = null;
+        formData.reqDept = null;
+        formData.reqUser = null;
+        formData.page = 0;
+        formData.size = 10;
+        return formData;
+    }
 
     /**
      * render code selector
@@ -40,10 +42,9 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * Result Count
      */
     function getUserPledgeResultCount(formData) {
-        console.log("count formdata============>", formData);
         if (!formData) {
             formData = {};
-            formData.startDt  = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
+            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
             formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
             formData.dateType = $("input[type='radio']:checked").val();
         }
@@ -51,10 +52,8 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         const param = decodeURI($.param(formData)); // serializing form data
 
         $.ajaxRest($.reqGet(CTX + 'example/user/pledges/count')
-            .setData(param)
-            .build()
+            .setData(param).build()
         ).done(function (response) {
-            console.log("count====>", response); // 추가 작업 시 사용
             const content = response['data'];
             $('#pro-cnt').html("(" + content['proceedingCount'] + ")");
             $('#com-cnt').html("(" + content['completeCount'] + ")");
@@ -89,9 +88,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             .setData(param)
             .setCallback(renderUserPledgeTable)
             .build()
-        ).done(function (response) {
-            console.log("end====>", response); // 추가 작업 시 사용
-        });
+        );
     }
 
     /**
@@ -188,7 +185,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * 페이징 클릭 이벤트 처리
      */
     function pageMove(pageNo) {
-        getUserPledgeList(new UserPledge(), pageNo);
+        getUserPledgeList(createFormDataObject(), pageNo);
     }
 
     /**
@@ -219,7 +216,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
 
         // low-size select event
         $('#low-size').on('change', function () {
-            getUserPledgeList(new UserPledge());
+            getUserPledgeList(createFormDataObject());
         });
 
         /**
@@ -258,7 +255,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         $('#search').on('click', function (e) {
             e.preventDefault();
             // set search formData
-            const formData = new UserPledge();
+            const formData = createFormDataObject();
             const searchType = $('#searchType').val();
             const searchKey = $('#searchKey').val();
             formData.searchType = searchType;
@@ -295,11 +292,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         });
 
         // 탭 클릭 이벤트
-        $(".nav-tabs a").on('show.bs.tab', function(e) {
+        $(".nav-tabs a").on('show.bs.tab', function (e) {
             ACTIVE_TAB = $(e.target).attr('id'); // active tab
-            console.log("ACTIVE_TAB============>", ACTIVE_TAB);
             getUserPledgeResultCount();
-            getUserPledgeList(new UserPledge())
+            getUserPledgeList(createFormDataObject())
         });
 
     }
@@ -310,7 +306,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     function moduleInitializr() {
         renderCodeSelector();
         getUserPledgeResultCount();
-        getUserPledgeList(new UserPledge());
+        getUserPledgeList(createFormDataObject());
     }
 
 

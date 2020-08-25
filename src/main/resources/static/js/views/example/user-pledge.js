@@ -6,21 +6,24 @@ const module = (function (global, $, _, moment, thisPage) {
     const CTX = thisPage['ctxPath'];
     const COMMON_CODE = thisPage['commonCode'];
 
-    class UserPledge {
-        constructor(pledgeType, pledgeAcceptType, pledgeName, startDt, endDt, reqDept, reqUser) {
-            this.pledgeType = pledgeType;
-            this.pledgeAcceptType = pledgeAcceptType;
-            this.pledgeName = pledgeName;
-            this.startDt = startDt;
-            this.endDt = endDt;
-            this.reqDept = reqDept;
-            this.reqUser = reqUser;
-        }
-    }
-
     /***************************************************************************
      * @ 모듈 함수 선언
      **************************************************************************/
+
+    /**
+     * create form data object
+     */
+    function createFormDataObject(pledgeType, pledgeAcceptType, pledgeName, startDt, endDt, reqDept, reqUser) {
+        const formData = {};
+        formData.pledgeType = pledgeType || null;
+        formData.pledgeAcceptType = pledgeAcceptType || null;
+        formData.pledgeName = pledgeName || null;
+        formData.startDt = startDt || null;
+        formData.endDt = endDt || null;
+        formData.reqDept = reqDept || null;
+        formData.reqUser = reqUser || null;
+        return formData;
+    }
 
     /**
      * render code selector
@@ -30,30 +33,6 @@ const module = (function (global, $, _, moment, thisPage) {
         const typeSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PLEDGE_TYPE");
         $("#pledgeAcceptType").html(acceptTypeSelectHtml).selectpicker('refresh');
         $("#pledgeType").html(typeSelectHtml).selectpicker('refresh');
-    }
-
-    /**
-     * pledge accept Type selector
-     */
-    function pledgeProgTypeSelect(contents) {
-        const pledgeAcceptTypes = contents.filter(content => content['groupCode'] === 'PLEDGE_ACCEPT_TYPE');
-        let html = '<option value="">전체</option>';
-        pledgeAcceptTypes.forEach(pledgeAcceptType => {
-            html += '<option value="' + pledgeAcceptType['code'] + '">' + pledgeAcceptType['codeDesc'] + '</option>';
-        });
-        $("#pledgeAcceptType").html(html).selectpicker('refresh');
-    }
-
-    /**
-     * pledge type selector
-     */
-    function pledgeTypeSelect(contents) {
-        const pledgeTypes = contents.filter(content => content['groupCode'] === 'PLEDGE_TYPE');
-        let html = '<option value="">전체</option>';
-        pledgeTypes.forEach(pledgeType => {
-            html += '<option value="' + pledgeType['code'] + '">' + pledgeType['codeDesc'] + '</option>';
-        });
-        $("#pledgeType").html(html).selectpicker('refresh');
     }
 
     /**
@@ -144,7 +123,7 @@ const module = (function (global, $, _, moment, thisPage) {
             const reqUser = $('#reqUser').val();
 
             // create formData
-            const formData = new UserPledge(pledgeType, pledgeAcceptType, pledgeName, startDt, endDt, reqDept, reqUser);
+            const formData = createFormDataObject(pledgeType, pledgeAcceptType, pledgeName, startDt, endDt, reqDept, reqUser);
             console.log("@formData=========>", formData);
 
             // create form validation
