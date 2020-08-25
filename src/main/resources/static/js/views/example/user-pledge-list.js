@@ -59,7 +59,6 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             $('#pro-cnt').html("(" + content['proceedingCount'] + ")");
             $('#com-cnt').html("(" + content['completeCount'] + ")");
             $('#std-cnt').html("(" + content['standbyCount'] + ")");
-            $('#total').html(content['totalCount']);
         });
     }
 
@@ -152,11 +151,13 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             $listWrap.removeClass('list-none')
             $tbody.html(html);
             $pagination.html(pagination).show();
+            $('#total').html(totalElements);
 
         } else {
             $listWrap.addClass('list-none')
             $tbody.hide();
             $pagination.html(pagination).hide();
+            $('#total').html(0);
         }
 
         return response; // return promise

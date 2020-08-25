@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
@@ -32,7 +33,7 @@ class EnumRepoTest {
     @Autowired
     private UserPledgeMapper userPledgeMapper;
 
-    // @Transactional // for rollback
+    @Transactional // for rollback
     @Test
     @DisplayName("enum 컨버터를 이용해 enum 필드 저장 시 코드 값으로 치환 저장 테스트")
     void runEnumSaveTest() {
@@ -60,17 +61,17 @@ class EnumRepoTest {
     @Test
     @DisplayName("enum 컨버터를 이용해 조회 시 enum 필드 가 코드 값에서 enum으로 치환 조회 테스트")
     void runEnumSearchTest() {
-        String username = "James Bond";
+        String username = "Doom Fist";
         ExUserPledge exUserPledge = listRepository.findByReqUser(username).get();
         log.info("@search.entity===============>{}", exUserPledge);
         assertThat(exUserPledge).isNotNull();
-        assertThat(exUserPledge.getPledgeAcceptType()).isEqualTo(PledgeAcceptType.STANDBY);
+        assertThat(exUserPledge.getPledgeAcceptType()).isEqualTo(PledgeAcceptType.COMPLETE);
 
         ExUserPledgeDto exUserPledgeDto = userPledgeMapper.toDto(exUserPledge);
         log.info("@mapping.dto=================>{}", exUserPledgeDto);
         assertThat(exUserPledgeDto).isNotNull();
-        assertThat(exUserPledgeDto.getPledgeAcceptType()).isEqualTo("STANDBY");
-        assertThat(exUserPledgeDto.getPledgeType()).isEqualTo("VIDEO");
+        assertThat(exUserPledgeDto.getPledgeAcceptType()).isEqualTo("COMPLETE");
+        assertThat(exUserPledgeDto.getPledgeType()).isEqualTo("HTML");
     }
 
 }
