@@ -37,7 +37,7 @@ public class ExPledgeController {
 
 
     @PostMapping("user/pledge")
-    public ResponseDto<?> createUserPledge(@RequestBody CreateDto createDto) throws ResourceNotFoundException {
+    public ResponseDto<?> createUserPledge(@RequestBody CreateDto createDto) {
         return ResponseDto.of(exPledgeService.createUserPledge(createDto));
     }
 
@@ -47,6 +47,11 @@ public class ExPledgeController {
         mav.setViewName("views/example/user-pledge-list");
         mav.addObject("commonCode", codeService.findAllCodeList());
         return mav;
+    }
+
+    @GetMapping("user/pledges/count")
+    public ResponseDto<?> getUserPledgeResultCount(SearchDto searchDto) {
+        return ResponseDto.of(exPledgeService.findUserPledgeResultCount(searchDto));
     }
 
     /**

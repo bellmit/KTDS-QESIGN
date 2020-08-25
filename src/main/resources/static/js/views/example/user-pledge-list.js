@@ -5,14 +5,17 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      **************************************************************************/
     const CTX = thisPage['ctxPath'];
     const COMMON_CODE = thisPage['commonCode'];
+    let ACTIVE_TAB = 'proceeding-tab';
+    console.log("ACTIVE_TAB=====>", ACTIVE_TAB);
 
     class UserPledge {
-        constructor(dateType, startDt, endDt, searchKey, pledgeType, pledgeName, reqUser, reqDetp, page, size) {
+        constructor(dateType, startDt, endDt, searchKey, pledgeType, pledgeAcceptType, pledgeName, reqUser, reqDetp, page, size) {
             this.dateType = dateType;
             this.startDt = startDt;
             this.endDt = endDt;
             this.searchKey = searchKey;
             this.pledgeType = pledgeType;
+            this.pledgeAcceptType = pledgeAcceptType;
             this.pledgeName = pledgeName;
             this.reqUser = reqUser;
             this.reqDetp = reqDetp;
@@ -34,12 +37,54 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     }
 
     /**
+     * Result Count
+     */
+    function getUserPledgeResultCount(formData) {
+        console.log("count formdata============>", formData);
+        if (!formData) {
+            formData = {};
+            formData.startDt  = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
+            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
+            formData.dateType = $("input[type='radio']:checked").val();
+        }
+
+        const param = decodeURI($.param(formData)); // serializing form data
+
+        $.ajaxRest($.reqGet(CTX + 'example/user/pledges/count')
+            .setData(param)
+            .build()
+        ).done(function (response) {
+            console.log("count====>", response); // 추가 작업 시 사용
+            const content = response['data'];
+            $('#pro-cnt').html("(" + content['proceedingCount'] + ")");
+            $('#com-cnt').html("(" + content['completeCount'] + ")");
+            $('#std-cnt').html("(" + content['standbyCount'] + ")");
+            $('#total').html(content['totalCount']);
+        });
+    }
+
+    /**
      * request ajax
      */
     function getUserPledgeList(formData, pageNo) {
         formData.page = pageNo || 0;
         formData.size = $('#low-size').val() || 10;
+
+        if (!formData.startDt || !formData.endDt) {
+            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm"); // java LocalDateTime format
+            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
+        }
+
+        if (ACTIVE_TAB === 'proceeding-tab') { // 최초 로딩 또는 선택 시
+            formData.pledgeAcceptType = 'PROCEEDING';
+        } else if (ACTIVE_TAB === 'complete-tab') {
+            formData.pledgeAcceptType = 'COMPLETE';
+        } else if (ACTIVE_TAB === 'standby-tab') {
+            formData.pledgeAcceptType = 'STANDBY';
+        }
+
         const param = decodeURI($.param(formData));
+        console.log("@@@param============>", param);
 
         $.ajaxRest($.reqGet(CTX + 'example/user/pledges/list')
             .setData(param)
@@ -60,12 +105,29 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         const page = response['data']['number'];
         const size = response['data']['size'];
         const currentLows = totalElements - (page * size);
-        const $tbody = $('#tbody');
-        const $listWrap = $('#list-wrap');
-        const $total = $('#total');
-        const $pagination = $('#pagination');
+        let $tbody = null;
+        let $listWrap = null;
+        let $pagination = null;
 
-        // result reset
+        if (ACTIVE_TAB === 'proceeding-tab') {
+            $tbody = $('#tbody');
+            $listWrap = $('#list-wrap');
+            $pagination = $('#pagination');
+        } else if (ACTIVE_TAB === 'complete-tab') {
+            $tbody = $('#tbody2');
+            $listWrap = $('#list-wrap2');
+            $pagination = $('#pagination2');
+        } else if (ACTIVE_TAB === 'standby-tab') {
+            $tbody = $('#tbody3');
+            $listWrap = $('#list-wrap3');
+            $pagination = $('#pagination3');
+        } else { // proceeding-tab
+            $tbody = $('#tbody');
+            $listWrap = $('#list-wrap');
+            $pagination = $('#pagination');
+        }
+
+        // clear table
         $tbody.empty();
 
         if (!_.isEmpty(content)) {
@@ -88,13 +150,11 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             });
 
             $listWrap.removeClass('list-none')
-            $total.html(totalElements || 0);
             $tbody.html(html);
             $pagination.html(pagination).show();
 
         } else {
             $listWrap.addClass('list-none')
-            $total.html(0);
             $tbody.hide();
             $pagination.html(pagination).hide();
         }
@@ -214,13 +274,13 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             } else if (searchType === 'reqUser') {
                 formData.reqUser = searchKey;
             }
-            console.log("@@@@formData========>", formData);
 
             // search form validation
             if (!validateSearchForm(formData)) return;
 
             // call search ajax function
             getUserPledgeList(formData)
+            getUserPledgeResultCount(formData);
 
         });
 
@@ -230,10 +290,16 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             const userPledgeId = $(this).closest('ul').data('id');
             if (userPledgeId) {
                 global.location.href = CTX + 'example/user/pledges/detail?userPledgeId=' + userPledgeId;
-                ;
             }
         });
 
+        // 탭 클릭 이벤트
+        $(".nav-tabs a").on('show.bs.tab', function(e) {
+            ACTIVE_TAB = $(e.target).attr('id'); // active tab
+            console.log("ACTIVE_TAB============>", ACTIVE_TAB);
+            getUserPledgeResultCount();
+            getUserPledgeList(new UserPledge())
+        });
 
     }
 
@@ -242,6 +308,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      **************************************************************************/
     function moduleInitializr() {
         renderCodeSelector();
+        getUserPledgeResultCount();
         getUserPledgeList(new UserPledge());
     }
 

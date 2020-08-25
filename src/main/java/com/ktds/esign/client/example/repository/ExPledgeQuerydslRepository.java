@@ -2,6 +2,7 @@ package com.ktds.esign.client.example.repository;
 
 import com.ktds.esign.client.example.domain.ExUserPledge;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq.SearchDto;
+import com.ktds.esign.common.enums.PledgeAcceptType;
 import com.ktds.esign.common.enums.PledgeType;
 import com.ktds.esign.common.querydsl.Querydsl4RepositorySupport;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -30,6 +31,7 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
         return applyPagination(pageable, contentQuery -> contentQuery
                 .selectFrom(exUserPledge)
                 .where(
+                        this.equalPledgeAcceptType(searchDto.getPledgeAcceptType()),
                         this.equalPledgeType(searchDto.getPledgeType()),
                         this.containsPledgeName(searchDto.getPledgeName()),
                         this.equalReqUser(searchDto.getReqUser()),
@@ -37,8 +39,8 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
                         this.betweenStartDtAndEndDt(searchDto.getDateType(), searchDto.getStartDt(), searchDto.getEndDt())
                 )
                 .orderBy(
+                        exUserPledge.startDt.asc(),
                         exUserPledge.id.asc()
-                        //,exUserPledge.endDt.asc()
                         //,exUserPledge.userPledgeStatus.desc()
                 ));
     }
@@ -50,6 +52,13 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
     // 서약 유형
     private BooleanExpression equalPledgeType(String pledgeType) {
         return StringUtils.hasText(pledgeType) ? exUserPledge.pledgeType.eq(PledgeType.getTypeFromCode(pledgeType)) : null;
+    }
+
+    // 사용자 서약 승인(accept) 진행 유형
+    private BooleanExpression equalPledgeAcceptType(String pledgeAcceptType) {
+        return StringUtils.hasText(pledgeAcceptType) ?
+                exUserPledge.pledgeAcceptType.eq(PledgeAcceptType.getTypeFromCode(pledgeAcceptType))
+                : exUserPledge.pledgeAcceptType.eq(PledgeAcceptType.getTypeFromCode("PROCEEDING"));
     }
 
     // 서약 명
@@ -73,8 +82,9 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
             return exUserPledge.startDt.between(startDt, endDt);
         } else if (StringUtils.hasText(dateType) && dateType.equals("endDt")) {
             return exUserPledge.endDt.between(startDt, endDt);
+        } else {
+            return exUserPledge.startDt.between(startDt, endDt); // 조건 없을 때 시작일 기준으로 조회
         }
-        return null;
     }
 
 }

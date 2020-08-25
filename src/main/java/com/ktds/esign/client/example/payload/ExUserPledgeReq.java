@@ -18,6 +18,8 @@ public class ExUserPledgeReq {
         private static final long serialVersionUID = -4087399523870085728L;
         // 서약유형
         private String pledgeType;
+        // 사용자 서약 승인 진행 유형
+        private String pledgeAcceptType;
         // 서약명
         private String pledgeName;
         // 요청부서

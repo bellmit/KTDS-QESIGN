@@ -49,17 +49,28 @@
         </ol>
     </nav>
 
+    <!-- TABS -->
     <div class="tab-wrap">
+        <!-- TAB -->
         <ul class="nav nav-tabs" id="myTab" role="tablist">
+             <!-- #1 tab-->
             <li class="nav-item">
                 <a class="nav-link active" id="proceeding-tab" data-toggle="tab" href="#proceeding" role="tab"
-                   aria-controls="proceeding" aria-selected="true">진행중<span class="font-red">(0)</span></a>
+                   aria-controls="proceeding" aria-selected="true">진행중<span class="font-red" id="pro-cnt">(0)</span></a>
             </li>
+            <!-- #2 tab-->
             <li class="nav-item">
                 <a class="nav-link" id="complete-tab" data-toggle="tab" href="#complete" role="tab"
-                   aria-controls="complete" aria-selected="false">완료</a>
+                   aria-controls="complete" aria-selected="false">완료<span class="font-red" id="com-cnt">(0)</span></a>
+            </li>
+             <!-- #3 tab-->
+            <li class="nav-item">
+                <a class="nav-link" id="standby-tab" data-toggle="tab" href="#standby" role="tab"
+                   aria-controls="standby" aria-selected="false">대기<span class="font-red" id="std-cnt">(0)</span></a>
             </li>
         </ul>
+        <!-- TAB -->
+
         <!-- 검색박스 -->
         <div class="box-wrap search-box-wrap">
             <strong class="box-title">검색</strong>
@@ -113,6 +124,8 @@
         </select>
 
         <div class="tab-content" id="myTabContent">
+
+            <!-- First TAB(proceeding-tab) -->
             <div class="tab-pane fade show active" id="proceeding" role="tabpanel" aria-labelledby="proceeding-tab">
                 <div id="list-wrap" class="list-wrap">
                     <ul id="thead" class="list-group l-head list-group-horizontal">
@@ -170,8 +183,130 @@
                 </nav>
                 <!-- //pagination -->
             </div>
+            <!-- // First TAB(proceeding-tab) -->
+
+            <!-- Second TAB(proceeding-tab) -->
+            <div class="tab-pane fade" id="complete" role="tabpanel" aria-labelledby="complete-tab">
+                <div id="list-wrap2" class="list-wrap">
+                    <ul id="thead2" class="list-group l-head list-group-horizontal">
+                        <li class="d-inline-block w-5">No.</li>
+                        <li class="d-inline-block w-10">진행상태</li>
+                        <li class="d-inline-block w-10">유형</li>
+                        <li class="d-inline-block w-30">서약 업무명</li>
+                        <li class="d-inline-block w-10">요청일</li>
+                        <li class="d-inline-block w-15">요청부서</li>
+                        <li class="d-inline-block w-10">요청자</li>
+                        <li class="d-inline-block w-10">마감일</li>
+                    </ul>
+                    <ul id="tbody2" class="list-group l-body list-group-horizontal">
+                        <!--                            <li>-->
+                        <!--                                <ul class="list-group list-group-horizontal">-->
+                        <!--                                    <li class="d-inline-block w-5">10</li>-->
+                        <!--                                    <li class="d-inline-block w-10 font-blue">진행</li>-->
+                        <!--                                    <li class="d-inline-block w-10">일반</li>-->
+                        <!--                                    <li class="d-inline-block w-30 text-left">-->
+                        <!--                                        <a class="text-truncate" href="">2020년 정보보안서약서 동의요청</a>-->
+                        <!--                                    </li>-->
+                        <!--                                    <li class="d-inline-block w-10">2020.11.23</li>-->
+                        <!--                                    <li class="d-inline-block w-15">우리팀</li>-->
+                        <!--                                    <li class="d-inline-block w-10">케이트</li>-->
+                        <!--                                    <li class="d-inline-block w-10 font-red">2020.11.24</li>-->
+                        <!--                                        &lt;!&ndash;<li class="d-inline-block w-100">요청 받은 전자서명이 없습니다.</li>&ndash;&gt;-->
+                        <!--                                </ul>-->
+                        <!--                            </li>-->
+                    </ul>
+                    <div class="list-none-area">
+                        <span class="icon-area"></span>
+                        <p>데이터가 존재하지 않습니다.</p>
+                    </div>
+                </div>
+
+                <!-- pagination -->
+                <nav id="pagination2" aria-label="Page navigation example" style="display: none;">
+                    <!--                        <ul class="pagination justify-content-center">-->
+                    <!--                            <li class="page-item">-->
+                    <!--                                <a class="page-link page-prev first" href="#" aria-label="Previous" title="맨앞으로"></a>-->
+                    <!--                            </li>-->
+                    <!--                            <li class="page-item">-->
+                    <!--                                <a class="page-link page-prev" href="#" aria-label="Previous"></a>-->
+                    <!--                            </li>-->
+                    <!--                            <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+                    <!--                            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+                    <!--                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                    <!--                            <li class="page-item">-->
+                    <!--                                <a class="page-link page-next" href="#" aria-label="Next"></a>-->
+                    <!--                            </li>-->
+                    <!--                            <li class="page-item">-->
+                    <!--                                <a class="page-link page-next last" href="#" aria-label="Next" title="맨뒤로"></a>-->
+                    <!--                            </li>-->
+                    <!--                        </ul>-->
+                </nav>
+                <!-- //pagination -->
+            </div>
+            <!-- // Second TAB(proceeding-tab) -->
+
+            <!-- Third TAB(proceeding-tab) -->
+            <div class="tab-pane fade" id="standby" role="tabpanel" aria-labelledby="complete-tab">
+                <div id="list-wrap3" class="list-wrap">
+                    <ul id="thead3" class="list-group l-head list-group-horizontal">
+                        <li class="d-inline-block w-5">No.</li>
+                        <li class="d-inline-block w-10">진행상태</li>
+                        <li class="d-inline-block w-10">유형</li>
+                        <li class="d-inline-block w-30">서약 업무명</li>
+                        <li class="d-inline-block w-10">요청일</li>
+                        <li class="d-inline-block w-15">요청부서</li>
+                        <li class="d-inline-block w-10">요청자</li>
+                        <li class="d-inline-block w-10">마감일</li>
+                    </ul>
+                    <ul id="tbody3" class="list-group l-body list-group-horizontal">
+                        <!--                            <li>-->
+                        <!--                                <ul class="list-group list-group-horizontal">-->
+                        <!--                                    <li class="d-inline-block w-5">10</li>-->
+                        <!--                                    <li class="d-inline-block w-10 font-blue">진행</li>-->
+                        <!--                                    <li class="d-inline-block w-10">일반</li>-->
+                        <!--                                    <li class="d-inline-block w-30 text-left">-->
+                        <!--                                        <a class="text-truncate" href="">2020년 정보보안서약서 동의요청</a>-->
+                        <!--                                    </li>-->
+                        <!--                                    <li class="d-inline-block w-10">2020.11.23</li>-->
+                        <!--                                    <li class="d-inline-block w-15">우리팀</li>-->
+                        <!--                                    <li class="d-inline-block w-10">케이트</li>-->
+                        <!--                                    <li class="d-inline-block w-10 font-red">2020.11.24</li>-->
+                        <!--                                        &lt;!&ndash;<li class="d-inline-block w-100">요청 받은 전자서명이 없습니다.</li>&ndash;&gt;-->
+                        <!--                                </ul>-->
+                        <!--                            </li>-->
+                    </ul>
+                    <div class="list-none-area">
+                        <span class="icon-area"></span>
+                        <p>데이터가 존재하지 않습니다.</p>
+                    </div>
+                </div>
+
+                <!-- pagination -->
+                <nav id="pagination3" aria-label="Page navigation example" style="display: none;">
+                    <!--                        <ul class="pagination justify-content-center">-->
+                    <!--                            <li class="page-item">-->
+                    <!--                                <a class="page-link page-prev first" href="#" aria-label="Previous" title="맨앞으로"></a>-->
+                    <!--                            </li>-->
+                    <!--                            <li class="page-item">-->
+                    <!--                                <a class="page-link page-prev" href="#" aria-label="Previous"></a>-->
+                    <!--                            </li>-->
+                    <!--                            <li class="page-item active"><a class="page-link" href="#">1</a></li>-->
+                    <!--                            <li class="page-item"><a class="page-link" href="#">2</a></li>-->
+                    <!--                            <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+                    <!--                            <li class="page-item">-->
+                    <!--                                <a class="page-link page-next" href="#" aria-label="Next"></a>-->
+                    <!--                            </li>-->
+                    <!--                            <li class="page-item">-->
+                    <!--                                <a class="page-link page-next last" href="#" aria-label="Next" title="맨뒤로"></a>-->
+                    <!--                            </li>-->
+                    <!--                        </ul>-->
+                </nav>
+                <!-- //pagination -->
+            </div>
+            <!-- // Third TAB(proceeding-tab) -->
+
         </div>
-    </div>
+    </div> <!-- TAB-->
 
 </div>
 <!-- end Contents div -->
