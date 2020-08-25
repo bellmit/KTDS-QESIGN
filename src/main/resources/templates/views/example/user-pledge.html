@@ -5,15 +5,15 @@
 <!--
 #####################################################################################################
 #    @author  stoneberg
-#    @since   2020. 08. 24.
+#    @since   2020. 08. 25.
 #    @version 1.0.0
-#    @Description : user-pledge-detail
+#    @Description : user-pledge
 #####################################################################################################
 -->
 
 <!-- page title -->
 <th:block layout:fragment="title">
-    <title>User Pledge Detail</title>
+    <title>Create User Pledge</title>
 </th:block>
 
 <!-- custom css -->
@@ -29,7 +29,6 @@
         let thisPage = {};
         thisPage['ctxPath'] = /*[[@{/}]]*/ '/';
         thisPage['commonCode'] = /*[[${commonCode}]]*/ '';
-        thisPage['userPledgeId'] = /*[[${userPledgeId}]]*/ '';
         console.log("thisPage", thisPage);
         /*]]>*/
     </script>
@@ -39,16 +38,16 @@
 <div id="contents" layout:fragment="contents">
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-10">User Pledge Detail</h1>
+            <h1 class="display-10">Create User Pledge</h1>
             <br/>
-            <div class="form-group">
-                <label for="pledgeAcceptType">진행상태</label>
-                <select class="selectpicker" id="pledgeAcceptType" title="유형선택">
-                </select>
-            </div>
             <div class="form-group">
                 <label for="pledgeType">유형</label>
                 <select class="selectpicker" id="pledgeType" title="유형선택">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="pledgeAcceptType">진행상태</label>
+                <select class="selectpicker" id="pledgeAcceptType" title="유형선택">
                 </select>
             </div>
             <div class="form-group">
@@ -56,23 +55,24 @@
                 <input type="pledgeName" class="form-control" id="pledgeName" placeholder="서약 업무명">
             </div>
             <div class="form-group">
-                <label for="startDt">요청일</label>
-                <input type="startDt" class="form-control" id="startDt" placeholder="요청일" readonly>
+                <label class="radio-custom" for="date-start">등록일</label>
+                    <input type="text" id="date-start" class="form-control datepicker-input">
+                    <span class="icon-area"></span>
             </div>
             <div class="form-group">
                 <label for="reqDept">요청부서</label>
-                <input type="reqDept" class="form-control" id="reqDept" placeholder="요청부서" readonly>
+                <input type="reqDept" class="form-control" id="reqDept" placeholder="요청부서">
             </div>
             <div class="form-group">
                 <label for="reqUser">요청자</label>
-                <input type="reqUser" class="form-control" id="reqUser" placeholder="요청자" readonly>
+                <input type="reqUser" class="form-control" id="reqUser" placeholder="요청자">
             </div>
             <div class="form-group">
-                <label for="endDt">마감일</label>
-                <input type="endDt" class="form-control" id="endDt" placeholder="마감일" readonly>
+                <label class="radio-custom" for="date-end">마감일</label>
+                    <input type="text" id="date-end" class="form-control datepicker-input">
+                    <span class="icon-area"></span>
             </div>
-            <button type="button" id="update" class="btn btn-primary">수정</button>
-            <button type="button" id="delete" class="btn btn-danger">삭제</button>
+            <button type="button" id="create" class="btn btn-primary">서약서 생성</button>
         </div>
     </div>
 </div>
@@ -80,7 +80,7 @@
 
 <!-- custom bottom js -->
 <th:block layout:fragment="bottomScript">
-    <script type="text/javascript" th:src="@{/js/views/example/user-pledge-detail.js}"></script>
+    <script type="text/javascript" th:src="@{/js/views/example/user-pledge.js}"></script>
 </th:block>
 
 </html>

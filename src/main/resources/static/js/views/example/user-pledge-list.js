@@ -1,11 +1,12 @@
-const module = (function (global, $, _, moment, thisPage) {
+const module = (function (global, $, _, moment, moduleUI, thisPage) {
 
     /***************************************************************************
      * @ 모듈 변수(상수) 선언
      **************************************************************************/
     const CTX = thisPage['ctxPath'];
+    const COMMON_CODE = thisPage['commonCode'];
 
-    class Pledge {
+    class UserPledge {
         constructor(dateType, startDt, endDt, searchKey, pledgeType, pledgeName, reqUser, reqDetp, page, size) {
             this.dateType = dateType;
             this.startDt = startDt;
@@ -25,28 +26,11 @@ const module = (function (global, $, _, moment, thisPage) {
      **************************************************************************/
 
     /**
-     * request code
+     * render code selector
      */
-    function getCommonCodeList() {
-        $.ajaxRest($.reqGet(CTX + 'commoncodes')
-            .setCallback(renderCodeElements)
-            .build()
-        ).done(function (response) {
-            console.log("end====>", response); // 추가 작업 시 사용
-        });
-    }
-
-    /**
-     * code render
-     */
-    function renderCodeElements(response) {
-        const contents = response['data'];
-        const pledgeProgTypes = contents.filter(content => content['groupCode'] === 'PLEDGE_TYPE');
-        let html = '<option value="">전체</option>';
-        pledgeProgTypes.forEach(pledgeProgType => {
-            html += '<option value="' + pledgeProgType['code'] + '">' + pledgeProgType['codeDesc'] + '</option>';
-        });
-        $("#pledgeType").html(html).selectpicker('refresh');
+    function renderCodeSelector() {
+        const selectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PLEDGE_TYPE");
+        $("#pledgeType").html(selectHtml).selectpicker('refresh');
     }
 
     /**
@@ -125,12 +109,13 @@ const module = (function (global, $, _, moment, thisPage) {
     function validateSearchForm(formData) {
         // search cond validation
         if (!formData.startDt) {
-            window.alert('검색 시작일을 설정하세요.');
+            global.alert('검색 시작일을 설정하세요.');
             return false;
         } else if (!formData.endDt) {
-            window.alert('검색 종료일을 설정하세요.');
+            global.alert('검색 종료일을 설정하세요.');
+            return false;
         } else if (formData.searchType && !formData.searchKey) {
-            window.alert('검색 내용을 입력하세요.');
+            global.alert('검색 내용을 입력하세요.');
             $('#searchKey').focus();
             return false;
         }
@@ -142,7 +127,7 @@ const module = (function (global, $, _, moment, thisPage) {
      * 페이징 클릭 이벤트 처리
      */
     function pageMove(pageNo) {
-        getUserPledgeList(new Pledge(), pageNo);
+        getUserPledgeList(new UserPledge(), pageNo);
     }
 
     /**
@@ -171,15 +156,14 @@ const module = (function (global, $, _, moment, thisPage) {
      **************************************************************************/
     function moduleEventHandlers() {
 
-        // bootstrap selectpicker init
-        $('.selectpicker').selectpicker();
-
         // low-size select event
         $('#low-size').on('change', function () {
-            getUserPledgeList(new Pledge());
+            getUserPledgeList(new UserPledge());
         });
 
-        // datepicker
+        /**
+         * Datepicker ####################################################################
+         */
         // start date
         $('#date-start').datepicker({
             format: 'yyyy-mm-dd',
@@ -205,12 +189,15 @@ const module = (function (global, $, _, moment, thisPage) {
             });
 
         $('#date-start, #date-end').datepicker('setDate', new Date());
+        /**
+         * Datepicker ####################################################################
+         */
 
         // 검색
         $('#search').on('click', function (e) {
             e.preventDefault();
             // set search formData
-            const formData = new Pledge();
+            const formData = new UserPledge();
             const searchType = $('#searchType').val();
             const searchKey = $('#searchKey').val();
             formData.searchType = searchType;
@@ -227,7 +214,7 @@ const module = (function (global, $, _, moment, thisPage) {
             } else if (searchType === 'reqUser') {
                 formData.reqUser = searchKey;
             }
-            console.log("formData========>", formData);
+            console.log("@@@@formData========>", formData);
 
             // search form validation
             if (!validateSearchForm(formData)) return;
@@ -237,7 +224,7 @@ const module = (function (global, $, _, moment, thisPage) {
 
         });
 
-        // 상세
+        // 상세조회 화면으로 이동 query param not route param(path variable)
         $(document).on('click', '.pledge-name', function (e) {
             e.preventDefault();
             const userPledgeId = $(this).closest('ul').data('id');
@@ -254,8 +241,8 @@ const module = (function (global, $, _, moment, thisPage) {
      * @ 화면 로딩 시 최초로 실행할 함수 선언
      **************************************************************************/
     function moduleInitializr() {
-        getCommonCodeList();
-        getUserPledgeList(new Pledge());
+        renderCodeSelector();
+        getUserPledgeList(new UserPledge());
     }
 
 
@@ -275,4 +262,4 @@ const module = (function (global, $, _, moment, thisPage) {
     };
 
 
-})(window, jQuery, _, moment, thisPage);
+})(window, jQuery, _, moment, moduleUI, thisPage);

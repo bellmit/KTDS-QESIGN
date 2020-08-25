@@ -49,13 +49,12 @@ class EnumRepoTest {
                 .build();
 
         log.info("@created dto==================>{}", createDto);
-        ExUserPledge exUserPledge = userPledgeMapper.toEntity(createDto);
+        ExUserPledge exUserPledge = userPledgeMapper.createEntity(createDto);
         log.info("@mapping entity===============>{}", exUserPledge);
         assertThat(exUserPledge.getPledgeAcceptType()).isEqualTo(PledgeAcceptType.STANDBY);
         assertThat(exUserPledge.getPledgeType()).isEqualTo(PledgeType.VIDEO);
         listRepository.save(exUserPledge);
         assertThat(exUserPledge.getId()).isNotNull();
-
     }
 
     @Test

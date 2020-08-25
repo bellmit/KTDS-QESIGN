@@ -54,4 +54,16 @@ public class ExUserPledgeReq {
         private String reqUser;
     }
 
+    @Data
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @JsonIgnoreProperties
+    public static class UpdateDto implements Serializable {
+        private static final long serialVersionUID = -6322399634165758641L;
+        private String pledgeAcceptType;
+        private String pledgeType;
+        private String pledgeName;
+    }
+
 }

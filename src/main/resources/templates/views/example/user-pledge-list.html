@@ -13,7 +13,7 @@
 
 <!-- page title -->
 <th:block layout:fragment="title">
-    <title>List</title>
+    <title>User Pledge List</title>
 </th:block>
 
 <!-- custom css -->
@@ -28,6 +28,7 @@
         /*<![CDATA[*/
         let thisPage = {};
         thisPage['ctxPath'] = /*[[@{/}]]*/ '/';
+        thisPage['commonCode'] = /*[[${commonCode}]]*/ '';
         console.log("thisPage", thisPage);
         /*]]>*/
     </script>

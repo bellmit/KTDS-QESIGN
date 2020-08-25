@@ -36,11 +36,18 @@ public class CustomGlobalRestExceptionHandler {
         return buildError(ErrorCode.USER_NOT_FOUND, ex.getMessage(), request);
     }
     
-    // 404
+    // Resource not found
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND) // 404
     public ResponseError handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         return buildError(ErrorCode.RESOURCE_NOT_FOUND, request);
+    }
+
+    // CommonCode not found
+    @ExceptionHandler(CodeNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND) // 404
+    protected ResponseError handlerCodeNotFoundException(CodeNotFoundException ex, WebRequest request) {
+        return buildError(ErrorCode.CODE_NOT_FOUND, request);
     }
 
     // User already exists
@@ -69,13 +76,6 @@ public class CustomGlobalRestExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED) // 401
     protected ResponseError handlerAuthenticationFailedException(AuthenticationFailedException ex, WebRequest request) {
         return buildError(ErrorCode.AUTHENTICATION_FAILED, request);
-    }
-
-    // Common Code not found
-    @ExceptionHandler(CodeNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST) // 405
-    protected ResponseError handlerCodeNotFoundException(CodeNotFoundException ex, WebRequest request) {
-        return buildError(ErrorCode.CODE_NOT_FOUND, request);
     }
 
     //    @ExceptionHandler(PasswordFailedExceededException.class)

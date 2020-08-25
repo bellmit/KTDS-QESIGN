@@ -1,38 +1,23 @@
-/*****************************************************************************************************
- *    @QESIGN version 1.0
- *    @Description: UI 공통 스크립트
- *    @Author: 91218672
- *****************************************************************************************************/
-const moduleUI = (function(global, $, _, thisPage) {
-    
-    // context path
+const module = (function (global, $, _, moment, thisPage) {
+
+    /***************************************************************************
+     * @ 모듈 변수(상수) 선언
+     **************************************************************************/
     const CTX = thisPage['ctxPath'];
+    // class 정의
+    // const, let 정의
 
     /***************************************************************************
      * @ 모듈 함수 선언
      **************************************************************************/
-
-    function getSelectorFromGroupCode(commonCode, groupCode) {
-        const codeTypes = commonCode.filter(content => content['groupCode'] === groupCode);
-        let html = '<option value="">전체</option>';
-        codeTypes.forEach(codeType => {
-            html += '<option value="' + codeType['code'] + '">' + codeType['codeDesc'] + '</option>';
-        });
-        return html;
-    }
-
+    // function 사용자_정의_함수() {
+    //
+    // }
 
     /***************************************************************************
      * @ jquery 이벤트 등록
      **************************************************************************/
     function moduleEventHandlers() {
-
-        // GNB mouseover event
-        $('.main-menu > li, .sub-menu').hover(function() {
-            $('.sub-menu').show();
-        }, function() {
-            $('.sub-menu').hide();
-        });
 
     }
 
@@ -40,8 +25,11 @@ const moduleUI = (function(global, $, _, thisPage) {
      * @ 화면 로딩 시 최초로 실행할 함수 선언
      **************************************************************************/
     function moduleInitializr() {
+        // 정의된_사용자_함수_중_화면_최초_로딩시_호출된_함수();
 
     }
+
+
     /***************************************************************************
      * @ DOM Ready 실행
      **************************************************************************/
@@ -54,7 +42,8 @@ const moduleUI = (function(global, $, _, thisPage) {
      * @ 외부로 노출할 함수 선언
      **************************************************************************/
     return {
-        getSelectorFromGroupCode: getSelectorFromGroupCode
+
     };
 
-})(window, jQuery, _, thisPage);
+
+})(window, jQuery, _, moment, thisPage);

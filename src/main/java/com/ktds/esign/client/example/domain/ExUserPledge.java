@@ -1,7 +1,6 @@
 package com.ktds.esign.client.example.domain;
 
 import com.ktds.esign.common.enums.PledgeAcceptType;
-import com.ktds.esign.common.enums.PledgeProgType;
 import com.ktds.esign.common.enums.PledgeType;
 import lombok.*;
 
@@ -10,6 +9,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Getter
+@Setter // mpastruct를 이용해 entity update시 setter 필요
 @Entity
 @ToString
 @EqualsAndHashCode(callSuper = false, of = "id")

@@ -179,6 +179,35 @@
         },
 
         /**
+         * Ajax Put option builder
+         * $.reqPut('/url/abc/id').setData({city: "A", town: "B"}).setCallback(callback).build();
+         */
+        reqPut: function (reqUrl) {
+            const url = reqUrl;
+            const method = 'PUT';
+            let callback = null;
+            let param = {};
+            return {
+                setData: function (reqParam) {
+                    param = reqParam;
+                    return this;
+                },
+                setCallback: function (resCallback) {
+                    callback = resCallback;
+                    return this;
+                },
+                build: function () {
+                    return {
+                        url: url,
+                        method: method,
+                        param: param,
+                        callback: callback
+                    };
+                }
+            };
+        },
+
+        /**
          * Ajax Get option builder
          * $.reqGet('/url/abc').setData({city: "A", town: "B").setCallback(callback).build();
          */
@@ -202,6 +231,23 @@
                         url: param ? (url + '?' + param) : url,
                         method: method,
                         callback: callback
+                    };
+                }
+            };
+        },
+
+        /**
+         * Ajax Delete option builder
+         * $.reqDel('/url/abc/id').build();
+         */
+        reqDel: function (reqUrl) {
+            const url = reqUrl;
+            const method = 'DELETE';
+            return {
+                build: function () {
+                    return {
+                        url: url,
+                        method: method,
                     };
                 }
             };
