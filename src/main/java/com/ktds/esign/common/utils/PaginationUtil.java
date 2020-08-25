@@ -20,10 +20,6 @@ public class PaginationUtil {
      * @return
      */
     public String getPagination(Page page) {
-        log.info("@page=====================>{}", page.getNumber());
-        log.info("@size=====================>{}", page.getSize());
-        log.info("@total====================>{}", page.getTotalElements());
-        log.info("@curElm===================>{}", page.getNumberOfElements());
         int pageNo = page.getNumber() + 1; // front 1 base
         int totalPage = (int) Math.ceil((float) page.getTotalElements() / page.getSize());
         int pageGroup = (int) Math.ceil((float) pageNo / PAGINATION_SIZE);
@@ -32,13 +28,6 @@ public class PaginationUtil {
         int goNext;
         int goPrev;
         String module = MODULE_NAMESPACE;
-
-        log.info("@pageNo=====================>{}", pageNo);
-        log.info("@totalPage==================>{}", totalPage);
-        log.info("@pageGroup==================>{}", pageGroup);
-        log.info("@next=======================>{}", next);
-        log.info("@prev=======================>{}", prev);
-
         StringBuilder paginationHtml = new StringBuilder();
 
         if (prev - 1 <= 0) {
@@ -58,9 +47,6 @@ public class PaginationUtil {
         if (goNext > totalPage) {
             goNext = totalPage;
         }
-
-        log.info("@goPrev=====================>{}", goPrev);
-        log.info("@goNext=====================>{}", goNext);
 
         if (page.getTotalElements() > 0) {
 
@@ -133,7 +119,7 @@ public class PaginationUtil {
                 paginationHtml.append("<li class=\"page-item\">");
                 paginationHtml.append("<a class=\"page-link page-next last\" href=\"#\" aria-label=\"Next\" title=\"맨뒤\" data-page=\"");
                 paginationHtml.append(totalPage - 1);
-                paginationHtml.append("></a>");
+                paginationHtml.append("\"></a>");
                 paginationHtml.append("</li>");
             } else {
                 // 뒤[<]
@@ -161,7 +147,6 @@ public class PaginationUtil {
             paginationHtml.append("</ul>");
         }
 
-        log.info("@paginationHtml======>{}", paginationHtml.toString());
         return paginationHtml.toString();
     }
 

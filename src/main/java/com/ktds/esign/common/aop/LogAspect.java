@@ -72,7 +72,7 @@ public class LogAspect {
             }
         }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        log.info("@Request [{}]'s parameters are\r\n # {} #", pjp.getSignature().getName(),
+        log.info("@EndPoint [{}]'s arguments are\r\n # {} #", pjp.getSignature().getName(),
                 !StringUtils.isBlank(gson.toJson(arg)) ? gson.toJson(arg) : "Empty");
     }
 

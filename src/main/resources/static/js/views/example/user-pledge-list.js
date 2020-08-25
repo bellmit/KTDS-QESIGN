@@ -148,13 +148,13 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             $listWrap.removeClass('list-none')
             $tbody.html(html);
             $pagination.html(pagination).show();
-            $('#total').html(totalElements);
+            $('#total').html("&nbsp;" +totalElements);
 
         } else {
             $listWrap.addClass('list-none')
             $tbody.hide();
             $pagination.html(pagination).hide();
-            $('#total').html(0);
+            $('#total').html("&nbsp;0");
         }
 
         return response; // return promise
@@ -165,6 +165,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * search form validation
      */
     function validateSearchForm(formData) {
+        console.log("validate===============>", formData);
         // search cond validation
         if (!formData.startDt) {
             global.alert('검색 시작일을 설정하세요.');
@@ -172,7 +173,11 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         } else if (!formData.endDt) {
             global.alert('검색 종료일을 설정하세요.');
             return false;
-        } else if (formData.searchType && !formData.searchKey) {
+        } else if (!formData.searchType) {
+            global.alert('검색 조건을 선택하세요.');
+            $('#searchType').focus();
+            return false;
+        } else if ((!formData.searchType || formData.searchType !== 'all') && !formData.searchKey) {
             global.alert('검색 내용을 입력하세요.');
             $('#searchKey').focus();
             return false;
@@ -271,6 +276,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
                 formData.reqDept = searchKey;
             } else if (searchType === 'reqUser') {
                 formData.reqUser = searchKey;
+            } else if (searchType === 'all') {
+                formData.pledgeName = searchKey;
+                formData.reqDept = searchKey;
+                formData.reqUser = searchKey;
             }
 
             // search form validation
@@ -296,6 +305,15 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             ACTIVE_TAB = $(e.target).attr('id'); // active tab
             getUserPledgeResultCount();
             getUserPledgeList(createFormDataObject())
+        });
+
+        // enter 조회
+        $('#searchKey').on('keypress', function(e) {
+            if (e.which === 13 || e.keyCode === 13) {
+                $('#search').trigger('click');
+                return false;
+            }
+            return true;
         });
 
     }

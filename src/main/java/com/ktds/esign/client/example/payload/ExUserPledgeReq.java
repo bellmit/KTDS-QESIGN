@@ -20,6 +20,8 @@ public class ExUserPledgeReq {
         private String pledgeType;
         // 사용자 서약 승인 진행 유형
         private String pledgeAcceptType;
+        // 검색 조건 타입
+        private String searchType;
         // 서약명
         private String pledgeName;
         // 요청부서

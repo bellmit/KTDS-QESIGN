@@ -33,15 +33,12 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
                 .where(
                         this.equalPledgeAcceptType(searchDto.getPledgeAcceptType()),
                         this.equalPledgeType(searchDto.getPledgeType()),
-                        this.containsPledgeName(searchDto.getPledgeName()),
-                        this.equalReqUser(searchDto.getReqUser()),
-                        this.equalReqDept(searchDto.getReqDept()),
+                        this.equalSearchType(searchDto),
                         this.betweenStartDtAndEndDt(searchDto.getDateType(), searchDto.getStartDt(), searchDto.getEndDt())
                 )
                 .orderBy(
                         exUserPledge.startDt.asc(),
-                        exUserPledge.id.asc()
-                        //,exUserPledge.userPledgeStatus.desc()
+                        exUserPledge.id.desc()
                 ));
     }
 
@@ -49,6 +46,23 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
     /**
      * Where Clause
      */
+    // 선택 조건 검색 :searchType 값이 있으면 검색 조건 값이 있음
+    private BooleanExpression equalSearchType(SearchDto searchDto) {
+        if ("pledgeName".equals(searchDto.getSearchType())) {
+            return this.containsPledgeName(searchDto.getPledgeName());
+        } else if ("reqDept".equals(searchDto.getSearchType())) {
+            return this.containsReqDept(searchDto.getReqDept());
+        } else if ("reqUser".equals(searchDto.getSearchType())) {
+            return this.containsReqUser(searchDto.getReqUser());
+        } else if ("all".equals(searchDto.getSearchType())) {
+            return exUserPledge.pledgeName.contains(searchDto.getPledgeName())
+                    .or(exUserPledge.reqUser.contains(searchDto.getReqUser()))
+                    .or(exUserPledge.reqDept.contains(searchDto.getReqDept()));
+        } else {
+            return null;
+        }
+    }
+
     // 서약 유형
     private BooleanExpression equalPledgeType(String pledgeType) {
         return StringUtils.hasText(pledgeType) ? exUserPledge.pledgeType.eq(PledgeType.getTypeFromCode(pledgeType)) : null;
@@ -67,13 +81,13 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
     }
 
     // 요청자
-    private BooleanExpression equalReqUser(String reqUser) {
-        return StringUtils.hasText(reqUser) ? exUserPledge.reqUser.eq(reqUser) : null;
+    private BooleanExpression containsReqUser(String reqUser) {
+        return StringUtils.hasText(reqUser) ? exUserPledge.reqUser.contains(reqUser) : null;
     }
 
     // 요청부서
-    private BooleanExpression equalReqDept(String reqDept) {
-        return StringUtils.hasText(reqDept) ? exUserPledge.reqDept.eq(reqDept) : null;
+    private BooleanExpression containsReqDept(String reqDept) {
+        return StringUtils.hasText(reqDept) ? exUserPledge.reqDept.contains(reqDept) : null;
     }
 
     // 날짜 조건 검색 between
