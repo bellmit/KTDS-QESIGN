@@ -1,11 +1,9 @@
 package com.ktds.esign.client.example.controller;
 
-import com.ktds.esign.client.example.payload.ExUserPledgeReq;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq.CreateDto;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq.SearchDto;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq.UpdateDto;
-import com.ktds.esign.client.example.payload.ExUserPledgeRes;
-import com.ktds.esign.client.example.payload.ExUserPledgeRes.ExUserPledgeDto;
+import com.ktds.esign.client.example.payload.ExUserPledgeRes.FindDto;
 import com.ktds.esign.client.example.service.ExPledgeService;
 import com.ktds.esign.code.service.CodeService;
 import com.ktds.esign.common.exception.ResourceNotFoundException;
@@ -64,7 +62,7 @@ public class ExPledgeController {
      */
     @GetMapping("user/pledges/list")
     public ResponseDto<?> getUserPledgeList(SearchDto searchDto, Pageable pageable) {
-        Page<ExUserPledgeDto> page = exPledgeService.findUserPledgeList(searchDto, pageable);
+        Page<FindDto> page = exPledgeService.findUserPledgeList(searchDto, pageable);
         String paginationHtml = paginationUtil.getPagination(page);
         return ResponseDto.of(page, paginationHtml);
     }

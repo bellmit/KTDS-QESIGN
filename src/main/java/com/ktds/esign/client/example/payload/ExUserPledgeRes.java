@@ -8,21 +8,23 @@ import java.time.LocalDateTime;
 
 public class ExUserPledgeRes {
 
-    @JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
+    //@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
     @AllArgsConstructor(staticName = "of")
+    @Data
     public static class ResultCountDto implements Serializable {
         private static final long serialVersionUID = -2563365853870085478L;
-        private Long totalCount;
         private Long standbyCount;
         private Long proceedingCount;
         private Long completeCount;
     }
 
     @Data
-    public static class ExUserPledgeDto {
+    public static class FindDto {
         private Long id;
         private String pledgeAcceptType;
+        private String pledgeAcceptDesc;
         private String pledgeType;
+        private String pledgeDesc;
         private String pledgeName;
         // 서약 요청일
         private LocalDateTime startDt;

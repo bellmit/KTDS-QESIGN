@@ -132,8 +132,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
                 html += '<li>';
                 html += '<ul class="list-group list-group-horizontal" data-id="' + v['id'] + '">';
                 html += '<li class="d-inline-block w-5">' + (currentLows - i) + '</li>';
-                html += '<li class="d-inline-block w-10 font-blue">' + getDescFromAcceptCode(v['pledgeAcceptType']) + '</li>';
-                html += '<li class="d-inline-block w-10">' + getDescFromCode(v['pledgeType']) + '</li>';
+                //html += '<li class="d-inline-block w-10 font-blue">' + getDescFromAcceptCode(v['pledgeAcceptType']) + '</li>';
+                html += '<li class="d-inline-block w-10 font-blue">' + v['pledgeAcceptDesc'] + '</li>';
+                //html += '<li class="d-inline-block w-10">' + getDescFromCode(v['pledgeType']) + '</li>';
+                html += '<li class="d-inline-block w-10">' + v['pledgeDesc'] + '</li>';
                 html += '<li class="d-inline-block w-30 text-left pledge-name">';
                 html += '<a class="text-truncate" href="javascript:;">' + v['pledgeName'] + '</a>';
                 html += '</li>';

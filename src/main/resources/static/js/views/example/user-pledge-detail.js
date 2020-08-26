@@ -82,7 +82,8 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
                 .build()
             ).done(function (response) { // 추가 작업 시 사용
                 console.log("update end====>", response);
-                global.alert("사용자 서약 정보가 수정되었습니다.");
+                global.alert("서약 정보가 수정되었습니다.");
+                global.location.href = CTX + 'example/user/pledges'; // 목록으로 이동
             });
         });
         
@@ -92,8 +93,8 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             $.ajaxRest($.reqDel(CTX + 'example/user/pledges/detail/' + userPledgeId)
                 .build()
             ).done(function (response) { // 추가 작업 시 사용
-                console.log("update end====>", response);
-                global.alert("사용자 서약 정보가 삭제되었습니다.");
+                console.log("delete end====>", response);
+                global.alert("서약 정보가 삭제되었습니다.");
                 global.location.href = CTX + 'example/user/pledges'; // 목록으로 이동
             });
         });

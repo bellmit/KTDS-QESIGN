@@ -14,16 +14,27 @@ import org.springframework.stereotype.Component;
 @RootEnumMapper
 public class EnumFormatter {
 
-    @PledgeProgTypeMapper // String(code) -> Enum(type)
+    /**
+     * enum: PledgeAcceptType
+     */
+    @PledgeAcceptTypeMapper // String(code) -> Enum(type)
     public static PledgeAcceptType getPledgeAcceptType(String code) {
         return PledgeAcceptType.getTypeFromCode(code);
     }
 
-    @PledgeProgCodeMapper // Enum(type) -> String(code)
+    @PledgeAcceptCodeMapper // Enum(type) -> String(code)
     public static String getPledgeAcceptCode(PledgeAcceptType type) {
         return PledgeAcceptType.getCodeFromType(type);
     }
 
+    @PledgeAcceptDescMapper // Enum(type) -> String(desc)
+    public static String getPledgeAcceptDesc(PledgeAcceptType type) {
+        return PledgeAcceptType.getDescFromType(type);
+    }
+
+    /**
+     * enum: PledgeProgType
+     */
     @PledgeProgTypeMapper // String(code) -> Enum(type)
     public static PledgeProgType getPledgeProgType(String code) {
         return PledgeProgType.getTypeFromCode(code);
@@ -34,6 +45,14 @@ public class EnumFormatter {
         return PledgeProgType.getCodeFromType(type);
     }
 
+    @PledgeProgDescMapper // Enum(type) -> String(code)
+    public static String getPledgeProgDesc(PledgeProgType type) {
+        return PledgeProgType.getDescFromType(type);
+    }
+
+    /**
+     * enum: PledgeType
+     */
     @PledgeTypeMapper // String(code) -> Enum(type)
     public static PledgeType getPledgeType(String code) {
         return PledgeType.getTypeFromCode(code);
@@ -42,6 +61,11 @@ public class EnumFormatter {
     @PledgeCodeMapper // Enum(type) -> String(code)
     public static String getPledgeCode(PledgeType type) {
         return PledgeType.getCodeFromType(type);
+    }
+
+    @PledgeDescMapper // Enum(type) -> String(code)
+    public static String getPledgeDesc(PledgeType type) {
+        return PledgeType.getDescFromType(type);
     }
 
 }

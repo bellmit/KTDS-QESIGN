@@ -56,25 +56,25 @@ public class PaginationUtil {
             if (pageNo == 1) {
                 // 맨앞[<<]
                 paginationHtml.append("<li class=\"page-item\">");
-                paginationHtml.append("<a class=\"page-link page-prev first\" href=\"#\" aria-label=\"Previous\" title=\"맨앞\" data-page=\"0\"></a>");
+                paginationHtml.append("<a class=\"page-link page-prev first\" href=\"javascript:;\" aria-label=\"Previous\" title=\"맨앞\" data-page=\"0\"></a>");
                 paginationHtml.append("</li>");
                 // 앞[<]
                 paginationHtml.append("<li class=\"page-item\">");
-                paginationHtml.append("<a class=\"page-link page-prev\" href=\"#\" aria-label=\"Previous\" title=\"앞\" data-page=\"");
+                paginationHtml.append("<a class=\"page-link page-prev\" href=\"javascript:;\" aria-label=\"Previous\" title=\"앞\" data-page=\"");
                 paginationHtml.append(goPrev -1);
                 paginationHtml.append("\"></a>");
                 paginationHtml.append("</li>");
             } else {
                 // 맨앞[<<]
                 paginationHtml.append("<li class=\"page-item\">");
-                paginationHtml.append("<a class=\"page-link page-prev first\" href=\"#\" aria-label=\"Previous\" title=\"맨앞\" data-page=\"0\" ");
+                paginationHtml.append("<a class=\"page-link page-prev first\" href=\"javascript:;\" aria-label=\"Previous\" title=\"맨앞\" data-page=\"0\" ");
                 paginationHtml.append("onclick=");
                 paginationHtml.append(module);
                 paginationHtml.append(".pageMove(0);return false;\"></a>");
                 paginationHtml.append("</li>");
                 // 앞[<]
                 paginationHtml.append("<li class=\"page-item\">");
-                paginationHtml.append("<a class=\"page-link page-prev\" href=\"#\" aria-label=\"Previous\" title=\"앞\" data-page=\"");
+                paginationHtml.append("<a class=\"page-link page-prev\" href=\"javascript:;\" aria-label=\"Previous\" title=\"앞\" data-page=\"");
                 paginationHtml.append(goPrev - 1); // backend 0 base
                 paginationHtml.append("\" onclick=\"");
                 paginationHtml.append(module);
@@ -88,7 +88,7 @@ public class PaginationUtil {
             for (int pageIndex = prev; pageIndex <= next; pageIndex ++) {
                 if (pageIndex == pageNo) {
                     paginationHtml.append("<li class=\"page-item active\">");
-                    paginationHtml.append("<a class=\"page-link\" href=\"#\">");
+                    paginationHtml.append("<a class=\"page-link\" href=\"javascript:;\">");
                     paginationHtml.append(pageIndex);
                     paginationHtml.append("</a>");
                     paginationHtml.append("</li>");
@@ -111,20 +111,20 @@ public class PaginationUtil {
             if (pageNo == totalPage) {
                 // 뒤[<]
                 paginationHtml.append("<li class=\"page-item\">");
-                paginationHtml.append("<a class=\"page-link page-next\" href=\"#\" aria-label=\"Next\" title=\"뒤\" data-page=\"");
+                paginationHtml.append("<a class=\"page-link page-next\" href=\"javascript:;\" aria-label=\"Next\" title=\"뒤\" data-page=\"");
                 paginationHtml.append(goNext - 1);
                 paginationHtml.append("\"></a>");
                 paginationHtml.append("</li>");
                 // 맨뒤[<<]
                 paginationHtml.append("<li class=\"page-item\">");
-                paginationHtml.append("<a class=\"page-link page-next last\" href=\"#\" aria-label=\"Next\" title=\"맨뒤\" data-page=\"");
+                paginationHtml.append("<a class=\"page-link page-next last\" href=\"javascript:;\" aria-label=\"Next\" title=\"맨뒤\" data-page=\"");
                 paginationHtml.append(totalPage - 1);
                 paginationHtml.append("\"></a>");
                 paginationHtml.append("</li>");
             } else {
                 // 뒤[<]
                 paginationHtml.append("<li class=\"page-item\">");
-                paginationHtml.append("<a class=\"page-link page-next\" href=\"#\" aria-label=\"Next\" title=\"뒤\" data-page=\"");
+                paginationHtml.append("<a class=\"page-link page-next\" href=\"javascript:;\" aria-label=\"Next\" title=\"뒤\" data-page=\"");
                 paginationHtml.append(goNext - 1); // backend 0 base
                 paginationHtml.append("\" onclick=\"");
                 paginationHtml.append(module);
@@ -134,7 +134,7 @@ public class PaginationUtil {
                 paginationHtml.append("</li>");
                 // 맨뒤[<<]
                 paginationHtml.append("<li class=\"page-item\">");
-                paginationHtml.append("<a class=\"page-link page-next last\" href=\"#\" aria-label=\"Next\" title=\"맨뒤\" data-page=\"");
+                paginationHtml.append("<a class=\"page-link page-next last\" href=\"javascript:;\" aria-label=\"Next\" title=\"맨뒤\" data-page=\"");
                 paginationHtml.append(totalPage - 1); // backend 0 base
                 paginationHtml.append("\" onclick=\"");
                 paginationHtml.append(module);

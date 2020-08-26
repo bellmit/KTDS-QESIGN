@@ -3,7 +3,7 @@ package com.ktds.esign.client.example;
 import com.ktds.esign.client.example.domain.ExUserPledge;
 import com.ktds.esign.client.example.mapper.UserPledgeMapper;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq;
-import com.ktds.esign.client.example.payload.ExUserPledgeRes.ExUserPledgeDto;
+import com.ktds.esign.client.example.payload.ExUserPledgeRes;
 import com.ktds.esign.client.example.repository.ExPledgeRepository;
 import com.ktds.esign.common.enums.PledgeType;
 import com.ktds.esign.common.enums.PledgeAcceptType;
@@ -67,11 +67,11 @@ class EnumRepoTest {
         assertThat(exUserPledge).isNotNull();
         assertThat(exUserPledge.getPledgeAcceptType()).isEqualTo(PledgeAcceptType.COMPLETE);
 
-        ExUserPledgeDto exUserPledgeDto = userPledgeMapper.toDto(exUserPledge);
-        log.info("@mapping.dto=================>{}", exUserPledgeDto);
-        assertThat(exUserPledgeDto).isNotNull();
-        assertThat(exUserPledgeDto.getPledgeAcceptType()).isEqualTo("COMPLETE");
-        assertThat(exUserPledgeDto.getPledgeType()).isEqualTo("HTML");
+        ExUserPledgeRes.FindDto findDto = userPledgeMapper.toDto(exUserPledge);
+        log.info("@mapping.dto=================>{}", findDto);
+        assertThat(findDto).isNotNull();
+        assertThat(findDto.getPledgeAcceptType()).isEqualTo("COMPLETE");
+        assertThat(findDto.getPledgeType()).isEqualTo("HTML");
     }
 
 }
