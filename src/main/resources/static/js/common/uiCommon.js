@@ -31,8 +31,10 @@ const moduleUI = (function(global, $, _, thisPage) {
 
         // GNB mouseover event
         $('.main-menu > li, .sub-menu').hover(function() {
+            $(this).addClass('on');
             $('.sub-menu').show();
         }, function() {
+            $(this).removeClass('on');
             $('.sub-menu').hide();
         });
 

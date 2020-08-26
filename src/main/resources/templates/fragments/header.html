@@ -11,30 +11,30 @@
         <div class="gnb-wrap">
             <ul class="main-menu">
                 <!-- li .on 추가시 mouseover와 같은상태 -->
-                <li class="on"><span>내가 받은 서약</span></li>
-                <li><span>양식 관리</span></li>
-                <li><span>서약 관리</span></li>
+                <li class="on"><span th:text="#{header.title1}">aaa</span></li>
+                <li><span th:text="#{header.title2}">양식 관리</span></li>
+                <li><span th:text="#{header.title3}">서약 관리</span></li>
             </ul>
             <div class="sub-menu">
                 <div class="sub-menu-inner">
                     <ul>
                         <!-- a .on 추가시 mouseover와 같은상태 -->
-                        <li><a href="">요청 받은 서약</a></li>
-                        <li class="on"><a href="">진행 중 서약</a></li>
-                        <li><a href="">완료된 서약</a></li>
+                        <li><a href="" th:text="#{header.title1.menu1}">요청 받은 서약</a></li>
+                        <li class="on" th:text="#{header.title1.menu2}"><a href="">진행 중 서약</a></li>
+                        <li><a href="" th:text="#{header.title1.menu3}">완료된 서약</a></li>
                     </ul>
                     <ul>
-                        <li><a href="">양식 조회</a></li>
-                        <li><a href="">개인 양식 등록</a></li>
+                        <li><a href="" th:text="#{header.title2.menu1}">양식 조회</a></li>
+                        <li><a href="" th:text="#{header.title2.menu2}">개인 양식 등록</a></li>
                     </ul>
                     <ul>
-                        <li><a href="">서약 조회</a></li>
-                        <li><a href="">서약 업무 만들기</a></li>
+                        <li><a href="" th:text="#{header.title3.menu1}">서약 조회</a></li>
+                        <li><a href="" th:text="#{header.title3.menu2}">서약 업무 만들기</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <button type="button" class="btn-setting">
+        <button type="button" class="btn-setting" th:text="#{header.title4}">
             <span class="icon-area"></span>
             개인설정
         </button>
