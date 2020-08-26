@@ -1,16 +1,15 @@
 package com.ktds.esign.client.example.payload;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class ExUserPledgeRes {
 
-    //@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.ANY)
-    @AllArgsConstructor(staticName = "of")
     @Data
+    @AllArgsConstructor(staticName = "of")
     public static class ResultCountDto implements Serializable {
         private static final long serialVersionUID = -2563365853870085478L;
         private Long standbyCount;
