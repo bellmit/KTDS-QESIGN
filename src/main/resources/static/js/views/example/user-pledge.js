@@ -135,6 +135,7 @@ const module = (function (global, $, _, moment, thisPage) {
             ).done(function (response) { // 추가 작업 시 사용
                 console.log("create end====>", response);
                 global.alert("사용자 서약 정보가 생성되었습니다.");
+                global.location.href = CTX + 'example/user/pledges'; // 목록으로 이동
             });
         });
 
@@ -152,7 +153,7 @@ const module = (function (global, $, _, moment, thisPage) {
      * @ DOM Ready 실행
      **************************************************************************/
     $(function () {
-        moduleEventHandlers();
+        moduleEventHandlers(); // always first
         moduleInitializr();
     });
 

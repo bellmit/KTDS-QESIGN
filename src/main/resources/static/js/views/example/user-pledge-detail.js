@@ -32,7 +32,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         $("#pledgeType").html(typeSelectHtml).selectpicker('refresh');
     }
 
-    
+
     // 서약 상세 조회
     function getUserPledgeDetail() {
         $.ajaxRest($.reqGet(CTX + 'example/user/pledges/detail/' + userPledgeId)
@@ -48,10 +48,13 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         console.log("response============>", response);
         const content = response['data'];
         $('#pledgeName').val(content['pledgeName']);
-        $('#startDt').val($.dateFormat(content['startDt'], 'D'));
         $('#reqDept').val(content['reqDept']);
         $('#reqUser').val(content['reqUser']);
-        $('#endDt').val($.dateFormat(content['endDt'], 'D'));
+
+        // $('#startDt').val($.dateFormat(content['startDt'], 'D'));
+        // $('#endDt').val($.dateFormat(content['endDt'], 'D'));
+        $('#date-start').datepicker('update', moment(content['startDt'], 'YYYY-MM-DD[T]HH:mm:ss').toDate());
+        $('#date-end').datepicker('update', moment(content['endDt'], 'YYYY-MM-DD[T]HH:mm:ss').toDate());
 
         // set selectbox value by ajax value
         $('#pledgeAcceptType option[value='+ content['pledgeAcceptType'] +']').prop('selected', true);
@@ -68,6 +71,39 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * @ jquery 이벤트 등록
      **************************************************************************/
     function moduleEventHandlers() {
+
+        /**
+         * Datepicker ####################################################################
+         */
+        // start date
+        $('#date-start').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'ko',
+            autoclose: true,
+            todayHighlight: true,
+        })
+            .on('changeDate', function (selected) {
+                let minDate = new Date(selected.date.valueOf());
+                $('#date-end').datepicker('setStartDate', minDate);
+            });
+
+        // end date
+        $('#date-end').datepicker({
+            format: 'yyyy-mm-dd',
+            language: 'ko',
+            autoclose: true,
+            todayHighlight: true,
+        })
+            .on('changeDate', function (selected) {
+                let minDate = new Date(selected.date.valueOf());
+                $('#date-start').datepicker('setEndDate', minDate);
+            });
+
+        $('#date-start, #date-end').datepicker('setDate', new Date());
+        /**
+         * Datepicker ####################################################################
+         */
+
 
         // 수정 이벤트(reqPut): pathvariable로 id와 수정할 formData 넘겨줄것
         $('#update').on('click', function(e) {
@@ -86,7 +122,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
                 global.location.href = CTX + 'example/user/pledges'; // 목록으로 이동
             });
         });
-        
+
         // 삭제 이벤트(reqDel): pathvariable로 id를 넘겨줄 것
         $('#delete').on('click', function(e) {
             e.preventDefault();
@@ -114,7 +150,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * @ DOM Ready 실행
      **************************************************************************/
     $(function () {
-        moduleEventHandlers();
+        moduleEventHandlers(); // always first
         moduleInitializr();
     });
 
@@ -124,6 +160,5 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     return {
 
     };
-
 
 })(window, jQuery, _, moment, moduleUI, thisPage);

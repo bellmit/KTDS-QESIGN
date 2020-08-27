@@ -56,8 +56,9 @@
                 <input type="pledgeName" class="form-control" id="pledgeName" placeholder="서약 업무명">
             </div>
             <div class="form-group">
-                <label for="startDt">요청일</label>
-                <input type="startDt" class="form-control" id="startDt" placeholder="요청일" readonly>
+                <label class="radio-custom" for="date-start">요청일</label>
+                <input type="text" id="date-start" class="form-control datepicker-input">
+                <span class="icon-area"></span>
             </div>
             <div class="form-group">
                 <label for="reqDept">요청부서</label>
@@ -68,8 +69,9 @@
                 <input type="reqUser" class="form-control" id="reqUser" placeholder="요청자" readonly>
             </div>
             <div class="form-group">
-                <label for="endDt">마감일</label>
-                <input type="endDt" class="form-control" id="endDt" placeholder="마감일" readonly>
+                <label class="radio-custom" for="date-end">마감일</label>
+                <input type="text" id="date-end" class="form-control datepicker-input">
+                <span class="icon-area"></span>
             </div>
             <button type="button" id="update" class="btn btn-primary">수정</button>
             <button type="button" id="delete" class="btn btn-danger">삭제</button>

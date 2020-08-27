@@ -334,7 +334,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * @ DOM Ready 실행
      **************************************************************************/
     $(function () {
-        moduleEventHandlers();
+        moduleEventHandlers(); // always first
         moduleInitializr();
     });
 
