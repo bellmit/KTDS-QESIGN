@@ -36,6 +36,8 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     function renderCodeSelector() {
         const selectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PLEDGE_TYPE");
         $("#pledgeType").html(selectHtml).selectpicker('refresh');
+        // $("#pledgeType").val("VIDEO");
+        // $("#pledgeType").selectpicker('refresh');
     }
 
     /**
