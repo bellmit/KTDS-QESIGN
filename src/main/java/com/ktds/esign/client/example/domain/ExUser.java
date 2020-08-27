@@ -4,38 +4,48 @@ import com.ktds.esign.common.audit.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Builder
 @Getter
-@ToString(exclude = {"department"})
-@EqualsAndHashCode(callSuper = false, of = {"id", "empNo", "email"})
+@ToString(exclude = {"company"})
+@EqualsAndHashCode(callSuper = false, of = "userId")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "example_user",
-        uniqueConstraints =
-        @UniqueConstraint(name = "ex_user_unique", columnNames = {"empNo", "email"})
-)
+@Table(name = "example_user")
 public class ExUser extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "user_id", length = 75)
+    private String userId;
 
-    @Column(length = 75, nullable = false)
+    @Column(length = 75, nullable = false, unique = true)
     private String empNo;
 
     @Column(length = 75, nullable = false)
     private String empName;
 
-    @Column(length = 75)
+    @Column(length = 75, nullable = false, unique = true)
     private String email;
 
     @Column(length = 75)
     private String phone;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dept_id", foreignKey = @ForeignKey(name = "fk_ex_user_dept_id"))
-    private ExDepartment department;
+    @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_ex_user_cmpn_id"))
+    private ExCompany company;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private final List<ExUserNoti> userNotis = new ArrayList<>();
+
+    // utility method
+    public void addUserNoti(ExUserNoti userNoti) {
+        this.userNotis.add(userNoti);
+        if (userNoti.getUser() != this) {
+            userNoti.changeUser(this);
+        }
+    }
 
 }

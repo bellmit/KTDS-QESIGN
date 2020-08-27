@@ -10,38 +10,38 @@ import java.util.Optional;
 
 @Getter
 @AllArgsConstructor
-public enum NotiType implements IEnum<String> {
-    SMS("SMS", "SMS"),
-    EMAIL("EMAIL", "EMAIL"),
-    PUSH("SMS", "SMS");
+public enum DirectionType implements IEnum<String> {
+    SEND("SEND", "SEND"),
+    RECEIVE("RECEIVE", "RECEIVE");
 
 
     private String code; // db_code
     private String Desc; // db_description
 
     // code -> ENUM TYPE
-    public static NotiType getTypeFromCode(String code) {
+    public static DirectionType getTypeFromCode(String code) {
         return Arrays.stream(values()).filter(e -> e.getCode().equals(code)).findAny().orElseThrow(IllegalArgumentException::new);
     }
 
     // desc -> ENUM TYPE
-    public static NotiType getTypeFromDesc(String desc) {
+    public static DirectionType getTypeFromDesc(String desc) {
         return Arrays.stream(values()).filter(e -> e.getDesc().equals(desc)).findAny().orElseThrow(IllegalArgumentException::new);
     }
 
     // ENUM TYPE -> code
-    public static String getCodeFromType(NotiType type) {
+    public static String getCodeFromType(DirectionType type) {
         return Optional.ofNullable(type).isPresent() ? type.getCode() : null;
     }
 
     // ENUM TYPE -> desc
-    public static String getDescFromType(NotiType type) {
+    public static String getDescFromType(DirectionType type) {
         return Optional.ofNullable(type).isPresent() ? type.getDesc() : null;
     }
 
-    public static class Converter extends EnumConverter<NotiType, String> {
+    public static class Converter extends EnumConverter<DirectionType, String> {
         public Converter() {
-            super(NotiType.class);
+            super(DirectionType.class);
         }
     }
 }
+

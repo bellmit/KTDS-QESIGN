@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default_layout">
+<!--
+#####################################################################################################
+#    @author  stoneberg
+#    @since   2020. 08. 25.
+#    @version 1.0.0
+#    @Description : user-tool
+#####################################################################################################
+-->
+
+<!-- page title -->
+<th:block layout:fragment="title">
+    <title>개인 설정</title>
+</th:block>
+
+<!-- custom css -->
+<th:block layout:fragment="css">
+    <style th:inline="text">
+    </style>
+</th:block>
+
+<!-- custom top js -->
+<th:block layout:fragment="topScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let thisPage = {};
+        thisPage['ctxPath'] = /*[[@{/}]]*/ '/';
+        thisPage['commonCode'] = /*[[${commonCode}]]*/ '';
+        console.log("thisPage", thisPage);
+        /*]]>*/
+    </script>
+</th:block>
+
+<!-- Contents div -->
+<div id="contents" layout:fragment="contents">
+    <div class="card-body">
+        <label>Select Notification Type For Message Send </label>
+        <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="send" value="SMS" id="sms1">
+                <label class="custom-control-label" for="sms1">SMS</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="send" value="EMAIL" id="email1">
+                <label class="custom-control-label" for="email1">EMAIL</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="send" value="PUSH" id="push1">
+                <label class="custom-control-label" for="push1">PUSH</label>
+            </div>
+        </div>
+        <hr>
+        <label>Select Notification Type For Message Receive </label>
+        <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="receive" value="SMS" id="sms2">
+                <label class="custom-control-label" for="sms2">SMS</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="receive" value="EMAIL" id="email2">
+                <label class="custom-control-label" for="email2">EMAIL</label>
+            </div>
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" name="receive" value="PUSH" id="push2">
+                <label class="custom-control-label" for="push2">PUSH</label>
+            </div>
+        </div>
+        <br/>
+        <div class="form-group">
+            <div class="col-12">
+                <button type="button" id="save" class="btn btn-primary">SAVE</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end Contents div -->
+
+<!-- custom bottom js -->
+<th:block layout:fragment="bottomScript">
+    <script type="text/javascript" th:src="@{/js/views/example/person-tool.js}"></script>
+</th:block>
+
+</html>
