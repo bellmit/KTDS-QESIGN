@@ -18,7 +18,6 @@ import lombok.extern.slf4j.Slf4j;
 
 /**
  * RequestBody JSON XSS Filter Wrapper
- * @author Lee Yu Pyeong
  */
 @Slf4j
 public class RequestBodyWrapper extends HttpServletRequestWrapper {

@@ -17,8 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 
 /**
- * RequestBody JSON XSS Filter
- * @author Lee Yu Pyeong
+ * RequestBody JSON XSS Filtergi
  */
 @Slf4j
 public class RequestBodyFilter implements Filter {
