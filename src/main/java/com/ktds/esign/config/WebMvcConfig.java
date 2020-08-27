@@ -96,13 +96,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
     /**
      * RequestBody XSS Filter(JSON RequestBody)
      */
-//    @Bean
-//    public FilterRegistrationBean<RequestBodyFilter> xssEscapeRequestBodyFilter(){
-//        FilterRegistrationBean<RequestBodyFilter> registrationBean = new FilterRegistrationBean<>();
-//        registrationBean.setFilter(new RequestBodyFilter());
-//        registrationBean.setOrder(2);
-//        registrationBean.addUrlPatterns("/*");
-//        return registrationBean;
-//    }
+    @Bean
+    public FilterRegistrationBean<RequestBodyFilter> xssEscapeRequestBodyFilter(){
+        FilterRegistrationBean<RequestBodyFilter> registrationBean = new FilterRegistrationBean<>();
+        registrationBean.setFilter(new RequestBodyFilter());
+        registrationBean.setOrder(2);
+        registrationBean.addUrlPatterns("/*");
+        return registrationBean;
+    }
 
 }

@@ -1,6 +1,9 @@
 package com.ktds.esign.common.filters;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -19,6 +22,10 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 public class RequestBodyFilter implements Filter {
+
+    private static final List<String> SKIP_URLS = Collections.unmodifiableList(Arrays.asList(
+            "/editor/save"
+    ));
     
     @Override
     public void destroy() {
@@ -28,20 +35,22 @@ public class RequestBodyFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         
-        //boolean isAjax = isAjaxRequest((HttpServletRequest) request);
         boolean isJson = isJsonContentType(request);
+        String path = ((HttpServletRequest) request).getRequestURI();
 
         try {
-            if (isJson) {
-                RequestBodyWrapper reqWrapper = new RequestBodyWrapper((HttpServletRequest) request);
-                chain.doFilter(reqWrapper, response);
-            } else {
-                chain.doFilter(request, response);
+            for (String skipUrl : SKIP_URLS) {
+                if (!path.contains(skipUrl) && isJson) {
+                    RequestBodyWrapper reqWrapper = new RequestBodyWrapper((HttpServletRequest) request);
+                    chain.doFilter(reqWrapper, response);
+                } else {
+                    chain.doFilter(request, response);
+                }
             }
         } catch (IOException e) {
             chain.doFilter(request, response);
         }
-        
+
     }
     
     @Override
