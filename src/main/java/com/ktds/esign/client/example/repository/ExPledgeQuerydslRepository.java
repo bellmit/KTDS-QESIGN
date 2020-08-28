@@ -2,8 +2,8 @@ package com.ktds.esign.client.example.repository;
 
 import com.ktds.esign.client.example.domain.ExUserPledge;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq.SearchDto;
-import com.ktds.esign.common.enums.PledgeAcceptType;
-import com.ktds.esign.common.enums.PledgeType;
+import com.ktds.esign.common.enums.ContentsType;
+import com.ktds.esign.common.enums.ProgsSttusType;
 import com.ktds.esign.common.querydsl.Querydsl4RepositorySupport;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import org.springframework.data.domain.Page;
@@ -31,8 +31,8 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
         return applyPagination(pageable, contentQuery -> contentQuery
                 .selectFrom(exUserPledge)
                 .where(
-                        this.equalPledgeAcceptType(searchDto.getPledgeAcceptType()),
-                        this.equalPledgeType(searchDto.getPledgeType()),
+                        this.equalPledgeAcceptType(searchDto.getProgsSttusType()),
+                        this.equalPledgeType(searchDto.getContentsType()),
                         this.equalSearchType(searchDto),
                         this.betweenStartDtAndEndDt(searchDto.getDateType(), searchDto.getStartDt(), searchDto.getEndDt())
                 )
@@ -65,14 +65,14 @@ public class ExPledgeQuerydslRepository extends Querydsl4RepositorySupport {
 
     // 서약 유형
     private BooleanExpression equalPledgeType(String pledgeType) {
-        return StringUtils.hasText(pledgeType) ? exUserPledge.pledgeType.eq(PledgeType.getTypeFromCode(pledgeType)) : null;
+        return StringUtils.hasText(pledgeType) ? exUserPledge.contentsType.eq(ContentsType.getTypeFromCode(pledgeType)) : null;
     }
 
     // 사용자 서약 승인(accept) 진행 유형
     private BooleanExpression equalPledgeAcceptType(String pledgeAcceptType) {
         return StringUtils.hasText(pledgeAcceptType) ?
-                exUserPledge.pledgeAcceptType.eq(PledgeAcceptType.getTypeFromCode(pledgeAcceptType))
-                : exUserPledge.pledgeAcceptType.eq(PledgeAcceptType.getTypeFromCode("PROCEEDING"));
+                exUserPledge.progsSttusType.eq(ProgsSttusType.getTypeFromCode(pledgeAcceptType))
+                : exUserPledge.progsSttusType.eq(ProgsSttusType.getTypeFromCode("ONGOING"));
     }
 
     // 서약 명

@@ -1,71 +1,142 @@
 package com.ktds.esign.common.enums.formatter;
 
 import com.ktds.esign.common.annos.enums.*;
-import com.ktds.esign.common.enums.PledgeProgType;
-import com.ktds.esign.common.enums.PledgeType;
-import com.ktds.esign.common.enums.PledgeAcceptType;
+import com.ktds.esign.common.enums.*;
 import org.springframework.stereotype.Component;
 
 /**
  * DTO to Entity Enum Type Mapping
  * Entity to DTO Enum Code Mapping
+ * Use these in mapstruct class when ENUM String does not equal to database code exactly!
  */
 @Component
 @RootEnumMapper
 public class EnumFormatter {
 
     /**
-     * enum: PledgeAcceptType
+     * enum: FormType
      */
-    @PledgeAcceptTypeMapper // String(code) -> Enum(type)
-    public static PledgeAcceptType getPledgeAcceptType(String code) {
-        return PledgeAcceptType.getTypeFromCode(code);
+    @FormTypeMapper // String(code) -> Enum(type)
+    public static FormType getFormTypeFromCode(String code) {
+        return FormType.getTypeFromCode(code);
     }
 
-    @PledgeAcceptCodeMapper // Enum(type) -> String(code)
-    public static String getPledgeAcceptCode(PledgeAcceptType type) {
-        return PledgeAcceptType.getCodeFromType(type);
+    @FormCodeMapper // Enum(type) -> String(code)
+    public static String getFormCodeFromType(FormType type) {
+        return FormType.getCodeFromType(type);
     }
 
-    @PledgeAcceptDescMapper // Enum(type) -> String(desc)
-    public static String getPledgeAcceptDesc(PledgeAcceptType type) {
-        return PledgeAcceptType.getDescFromType(type);
+    @FormDescMapper // Enum(type) -> String(desc)
+    public static String getFormDescFromType(FormType type) {
+        return FormType.getDescFromType(type);
     }
 
     /**
-     * enum: PledgeProgType
+     * enum: ContentsType
      */
-    @PledgeProgTypeMapper // String(code) -> Enum(type)
-    public static PledgeProgType getPledgeProgType(String code) {
-        return PledgeProgType.getTypeFromCode(code);
+    @ContentsTypeMapper // String(code) -> Enum(type)
+    public static ContentsType getContentsTypeFromCode(String code) {
+        return ContentsType.getTypeFromCode(code);
     }
 
-    @PledgeProgCodeMapper // Enum(type) -> String(code)
-    public static String getPledgeProgCode(PledgeProgType type) {
-        return PledgeProgType.getCodeFromType(type);
+    @ContentsCodeMapper // Enum(type) -> String(code)
+    public static String getContentsCodeFromType(ContentsType type) {
+        return ContentsType.getCodeFromType(type);
     }
 
-    @PledgeProgDescMapper // Enum(type) -> String(code)
-    public static String getPledgeProgDesc(PledgeProgType type) {
-        return PledgeProgType.getDescFromType(type);
+    @ContentsDescMapper // Enum(type) -> String(desc)
+    public static String getContentsDescFromType(ContentsType type) {
+        return ContentsType.getDescFromType(type);
     }
 
     /**
-     * enum: PledgeType
+     * enum: NotiType
      */
-    @PledgeTypeMapper // String(code) -> Enum(type)
-    public static PledgeType getPledgeType(String code) {
-        return PledgeType.getTypeFromCode(code);
+    @NotiTypeMapper // String(code) -> Enum(type)
+    public static NotiType getNotiTypeFromCode(String code) {
+        return NotiType.getTypeFromCode(code);
     }
 
-    @PledgeCodeMapper // Enum(type) -> String(code)
-    public static String getPledgeCode(PledgeType type) {
-        return PledgeType.getCodeFromType(type);
+    @NotiCodeMapper // Enum(type) -> String(code)
+    public static String getNotiCodeFromType(NotiType type) {
+        return NotiType.getCodeFromType(type);
     }
 
-    @PledgeDescMapper // Enum(type) -> String(code)
-    public static String getPledgeDesc(PledgeType type) {
-        return PledgeType.getDescFromType(type);
+    @NotiDescMapper // Enum(type) -> String(desc)
+    public static String getNotiDescFromType(NotiType type) {
+        return NotiType.getDescFromType(type);
+    }
+
+    /**
+     * enum: NotiDirectType
+     */
+    @NotiDirectTypeMapper // String(code) -> Enum(type)
+    public static NotiDirectType getNotiDirectTypeFromCode(String code) {
+        return NotiDirectType.getTypeFromCode(code);
+    }
+
+    @NotiDirectCodeMapper // Enum(type) -> String(code)
+    public static String getNotiDirectCodeFromType(NotiDirectType type) {
+        return NotiDirectType.getCodeFromType(type);
+    }
+
+    @NotiDirectDescMapper // Enum(type) -> String(desc)
+    public static String getNotiDirectDescFromType(NotiDirectType type) {
+        return NotiDirectType.getDescFromType(type);
+    }
+
+    /**
+     * enum: ProgsSttusType
+     */
+    @ProgsSttusTypeMapper // String(code) -> Enum(type)
+    public static ProgsSttusType getProgsSttusTypeFromCode(String code) {
+        return ProgsSttusType.getTypeFromCode(code);
+    }
+
+    @ProgsSttusCodeMapper // Enum(type) -> String(code)
+    public static String getProgsSttusCodeFromType(ProgsSttusType type) {
+        return ProgsSttusType.getCodeFromType(type);
+    }
+
+    @ProgsSttusDescMapper // Enum(type) -> String(desc)
+    public static String getProgsSttusDescFromType(ProgsSttusType type) {
+        return ProgsSttusType.getDescFromType(type);
+    }
+
+    /**
+     * enum: RoleType
+     */
+    @RoleTypeMapper // String(code) -> Enum(type)
+    public static RoleType getRoleTypeFromCode(String code) {
+        return RoleType.getTypeFromCode(code);
+    }
+
+    @RoleCodeMapper // Enum(type) -> String(code)
+    public static String getRoleCodeFromType(RoleType type) {
+        return RoleType.getCodeFromType(type);
+    }
+
+    @RoleDescMapper // Enum(type) -> String(desc)
+    public static String getRoleDescFromType(RoleType type) {
+        return RoleType.getDescFromType(type);
+    }
+
+    /**
+     * enum: UserType
+     */
+    @UserTypeMapper // String(code) -> Enum(type)
+    public static UserType getUserTypeFromCode(String code) {
+        return UserType.getTypeFromCode(code);
+    }
+
+    @UserCodeMapper // Enum(type) -> String(code)
+    public static String getUserCodeFromType(UserType type) {
+        return UserType.getCodeFromType(type);
+    }
+
+    @UserDescMapper // Enum(type) -> String(desc)
+    public static String getUserDescFromType(UserType type) {
+        return UserType.getDescFromType(type);
     }
 
 }

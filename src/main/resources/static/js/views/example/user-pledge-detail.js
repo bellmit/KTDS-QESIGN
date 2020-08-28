@@ -14,10 +14,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     /**
      * create form data object
      */
-    function createFormDataObject(pledgeType, pledgeAcceptType, pledgeName) {
+    function createFormDataObject(contentsType, progsSttusType, pledgeName) {
         const formData = {};
-        formData.pledgeType = pledgeType || null;
-        formData.pledgeAcceptType = pledgeAcceptType || null;
+        formData.contentsType = contentsType || null;
+        formData.progsSttusType = progsSttusType || null;
         formData.pledgeName = pledgeName || null;
         return formData;
     }
@@ -26,10 +26,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * render code selector
      */
     function renderCodeSelector() {
-        const acceptTypeSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PLEDGE_ACCEPT_TYPE");
-        const typeSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PLEDGE_TYPE");
-        $("#pledgeAcceptType").html(acceptTypeSelectHtml).selectpicker('refresh');
-        $("#pledgeType").html(typeSelectHtml).selectpicker('refresh');
+        const progsSttusSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PROGS_STTUS_TYPE");
+        const contentsSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "CONTENTS_TYPE");
+        $("#progsSttusType").html(progsSttusSelectHtml).selectpicker('refresh');
+        $("#contentsType").html(contentsSelectHtml).selectpicker('refresh');
     }
 
 
@@ -57,11 +57,11 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         $('#date-end').datepicker('update', moment(content['endDt'], 'YYYY-MM-DD[T]HH:mm:ss').toDate());
 
         // set selectbox value by ajax value
-        $('#pledgeAcceptType option[value='+ content['pledgeAcceptType'] +']').prop('selected', true);
-        $('#pledgeAcceptType').selectpicker('refresh');
+        $('#progsSttusType option[value='+ content['progsSttusType'] +']').prop('selected', true);
+        $('#progsSttusType').selectpicker('refresh');
 
-        $('#pledgeType option[value='+ content['pledgeType'] +']').prop('selected', true);
-        $('#pledgeType').selectpicker('refresh');
+        $('#contentsType option[value='+ content['contentsType'] +']').prop('selected', true);
+        $('#contentsType').selectpicker('refresh');
 
         return response; // 추가 작업 시 사용
     }
@@ -108,10 +108,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         // 수정 이벤트(reqPut): pathvariable로 id와 수정할 formData 넘겨줄것
         $('#update').on('click', function(e) {
             e.preventDefault();
-            const pledgeType = $('#pledgeType').val();
-            const pledgeAcceptType = $('#pledgeAcceptType').val();
+            const contentsType = $('#contentsType').val();
+            const progsSttusType = $('#progsSttusType').val();
             const pledgeName = $('#pledgeName').val();
-            const formData = createFormDataObject(pledgeType, pledgeAcceptType, pledgeName);
+            const formData = createFormDataObject(contentsType, progsSttusType, pledgeName);
             console.log("formData=========>", formData);
             $.ajaxRest($.reqPut(CTX + 'example/user/pledges/detail/' + userPledgeId)
                 .setData(formData)
@@ -119,7 +119,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             ).done(function (response) { // 추가 작업 시 사용
                 console.log("update end====>", response);
                 global.alert("서약 정보가 수정되었습니다.");
-                global.location.href = CTX + 'example/user/pledges'; // 목록으로 이동
+                global.location.href = CTX + 'example/user/pledges/view'; // 목록으로 이동
             });
         });
 
@@ -131,7 +131,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             ).done(function (response) { // 추가 작업 시 사용
                 console.log("delete end====>", response);
                 global.alert("서약 정보가 삭제되었습니다.");
-                global.location.href = CTX + 'example/user/pledges'; // 목록으로 이동
+                global.location.href = CTX + 'example/user/pledges/view'; // 목록으로 이동
             });
         });
 

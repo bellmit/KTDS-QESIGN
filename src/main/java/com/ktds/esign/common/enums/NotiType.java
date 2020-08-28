@@ -13,11 +13,10 @@ import java.util.Optional;
 public enum NotiType implements IEnum<String> {
     SMS("SMS", "SMS"),
     EMAIL("EMAIL", "EMAIL"),
-    PUSH("SMS", "SMS");
-
+    PUSH("PUSH", "PUSH");
 
     private String code; // db_code
-    private String Desc; // db_description
+    private String desc; // db_description
 
     // code -> ENUM TYPE
     public static NotiType getTypeFromCode(String code) {

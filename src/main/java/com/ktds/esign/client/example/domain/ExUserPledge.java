@@ -1,7 +1,8 @@
 package com.ktds.esign.client.example.domain;
 
-import com.ktds.esign.common.enums.PledgeAcceptType;
-import com.ktds.esign.common.enums.PledgeType;
+import com.ktds.esign.common.audit.BaseEntity;
+import com.ktds.esign.common.enums.ContentsType;
+import com.ktds.esign.common.enums.ProgsSttusType;
 import lombok.*;
 
 import javax.persistence.*;
@@ -16,21 +17,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "example_user_pledge")
-public class ExUserPledge {
+public class ExUserPledge extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // 사용자 서약 상태
+    // 서약 진행 상태
     @Column(length = 20)
-    @Convert(converter = PledgeAcceptType.Converter.class)
-    private PledgeAcceptType pledgeAcceptType;
+    @Convert(converter = ProgsSttusType.Converter.class)
+    private ProgsSttusType progsSttusType;
 
-    // 서약 유형
+    // 양식 컨텐츠 유형(HTML, VIDEO)
     @Column(length = 20)
-    @Convert(converter = PledgeType.Converter.class)
-    private PledgeType pledgeType;
+    @Convert(converter = ContentsType.Converter.class)
+    private ContentsType contentsType;
 
     // 서약서명
     @Column(length = 60, nullable = false)

@@ -1,6 +1,6 @@
 package com.ktds.esign.client.example;
 
-import com.ktds.esign.common.enums.PledgeAcceptType;
+import com.ktds.esign.common.enums.ProgsSttusType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -21,22 +21,22 @@ class EnumMappingTest {
         /**
          * 전달된 string value로 enum type 찾기
          */
-        PledgeAcceptType type = PledgeAcceptType.getTypeFromCode("PROCEEDING");
+        ProgsSttusType type = ProgsSttusType.getTypeFromCode("PROCEEDING");
         log.info("@type=================>{}", type);
-        assertThat(type).isEqualTo(PledgeAcceptType.PROCEEDING);
+        assertThat(type).isEqualTo(ProgsSttusType.ONGOING);
 
-        PledgeAcceptType type2 = PledgeAcceptType.getTypeFromDesc("진행 중");
+        ProgsSttusType type2 = ProgsSttusType.getTypeFromDesc("진행 중");
         log.info("@type2================>{}", type2);
-        assertThat(type2).isEqualTo(PledgeAcceptType.PROCEEDING);
+        assertThat(type2).isEqualTo(ProgsSttusType.ONGOING);
 
         /**
          * enum Type으로 부터 특정 value 추출
          */
-        String code = PledgeAcceptType.getCodeFromType(PledgeAcceptType.COMPLETE);
+        String code = ProgsSttusType.getCodeFromType(ProgsSttusType.COMPLETE);
         log.info("@code=================>{}", code);
         assertThat(code).isEqualTo("COMPLETE");
 
-        String desc = PledgeAcceptType.getDescFromType(PledgeAcceptType.COMPLETE);
+        String desc = ProgsSttusType.getDescFromType(ProgsSttusType.COMPLETE);
         log.info("@desc=================>{}", desc);
         assertThat(desc).isEqualTo("완료");
     }

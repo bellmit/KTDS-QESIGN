@@ -23,14 +23,16 @@ const module = (function (global, $, _, moment, thisPage) {
     function moduleEventHandlers() {
 
         $("#save").on('click', function () {
-            const formData = [];
+
+            const formData = {};
+            formData.userNotis = [];
 
             $.each($("input[name='send']:checked"), function () {
                 console.log("send.checked====>", $(this).val());
                 const userNoti = createUserNotiObject();
                 userNoti.notiType = $(this).val();
                 userNoti.notiDirection = 'SEND';
-                formData.push(userNoti);
+                formData.userNotis.push(userNoti);
             });
 
             $.each($("input[name='receive']:checked"), function () {
@@ -38,7 +40,7 @@ const module = (function (global, $, _, moment, thisPage) {
                 const userNoti = createUserNotiObject();
                 userNoti.notiType = $(this).val();
                 userNoti.notiDirection = 'RECEIVE';
-                formData.push(userNoti);
+                formData.userNotis.push(userNoti);
             });
 
             console.log("@formData=======>", formData);
@@ -47,7 +49,6 @@ const module = (function (global, $, _, moment, thisPage) {
                 .done(function (response) {
                     console.log("save response====>", response);
                 });
-
 
         });
 

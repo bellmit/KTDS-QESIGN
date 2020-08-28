@@ -9,7 +9,7 @@ import com.ktds.esign.client.example.payload.ExUserPledgeRes;
 import com.ktds.esign.client.example.payload.ExUserPledgeRes.FindDto;
 import com.ktds.esign.client.example.repository.ExPledgeQuerydslRepository;
 import com.ktds.esign.client.example.repository.ExPledgeRepository;
-import com.ktds.esign.common.enums.PledgeAcceptType;
+import com.ktds.esign.common.enums.ProgsSttusType;
 import com.ktds.esign.common.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -43,13 +43,13 @@ public class ExPledgeService {
         Long completeCount;
 
         if (searchDto.getDateType().equals("endDt")) {
-            standbyCount = exPledgeRepository.countByPledgeAcceptTypeAndEndDtBetween(PledgeAcceptType.STANDBY, searchDto.getStartDt(), searchDto.getEndDt());
-            proceedingCount = exPledgeRepository.countByPledgeAcceptTypeAndEndDtBetween(PledgeAcceptType.PROCEEDING, searchDto.getStartDt(), searchDto.getEndDt());
-            completeCount = exPledgeRepository.countByPledgeAcceptTypeAndEndDtBetween(PledgeAcceptType.COMPLETE, searchDto.getStartDt(), searchDto.getEndDt());
+            standbyCount = exPledgeRepository.countByProgsSttusTypeAndEndDtBetween(ProgsSttusType.STANDBY, searchDto.getStartDt(), searchDto.getEndDt());
+            proceedingCount = exPledgeRepository.countByProgsSttusTypeAndEndDtBetween(ProgsSttusType.ONGOING, searchDto.getStartDt(), searchDto.getEndDt());
+            completeCount = exPledgeRepository.countByProgsSttusTypeAndEndDtBetween(ProgsSttusType.COMPLETE, searchDto.getStartDt(), searchDto.getEndDt());
         } else {
-            standbyCount = exPledgeRepository.countByPledgeAcceptTypeAndStartDtBetween(PledgeAcceptType.STANDBY, searchDto.getStartDt(), searchDto.getEndDt());
-            proceedingCount = exPledgeRepository.countByPledgeAcceptTypeAndStartDtBetween(PledgeAcceptType.PROCEEDING, searchDto.getStartDt(), searchDto.getEndDt());
-            completeCount = exPledgeRepository.countByPledgeAcceptTypeAndStartDtBetween(PledgeAcceptType.COMPLETE, searchDto.getStartDt(), searchDto.getEndDt());
+            standbyCount = exPledgeRepository.countByProgsSttusTypeAndStartDtBetween(ProgsSttusType.STANDBY, searchDto.getStartDt(), searchDto.getEndDt());
+            proceedingCount = exPledgeRepository.countByProgsSttusTypeAndStartDtBetween(ProgsSttusType.ONGOING, searchDto.getStartDt(), searchDto.getEndDt());
+            completeCount = exPledgeRepository.countByProgsSttusTypeAndStartDtBetween(ProgsSttusType.COMPLETE, searchDto.getStartDt(), searchDto.getEndDt());
         }
         return ResultCountDto.of(standbyCount, proceedingCount, completeCount);
     }

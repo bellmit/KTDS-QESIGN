@@ -9,11 +9,11 @@ public class ExUserNotiReq {
 
     @Data
     public static class CreateDto {
-        private List<UserNotiDto> userNotis = new ArrayList<>();
+        private List<ExUserNotiDto> userNotis = new ArrayList<>();
     }
 
     @Data
-    public static class UserNotiDto {
+    public static class ExUserNotiDto {
         private String notiType;
         private String notiDirection;
     }

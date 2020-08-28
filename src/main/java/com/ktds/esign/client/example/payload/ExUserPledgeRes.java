@@ -20,10 +20,10 @@ public class ExUserPledgeRes {
     @Data
     public static class FindDto {
         private Long id;
-        private String pledgeAcceptType;
-        private String pledgeAcceptDesc;
-        private String pledgeType;
-        private String pledgeDesc;
+        private String progsSttusType;
+        private String progsSttusDesc;
+        private String contentsType;
+        private String contentsDesc;
         private String pledgeName;
         // 서약 요청일
         private LocalDateTime startDt;

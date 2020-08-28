@@ -13,7 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("example/video")
 public class VideoController {
 
-    @GetMapping
+    @GetMapping("view")
     public ModelAndView video(ModelAndView mav) {
         mav.setViewName("views/example/video");
         return mav;

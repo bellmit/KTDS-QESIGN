@@ -10,37 +10,36 @@ import java.util.Optional;
 
 @Getter
 @AllArgsConstructor
-public enum DirectionType implements IEnum<String> {
-    SEND("SEND", "SEND"),
-    RECEIVE("RECEIVE", "RECEIVE");
-
+public enum NotiDirectType implements IEnum<String> {
+    SEND("SEND", "수신 메시지 설정"),
+    RECEIVE("RECEIVE", "송신 메시지 설정");
 
     private String code; // db_code
-    private String Desc; // db_description
+    private String desc; // db_description
 
     // code -> ENUM TYPE
-    public static DirectionType getTypeFromCode(String code) {
+    public static NotiDirectType getTypeFromCode(String code) {
         return Arrays.stream(values()).filter(e -> e.getCode().equals(code)).findAny().orElseThrow(IllegalArgumentException::new);
     }
 
     // desc -> ENUM TYPE
-    public static DirectionType getTypeFromDesc(String desc) {
+    public static NotiDirectType getTypeFromDesc(String desc) {
         return Arrays.stream(values()).filter(e -> e.getDesc().equals(desc)).findAny().orElseThrow(IllegalArgumentException::new);
     }
 
     // ENUM TYPE -> code
-    public static String getCodeFromType(DirectionType type) {
+    public static String getCodeFromType(NotiDirectType type) {
         return Optional.ofNullable(type).isPresent() ? type.getCode() : null;
     }
 
     // ENUM TYPE -> desc
-    public static String getDescFromType(DirectionType type) {
+    public static String getDescFromType(NotiDirectType type) {
         return Optional.ofNullable(type).isPresent() ? type.getDesc() : null;
     }
 
-    public static class Converter extends EnumConverter<DirectionType, String> {
+    public static class Converter extends EnumConverter<NotiDirectType, String> {
         public Converter() {
-            super(DirectionType.class);
+            super(NotiDirectType.class);
         }
     }
 }

@@ -10,37 +10,36 @@ import java.util.Optional;
 
 @Getter
 @AllArgsConstructor
-public enum FormType implements IEnum<String> {
-    FIXED("FIXED", "고정양식"),
-    COMMON("COMMON", "공통양식"),
-    PERSONAL("PERSONAL", "개인양식");
+public enum UserType implements IEnum<String> {
+    STAFF("STAFF", "임직원"),
+    PARTNER("PARTNER", "협력사");
 
     private String code; // db_code
     private String desc; // db_description
 
     // code -> ENUM TYPE
-    public static FormType getTypeFromCode(String val) {
+    public static UserType getTypeFromCode(String val) {
         return Arrays.stream(values()).filter(e -> e.getCode().equals(val)).findAny().orElse(null);
     }
 
     // desc -> ENUM TYPE
-    public static FormType getTypeFromDesc(String val) {
+    public static UserType getTypeFromDesc(String val) {
         return Arrays.stream(values()).filter(e -> e.getDesc().equals(val)).findAny().orElse(null);
     }
 
     // ENUM TYPE -> code
-    public static String getCodeFromType(FormType type) {
+    public static String getCodeFromType(UserType type) {
         return Optional.ofNullable(type).isPresent() ? type.getCode() : null;
     }
 
     // ENUM TYPE -> desc
-    public static String getDescFromType(FormType type) {
+    public static String getDescFromType(UserType type) {
         return Optional.ofNullable(type).isPresent() ? type.getDesc() : null;
     }
 
-    public static class Converter extends EnumConverter<FormType, String> {
+    public static class Converter extends EnumConverter<UserType, String> {
         public Converter() {
-            super(FormType.class);
+            super(UserType.class);
         }
     }
 }

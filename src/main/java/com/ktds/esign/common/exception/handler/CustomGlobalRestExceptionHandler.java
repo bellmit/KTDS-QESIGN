@@ -33,7 +33,7 @@ public class CustomGlobalRestExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND) // 404
     public ResponseError handleUserNotFoundException(UserNotFoundException ex, WebRequest request) {
-        return buildError(ErrorCode.USER_NOT_FOUND, ex.getMessage(), request);
+        return buildError(ErrorCode.USER_NOT_FOUND, request);
     }
     
     // Resource not found
@@ -54,21 +54,21 @@ public class CustomGlobalRestExceptionHandler {
     @ExceptionHandler(UserExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) // 405
     public ResponseError handleUserExistsException(UserExistsException ex, WebRequest request) {
-        return buildError(ErrorCode.USER_EXISTS, ex.getMessage(), request);
+        return buildError(ErrorCode.USER_EXISTS, request);
     }
 
     // Email already in use
     @ExceptionHandler(EmailDuplicationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) // 405
     protected ResponseError handlerEmailDuplicationException(EmailDuplicationException ex, WebRequest request) {
-        return buildError(ErrorCode.EMAIL_DUPLICATION, ex.getMessage(), request);
+        return buildError(ErrorCode.EMAIL_DUPLICATION, request);
     }
 
     // StorageException
     @ExceptionHandler(StorageException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST) // 405
     protected ResponseError handlerStorageException(StorageException ex, WebRequest request) {
-        return buildError(ErrorCode.STORAGE_FAILED, ex.getMessage(), request);
+        return buildError(ErrorCode.STORAGE_FAILED, request);
     }
 
     // Authentication failed

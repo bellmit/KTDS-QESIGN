@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/example/err")
 public class ErrController {
 
-    @GetMapping
+    @GetMapping("view")
     public ModelAndView video(ModelAndView mav) {
         mav.setViewName("views/example/err");
         return mav;

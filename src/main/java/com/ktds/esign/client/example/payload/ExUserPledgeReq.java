@@ -17,9 +17,9 @@ public class ExUserPledgeReq {
     public static class SearchDto implements Serializable {
         private static final long serialVersionUID = -4087399523870085728L;
         // 서약유형
-        private String pledgeType;
-        // 사용자 서약 승인 진행 유형
-        private String pledgeAcceptType;
+        private String contentsType;
+        // 승인 진행 유형
+        private String progsSttusType;
         // 검색 조건 타입
         private String searchType;
         // 서약명
@@ -45,8 +45,8 @@ public class ExUserPledgeReq {
     @JsonIgnoreProperties
     public static class CreateDto implements Serializable {
         private static final long serialVersionUID = -5364399554165748530L;
-        private String pledgeAcceptType;
-        private String pledgeType;
+        private String progsSttusType;
+        private String contentsType;
         private String pledgeName;
         // 서약 요청일
         private LocalDateTime startDt;
@@ -65,8 +65,8 @@ public class ExUserPledgeReq {
     @JsonIgnoreProperties
     public static class UpdateDto implements Serializable {
         private static final long serialVersionUID = -6322399634165758641L;
-        private String pledgeAcceptType;
-        private String pledgeType;
+        private String progsSttusType;
+        private String contentsType;
         private String pledgeName;
     }
 

@@ -30,14 +30,17 @@ public class ExUser extends BaseEntity {
     @Column(length = 75, nullable = false, unique = true)
     private String email;
 
-    @Column(length = 75)
+    @Column(length = 75, nullable = false)
     private String phone;
+
+    @Column(length = 75, nullable = false)
+    private String deptId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_ex_user_cmpn_id"))
     private ExCompany company;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<ExUserNoti> userNotis = new ArrayList<>();
 
     // utility method

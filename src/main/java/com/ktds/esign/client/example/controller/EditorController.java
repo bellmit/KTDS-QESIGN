@@ -28,7 +28,7 @@ public class EditorController {
     @Value("${app.file.location}")
     private String fileUploadPath;
 
-    @GetMapping
+    @GetMapping("view")
     public ModelAndView editor(ModelAndView mav) {
         mav.setViewName("views/example/editor");
         return mav;

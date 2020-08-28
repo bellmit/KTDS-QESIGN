@@ -5,8 +5,8 @@ import com.ktds.esign.client.example.mapper.UserPledgeMapper;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq;
 import com.ktds.esign.client.example.payload.ExUserPledgeRes;
 import com.ktds.esign.client.example.repository.ExPledgeRepository;
-import com.ktds.esign.common.enums.PledgeType;
-import com.ktds.esign.common.enums.PledgeAcceptType;
+import com.ktds.esign.common.enums.ContentsType;
+import com.ktds.esign.common.enums.ProgsSttusType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
@@ -41,8 +41,8 @@ class EnumRepoTest {
         // string <=====> enum <===========> string
         ExUserPledgeReq.CreateDto createDto = ExUserPledgeReq.CreateDto.builder()
                 .pledgeName("우리는 지금 제네바로 간다.")
-                .pledgeAcceptType("STANDBY")
-                .pledgeType("VIDEO")
+                .progsSttusType("STANDBY")
+                .contentsType("VIDEO")
                 .startDt(LocalDateTime.of(2015, 4, 28, 00, 00, 00))
                 .endDt(LocalDateTime.of(2020, 9, 12, 00, 00, 00))
                 .reqUser("James Bond")
@@ -52,8 +52,8 @@ class EnumRepoTest {
         log.info("@created dto==================>{}", createDto);
         ExUserPledge exUserPledge = userPledgeMapper.createEntity(createDto);
         log.info("@mapping entity===============>{}", exUserPledge);
-        assertThat(exUserPledge.getPledgeAcceptType()).isEqualTo(PledgeAcceptType.STANDBY);
-        assertThat(exUserPledge.getPledgeType()).isEqualTo(PledgeType.VIDEO);
+        assertThat(exUserPledge.getProgsSttusType()).isEqualTo(ProgsSttusType.STANDBY);
+        assertThat(exUserPledge.getContentsType()).isEqualTo(ContentsType.VIDEO);
         listRepository.save(exUserPledge);
         assertThat(exUserPledge.getId()).isNotNull();
     }
@@ -65,13 +65,13 @@ class EnumRepoTest {
         ExUserPledge exUserPledge = listRepository.findByReqUser(username).get();
         log.info("@search.entity===============>{}", exUserPledge);
         assertThat(exUserPledge).isNotNull();
-        assertThat(exUserPledge.getPledgeAcceptType()).isEqualTo(PledgeAcceptType.COMPLETE);
+        assertThat(exUserPledge.getProgsSttusType()).isEqualTo(ProgsSttusType.COMPLETE);
 
         ExUserPledgeRes.FindDto findDto = userPledgeMapper.toDto(exUserPledge);
         log.info("@mapping.dto=================>{}", findDto);
         assertThat(findDto).isNotNull();
-        assertThat(findDto.getPledgeAcceptType()).isEqualTo("COMPLETE");
-        assertThat(findDto.getPledgeType()).isEqualTo("HTML");
+        assertThat(findDto.getProgsSttusType()).isEqualTo("COMPLETE");
+        assertThat(findDto.getContentsType()).isEqualTo("HTML");
     }
 
 }

@@ -26,7 +26,7 @@ public class Code extends BaseEntity {
     private String displayOrder;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="code_group_id")
+    @JoinColumn(name="group_code_id", foreignKey = @ForeignKey(name = "fk_tb_code_group_code_id"))
     private GroupCode groupCode;
 
 }

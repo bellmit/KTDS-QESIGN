@@ -23,14 +23,14 @@ public class CodeController {
         return ResponseDto.of(codeService.findAllCodeList());
     }
 
-    @GetMapping("groupcode/{groupcode}")
-    public ResponseDto<?> getCodeListByGroupCode(@PathVariable("groupcode") String groupCode) {
-        return ResponseDto.of(codeService.findCodeByGroupCode(groupCode));
+    @GetMapping("groupcode/{groupCodeId}")
+    public ResponseDto<?> getCodeListByGroupCode(@PathVariable("groupCodeId") String groupCodeId) {
+        return ResponseDto.of(codeService.findCodeByGroupCode(groupCodeId));
     }
 
-    @GetMapping("groupcode/{groupcode}/code/{code}")
-    public ResponseDto<?> getCodeByGroupCodeAndCode(@PathVariable("groupcode") String groupCode, @PathVariable("code") String code) throws CodeNotFoundException {
-        return ResponseDto.of(codeService.findCodeByGroupCodeAndCode(groupCode, code));
+    @GetMapping("groupcode/{groupCodeId}/code/{codeId}")
+    public ResponseDto<?> getCodeByGroupCodeAndCode(@PathVariable("groupCodeId") String groupCodeId, @PathVariable("codeId") String codeId) throws CodeNotFoundException {
+        return ResponseDto.of(codeService.findCodeByGroupCodeAndCode(groupCodeId, codeId));
     }
 
 }

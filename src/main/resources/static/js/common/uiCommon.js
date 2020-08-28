@@ -13,12 +13,13 @@ const moduleUI = (function(global, $, _, thisPage) {
      **************************************************************************/
 
     function getSelectorFromGroupCode(commonCode, groupCode) {
-        const codeTypes = commonCode.filter(function (content) {
-            return content['groupCode'] === groupCode;
+        console.log("commonCode=========>", commonCode)
+        const codeModels = commonCode.filter(function (content) {
+            return content['groupCodeId'] === groupCode;
         });
-        let html = '<option value="">전체</option>';
-        codeTypes.forEach(function (codeType) {
-            html += '<option value="' + codeType['code'] + '">' + codeType['codeDesc'] + '</option>';
+        let html = '<option value="" selected>전체</option>';
+        codeModels.forEach(function (codeModel) {
+            html += '<option value="' + codeModel['codeId'] + '">' + codeModel['codeDesc'] + '</option>';
         });
         return html;
     }

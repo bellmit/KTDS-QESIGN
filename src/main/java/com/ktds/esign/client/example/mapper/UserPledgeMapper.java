@@ -4,7 +4,6 @@ import com.ktds.esign.client.example.domain.ExUserPledge;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq.CreateDto;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq.SearchDto;
 import com.ktds.esign.client.example.payload.ExUserPledgeReq.UpdateDto;
-import com.ktds.esign.client.example.payload.ExUserPledgeRes;
 import com.ktds.esign.client.example.payload.ExUserPledgeRes.FindDto;
 import com.ktds.esign.common.annos.enums.*;
 import com.ktds.esign.common.enums.formatter.EnumFormatter;
@@ -22,18 +21,18 @@ public interface UserPledgeMapper {
 //    @Mapping(source = "endDt", target = "endDt", dateFormat = "yyyy/MM/dd HH:mm:ss")
 //    SearchDto updateDto(SearchDto searchDto, @MappingTarget SearchDto searchDt);
 
-    @Mapping(target = "pledgeType", qualifiedBy = {RootEnumMapper.class, PledgeTypeMapper.class})
-    @Mapping(target = "pledgeAcceptType", ignore = true)
+    @Mapping(target = "contentsType", qualifiedBy = {RootEnumMapper.class, ContentsTypeMapper.class})
+    @Mapping(target = "progsSttusType", ignore = true)
     @Mapping(target = "id", ignore = true)
     ExUserPledge toEntity(SearchDto searchDto);
 
-    @Mapping(target = "pledgeAcceptType", qualifiedBy = {RootEnumMapper.class, PledgeAcceptTypeMapper.class})
-    @Mapping(target = "pledgeType", qualifiedBy = {RootEnumMapper.class, PledgeTypeMapper.class})
+    @Mapping(target = "progsSttusType", qualifiedBy = {RootEnumMapper.class, ProgsSttusTypeMapper.class})
+    @Mapping(target = "contentsType", qualifiedBy = {RootEnumMapper.class, ContentsTypeMapper.class})
     @Mapping(target = "id", ignore = true)
     ExUserPledge createEntity(CreateDto createDto);
 
-    @Mapping(target = "pledgeAcceptType", qualifiedBy = {RootEnumMapper.class, PledgeAcceptTypeMapper.class})
-    @Mapping(target = "pledgeType", qualifiedBy = {RootEnumMapper.class, PledgeTypeMapper.class})
+    @Mapping(target = "progsSttusType", qualifiedBy = {RootEnumMapper.class, ProgsSttusTypeMapper.class})
+    @Mapping(target = "contentsType", qualifiedBy = {RootEnumMapper.class, ContentsTypeMapper.class})
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "startDt", ignore = true)
     @Mapping(target = "endDt", ignore = true)
@@ -41,11 +40,11 @@ public interface UserPledgeMapper {
     @Mapping(target = "reqUser", ignore = true)
     void updateEntity(UpdateDto updateDto, @MappingTarget ExUserPledge exUserPledge);
 
-    @Mapping(target = "pledgeAcceptType", qualifiedBy = {RootEnumMapper.class, PledgeAcceptCodeMapper.class})
-    @Mapping(source = "pledgeAcceptType", target = "pledgeAcceptDesc", qualifiedBy = {RootEnumMapper.class, PledgeAcceptDescMapper.class})
-    @Mapping(target = "pledgeType", qualifiedBy = {RootEnumMapper.class, PledgeCodeMapper.class})
-    @Mapping(source = "pledgeType", target = "pledgeDesc", qualifiedBy = {RootEnumMapper.class, PledgeDescMapper.class})
-    ExUserPledgeRes.FindDto toDto(ExUserPledge exUserPledge);
+    @Mapping(target = "progsSttusType", qualifiedBy = {RootEnumMapper.class, ProgsSttusCodeMapper.class})
+    @Mapping(source = "progsSttusType", target = "progsSttusDesc", qualifiedBy = {RootEnumMapper.class, ProgsSttusDescMapper.class})
+    @Mapping(target = "contentsType", qualifiedBy = {RootEnumMapper.class, ContentsCodeMapper.class})
+    @Mapping(source = "contentsType", target = "contentsDesc", qualifiedBy = {RootEnumMapper.class, ContentsDescMapper.class})
+    FindDto toDto(ExUserPledge exUserPledge);
 
     List<FindDto> toDtoList(List<ExUserPledge> exUserPledge);
 

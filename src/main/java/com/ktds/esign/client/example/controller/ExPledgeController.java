@@ -26,7 +26,12 @@ public class ExPledgeController {
     private final CodeService codeService;
     private final PaginationUtil paginationUtil;
 
-    @GetMapping("user/pledge")
+    /**
+     * create page
+     * @param mav
+     * @return
+     */
+    @GetMapping("user/pledge/view")
     public ModelAndView pledge(ModelAndView mav) {
         mav.setViewName("views/example/user-pledge");
         mav.addObject("commonCode", codeService.findAllCodeList());
@@ -40,7 +45,12 @@ public class ExPledgeController {
     }
 
 
-    @GetMapping("user/pledges")
+    /**
+     * list page
+     * @param mav
+     * @return
+     */
+    @GetMapping("user/pledges/view")
     public ModelAndView list(ModelAndView mav) {
         mav.setViewName("views/example/user-pledge-list");
         mav.addObject("commonCode", codeService.findAllCodeList());
@@ -67,7 +77,13 @@ public class ExPledgeController {
         return ResponseDto.of(page, paginationHtml);
     }
 
-    @GetMapping("user/pledges/detail")
+    /**
+     * detail page
+     * @param userPledgeId
+     * @param mav
+     * @return
+     */
+    @GetMapping("user/pledges/detail/view")
     public ModelAndView detail(@RequestParam String userPledgeId, ModelAndView mav) {
         mav.setViewName("views/example/user-pledge-detail");
         mav.addObject("userPledgeId", userPledgeId);

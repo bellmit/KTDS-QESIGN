@@ -1,12 +1,10 @@
 package com.ktds.esign.code.service;
 
-import com.ktds.esign.code.domain.CommonCode;
+import com.ktds.esign.code.domain.Code;
 import com.ktds.esign.code.mapper.CodeMapper;
-import com.ktds.esign.code.payload.CodeRes;
-import com.ktds.esign.code.payload.CodeRes.CommonCodeDto;
+import com.ktds.esign.code.payload.CodeRes.CodeDto;
 import com.ktds.esign.code.repository.CodeRepository;
 import com.ktds.esign.common.exception.CodeNotFoundException;
-import com.ktds.esign.common.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,18 +19,18 @@ public class CodeService {
     private final CodeRepository codeRepository;
     private final CodeMapper codeMapper;
 
-    public List<CommonCodeDto> findAllCodeList() {
-        return codeMapper.toDtoList(codeRepository.findCodeByOrderByGroupCode());
+    public List<CodeDto> findAllCodeList() {
+        return codeMapper.toDtoList(codeRepository.findAllCodes());
     }
 
-    public List<CommonCodeDto> findCodeByGroupCode(String groupCode) {
-        return codeMapper.toDtoList(codeRepository.findCodeByGroupCode(groupCode));
+    public List<CodeDto> findCodeByGroupCode(String groupCode) {
+        return codeMapper.toDtoList(codeRepository.findCodesByGroupCodeId(groupCode));
     }
 
-    public CommonCodeDto findCodeByGroupCodeAndCode(String groupCode, String code) throws CodeNotFoundException {
-        CommonCode commonCode = codeRepository.findCodeByGroupCodeAndCode(groupCode, code)
+    public CodeDto findCodeByGroupCodeAndCode(String groupCodeId, String codeId) throws CodeNotFoundException {
+        Code code = codeRepository.findCodeByGroupCodeIdAndCodeId(groupCodeId, codeId)
                 .orElseThrow(CodeNotFoundException::new);
-        return codeMapper.toDto(commonCode);
+        return codeMapper.toDto(code);
     }
 
 }

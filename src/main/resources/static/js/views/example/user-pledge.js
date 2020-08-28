@@ -13,10 +13,10 @@ const module = (function (global, $, _, moment, thisPage) {
     /**
      * create form data object
      */
-    function createFormDataObject(pledgeType, pledgeAcceptType, pledgeName, startDt, endDt, reqDept, reqUser) {
+    function createFormDataObject(contentsType, progsSttusType, pledgeName, startDt, endDt, reqDept, reqUser) {
         const formData = {};
-        formData.pledgeType = pledgeType || null;
-        formData.pledgeAcceptType = pledgeAcceptType || null;
+        formData.contentsType = contentsType || null;
+        formData.progsSttusType = progsSttusType || null;
         formData.pledgeName = pledgeName || null;
         formData.startDt = startDt || null;
         formData.endDt = endDt || null;
@@ -29,23 +29,23 @@ const module = (function (global, $, _, moment, thisPage) {
      * render code selector
      */
     function renderCodeSelector() {
-        const acceptTypeSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PLEDGE_ACCEPT_TYPE");
-        const typeSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PLEDGE_TYPE");
-        $("#pledgeAcceptType").html(acceptTypeSelectHtml).selectpicker('refresh');
-        $("#pledgeType").html(typeSelectHtml).selectpicker('refresh');
+        const progsSttusSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PROGS_STTUS_TYPE");
+        const contentsSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "CONTENTS_TYPE");
+        $("#progsSttusType").html(progsSttusSelectHtml).selectpicker('refresh');
+        $("#contentsType").html(contentsSelectHtml).selectpicker('refresh');
     }
 
     /**
      * create form validation
      */
     function validateCreateForm(formData) {
-        if (!formData.pledgeType) {
+        if (!formData.contentsType) {
             global.alert('서약 유형을 선택하세요.');
-            $('#pledgeType').focus();
+            $('#contentsType').focus();
             return false;
-        } else if (!formData.pledgeAcceptType) {
+        } else if (!formData.progsSttusType) {
             global.alert('진행상태를 선택하세요.');
-            $('#pledgeAcceptType').focus();
+            $('#progsSttusType').focus();
             return false;
         } else if (!formData.pledgeName) {
             global.alert('서약 업무명을 입력하세요.');
@@ -114,8 +114,8 @@ const module = (function (global, $, _, moment, thisPage) {
         $('#create').on('click', function(e) {
             e.preventDefault();
 
-            const pledgeType = $('#pledgeType').val();
-            const pledgeAcceptType = $('#pledgeAcceptType').val();
+            const contentsType = $('#contentsType').val();
+            const progsSttusType = $('#progsSttusType').val();
             const pledgeName = $('#pledgeName').val().trim();
             const startDt = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm"); // java LocalDateTime format
             const endDt = moment($('#date-end').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
@@ -123,7 +123,7 @@ const module = (function (global, $, _, moment, thisPage) {
             const reqUser = $('#reqUser').val();
 
             // create formData
-            const formData = createFormDataObject(pledgeType, pledgeAcceptType, pledgeName, startDt, endDt, reqDept, reqUser);
+            const formData = createFormDataObject(contentsType, progsSttusType, pledgeName, startDt, endDt, reqDept, reqUser);
             console.log("@formData=========>", formData);
 
             // create form validation
@@ -135,7 +135,7 @@ const module = (function (global, $, _, moment, thisPage) {
             ).done(function (response) { // 추가 작업 시 사용
                 console.log("create end====>", response);
                 global.alert("사용자 서약 정보가 생성되었습니다.");
-                global.location.href = CTX + 'example/user/pledges'; // 목록으로 이동
+                global.location.href = CTX + 'example/user/pledges/view'; // 목록으로 이동
             });
         });
 

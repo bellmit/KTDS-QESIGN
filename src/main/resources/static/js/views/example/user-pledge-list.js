@@ -20,8 +20,8 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         formData.startDt = null;
         formData.endDt = null;
         formData.searchKey = null;
-        formData.pledgeType = null;
-        formData.pledgeAcceptType = null;
+        formData.contentsType = null;
+        formData.progsSttusType = null;
         formData.pledgeName = null;
         formData.reqDept = null;
         formData.reqUser = null;
@@ -34,10 +34,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * render code selector
      */
     function renderCodeSelector() {
-        const selectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PLEDGE_TYPE");
-        $("#pledgeType").html(selectHtml).selectpicker('refresh');
-        // $("#pledgeType").val("VIDEO");
-        // $("#pledgeType").selectpicker('refresh');
+        const contentsSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "CONTENTS_TYPE");
+        $("#contentsType").html(contentsSelectHtml).selectpicker('refresh');
+        // $("#contentsType").val("VIDEO");
+        // $("#contentsType").selectpicker('refresh');
     }
 
     /**
@@ -46,8 +46,8 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     function getUserPledgeResultCount(formData) {
         if (!formData) {
             formData = {};
-            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
-            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
+            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').startOf("day").format("YYYY-MM-DD[T]HH:mm"); // java LocalDateTime format
+            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').endOf("day").format("YYYY-MM-DD[T]HH:mm");
             formData.dateType = $("input[type='radio']:checked").val();
         }
 
@@ -71,16 +71,16 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
         formData.size = $('#low-size').val() || 10;
 
         if (!formData.startDt || !formData.endDt) {
-            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm"); // java LocalDateTime format
-            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
+            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').startOf("day").format("YYYY-MM-DD[T]HH:mm"); // java LocalDateTime format
+            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').endOf("day").format("YYYY-MM-DD[T]HH:mm");
         }
 
         if (ACTIVE_TAB === 'proceeding-tab') { // 최초 로딩 또는 선택 시
-            formData.pledgeAcceptType = 'PROCEEDING';
+            formData.progsSttusType = 'ONGOING';
         } else if (ACTIVE_TAB === 'complete-tab') {
-            formData.pledgeAcceptType = 'COMPLETE';
+            formData.progsSttusType = 'COMPLETE';
         } else if (ACTIVE_TAB === 'standby-tab') {
-            formData.pledgeAcceptType = 'STANDBY';
+            formData.progsSttusType = 'STANDBY';
         }
 
         const param = decodeURI($.param(formData));
@@ -134,10 +134,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
                 html += '<li>';
                 html += '<ul class="list-group list-group-horizontal" data-id="' + v['id'] + '">';
                 html += '<li class="d-inline-block w-5">' + (currentLows - i) + '</li>';
-                //html += '<li class="d-inline-block w-10 font-blue">' + getDescFromAcceptCode(v['pledgeAcceptType']) + '</li>';
-                html += '<li class="d-inline-block w-10 font-blue">' + v['pledgeAcceptDesc'] + '</li>';
-                //html += '<li class="d-inline-block w-10">' + getDescFromCode(v['pledgeType']) + '</li>';
-                html += '<li class="d-inline-block w-10">' + v['pledgeDesc'] + '</li>';
+                //html += '<li class="d-inline-block w-10 font-blue">' + getDescFromAcceptCode(v['progsSttusType']) + '</li>';
+                html += '<li class="d-inline-block w-10 font-blue">' + v['progsSttusDesc'] + '</li>';
+                //html += '<li class="d-inline-block w-10">' + getDescFromCode(v['contentsType']) + '</li>';
+                html += '<li class="d-inline-block w-10">' + v['contentsDesc'] + '</li>';
                 html += '<li class="d-inline-block w-30 text-left pledge-name">';
                 html += '<a class="text-truncate" href="javascript:;">' + v['pledgeName'] + '</a>';
                 html += '</li>';
@@ -209,7 +209,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     }
 
     /**
-     * PledgeType Description
+     * contentsType Description
      */
     function getDescFromCode(code) {
         return {
@@ -269,10 +269,10 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             const searchKey = $('#searchKey').val();
             formData.searchType = searchType;
             formData.searchKey = searchKey;
-            formData.pledgeType = $('#pledgeType').val();
+            formData.contentsType = $('#contentsType').val();
             formData.dateType = $("input[type='radio']:checked").val();
-            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm"); // java LocalDateTime format
-            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').format("YYYY-MM-DD[T]HH:mm");
+            formData.startDt = moment($('#date-start').val(), 'YYYY-MM-DD').startOf("day").format("YYYY-MM-DD[T]HH:mm"); // java LocalDateTime format
+            formData.endDt = moment($('#date-end').val(), 'YYYY-MM-DD').endOf("day").format("YYYY-MM-DD[T]HH:mm");
 
             if (searchType === 'pledgeName') {
                 formData.pledgeName = searchKey;
@@ -300,7 +300,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
             e.preventDefault();
             const userPledgeId = $(this).closest('ul').data('id');
             if (userPledgeId) {
-                global.location.href = CTX + 'example/user/pledges/detail?userPledgeId=' + userPledgeId;
+                global.location.href = CTX + 'example/user/pledges/detail/view?userPledgeId=' + userPledgeId;
             }
         });
 

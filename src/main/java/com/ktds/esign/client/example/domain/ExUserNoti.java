@@ -1,7 +1,8 @@
 package com.ktds.esign.client.example.domain;
 
 import com.ktds.esign.common.audit.BaseEntity;
-import com.ktds.esign.common.enums.DirectionType;
+import com.ktds.esign.common.enums.NotiDirectType;
+import com.ktds.esign.common.enums.NotiType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -21,16 +22,15 @@ public class ExUserNoti extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Convert(converter = DirectionType.Converter.class)
-    private DirectionType directionType;
+    @Convert(converter = NotiDirectType.Converter.class)
+    private NotiDirectType directionType;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_ex_user_noti_user_id"))
     private ExUser user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "noti_id", foreignKey = @ForeignKey(name = "fk_ex_user_noti_noti_id"))
-    private ExNoti noti;
+    @Convert(converter = NotiType.Converter.class)
+    private NotiType notiType;
 
     // utility method
     public void changeUser(ExUser user) {
@@ -38,6 +38,14 @@ public class ExUserNoti extends BaseEntity {
         if (!user.getUserNotis().contains(this)) {
             user.getUserNotis().add(this);
         }
+    }
+
+    // create method
+    public static ExUserNoti createExUserNoti(NotiType notiType, NotiDirectType directionType) {
+        return ExUserNoti.builder()
+                .notiType(notiType)
+                .directionType(directionType)
+                .build();
     }
 
 }

@@ -21,13 +21,13 @@ public class CropController {
     @Value("${app.file.location}")
     private String fileUploadPath;
 
-    @GetMapping
+    @GetMapping("view")
     public ModelAndView video(ModelAndView mav) {
         mav.setViewName("views/example/crop");
         return mav;
     }
 
-    @PostMapping(value = "/upload/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "crop/upload/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseDto<?> saveRoute(@ModelAttribute final CropFileDto cropFileDto) {
         log.info("@crop/upload===========================>{}", cropFileDto);
         log.info("@crop/upload===========================>{}", cropFileDto.getFile());

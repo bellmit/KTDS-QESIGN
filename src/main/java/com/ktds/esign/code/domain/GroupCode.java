@@ -14,7 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_code_group")
+@Table(name = "tb_group_code")
 public class GroupCode extends BaseEntity {
 
     @Id

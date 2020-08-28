@@ -5,12 +5,17 @@ import lombok.Data;
 public class CodeRes {
 
     @Data
-    public static class CommonCodeDto {
-        private String groupCode;
-        private String groupDesc;
-        private String code;
+    public static class CodeDto {
+        private String codeId;
+        private String groupCodeId;
         private String codeDesc;
         private String displayOrder;
+    }
+
+    @Data
+    public static class GroupCodeDto {
+        private String groupCodeId;
+        private String groupCodeDesc;
     }
 
 }
