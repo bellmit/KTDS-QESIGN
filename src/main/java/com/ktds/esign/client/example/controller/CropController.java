@@ -27,7 +27,7 @@ public class CropController {
         return mav;
     }
 
-    @PostMapping(value = "crop/upload/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "upload/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseDto<?> saveRoute(@ModelAttribute final CropFileDto cropFileDto) {
         log.info("@crop/upload===========================>{}", cropFileDto);
         log.info("@crop/upload===========================>{}", cropFileDto.getFile());

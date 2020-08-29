@@ -1,6 +1,6 @@
 package com.ktds.esign.client.form.domain;
 
-import com.ktds.esign.client.user.domain.User;
+import com.ktds.esign.client.users.domain.User;
 import lombok.*;
 
 import javax.persistence.*;

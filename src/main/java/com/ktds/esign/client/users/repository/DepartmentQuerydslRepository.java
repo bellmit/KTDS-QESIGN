@@ -1,6 +1,6 @@
-package com.ktds.esign.client.user.repository;
+package com.ktds.esign.client.users.repository;
 
-import com.ktds.esign.client.user.domain.Department;
+import com.ktds.esign.client.users.domain.Department;
 import com.ktds.esign.common.querydsl.Querydsl4RepositorySupport;
 import org.springframework.stereotype.Repository;
 

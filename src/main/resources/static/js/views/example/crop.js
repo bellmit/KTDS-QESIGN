@@ -67,8 +67,8 @@ const module = (function (global, $, _, moment, thisPage) {
 
         $('.close-modal').on('click', function (e) {
             e.preventDefault();
-            $('#previewModal').modal('hide');
             $('#selectImage').val('');
+            $('#previewModal').modal('hide');
         });
 
     }

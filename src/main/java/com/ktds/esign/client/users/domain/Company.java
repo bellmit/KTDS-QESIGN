@@ -1,4 +1,4 @@
-package com.ktds.esign.client.user.domain;
+package com.ktds.esign.client.users.domain;
 
 import com.ktds.esign.common.audit.BaseEntity;
 import lombok.*;

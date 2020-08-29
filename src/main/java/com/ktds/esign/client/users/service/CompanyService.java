@@ -1,6 +1,6 @@
-package com.ktds.esign.client.user.service;
+package com.ktds.esign.client.users.service;
 
-import com.ktds.esign.client.user.repository.CompanyRepository;
+import com.ktds.esign.client.users.repository.CompanyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -53,7 +53,7 @@ public class FileUtil {
 
         Files.copy(file.getInputStream(), Paths.get(fileUploadPath + destFilename), StandardCopyOption.REPLACE_EXISTING);
 
-        return destFilename;
+        return fileUploadPath + destFilename;
     }
 
     /**

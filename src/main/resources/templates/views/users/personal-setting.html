@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default_layout">
+<!--
+#####################################################################################################
+#    @author  stoneberg
+#    @since   2020. 08. 29.
+#    @version 1.0.0
+#    @Description : personal
+#####################################################################################################
+-->
+
+<!-- page title -->
+<th:block layout:fragment="title">
+    <title>개인설정</title>
+</th:block>
+
+<!-- custom css -->
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" media="screen" th:href="@{/css/vendor/croppie.css}"/>
+    <style th:inline="text">
+    </style>
+</th:block>
+
+<!-- custom top js -->
+<th:block layout:fragment="topScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let thisPage = {};
+        thisPage['ctxPath'] = /*[[@{/}]]*/ '/';
+        console.log("thisPage", thisPage);
+        /*]]>*/
+    </script>
+</th:block>
+
+<!-- Contents div -->
+<div id="contents" layout:fragment="contents">
+    <div class="cont-title-wrap">
+        <h2 class="cont-title">개인 설정</h2>
+        <h3 class="cont-sub-title">알림 설정 및 서명이미지를 관리하는 화면입니다.</h3>
+    </div>
+    <nav class="breadcrumb-wrap clearboth" aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end align-items-center">
+            <li class="breadcrumb-item home"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">개인 설정</li>
+        </ol>
+    </nav>
+    <div class="content-wrap">
+        <p class="section-title">알림설정</p>
+        <div class="box-wrap mt-4">
+            <p class="sub-title">내가 받은 서약</p>
+            <div class="check-group">
+                <div class="checkbox-wrap">
+                    <p class="label">Email</p>
+                    <label class="checkbox-custom" for="email-1">
+                        <input type="checkbox" id="email-1" name="receive" value="EMAIL">
+                        <span class="icon-area"></span>
+                        <p>수신허용</p>
+                    </label>
+                </div>
+                <div class="checkbox-wrap">
+                    <p class="label">PUSH</p>
+                    <label class="checkbox-custom" for="push-1">
+                        <input type="checkbox" id="push-1" name="receive" value="PUSH">
+                        <span class="icon-area"></span>
+                        <p>수신허용</p>
+                    </label>
+                </div>
+                <div class="checkbox-wrap">
+                    <p class="label">SNS</p>
+                    <label class="checkbox-custom" for="sns-1">
+                        <input type="checkbox" id="sns-1" name="receive" value="SNS">
+                        <span class="icon-area"></span>
+                        <p>수신허용</p>
+                    </label>
+                </div>
+            </div>
+            <p class="warning-text font-red">* 수신 허용 시 나에게 요청 온 전자서명 알림을 받을 수 있습니다.</p>
+        </div>
+        <div class="box-wrap mt-4">
+            <p class="sub-title">내가 요청한 서약</p>
+            <div class="check-group">
+                <div class="checkbox-wrap">
+                    <p class="label">Email</p>
+                    <label class="checkbox-custom" for="email-2">
+                        <input type="checkbox" id="email-2" name="send" value="EMAIL">
+                        <span class="icon-area"></span>
+                        <p>수신허용</p>
+                    </label>
+                </div>
+                <div class="checkbox-wrap">
+                    <p class="label">PUSH</p>
+                    <label class="checkbox-custom" for="push-2">
+                        <input type="checkbox" id="push-2" name="send" value="PUSH">
+                        <span class="icon-area"></span>
+                        <p>수신허용</p>
+                    </label>
+                </div>
+                <div class="checkbox-wrap">
+                    <p class="label">SNS</p>
+                    <label class="checkbox-custom" for="sns-2">
+                        <input type="checkbox" id="sns-2" name="send" value="SNS">
+                        <span class="icon-area"></span>
+                        <p>수신허용</p>
+                    </label>
+                </div>
+            </div>
+            <p class="warning-text font-red">* 수신 허용 시 내가 요청한 전자서명 업무 최종 완료 시 알람을 받을 수 있습니다.</p>
+        </div>
+        <p class="section-title">서명이미지 관리</p>
+        <div class="img-update-wrap mt-4">
+            <div class="inner">
+                <!-- crop해서 업로드될 이미지 영역 -->
+                <div class="img-area" style="display: none;">
+                    <img src="" id="croppedImage" alt="cropped image">
+                </div>
+                <!-- crop해서 업로드될 이미지 영역 -->
+                <p class="guide-text">
+                    000*000 크기 이상의<br>
+                    JPG, GIF파일만 등록 가능합니다
+                </p>
+            </div>
+        </div>
+        <div class="btn-wrap text-center">
+            <form>
+                <button type="button" class="btn btn-default line">
+                    <label for="selectImage">
+                        <p>불러오기</p>
+                    </label>
+                    <input type="file" class="form-control-file" id="selectImage" accept="image/gif, image/jpeg"/>
+                </button>
+                <button type="button" id="savePersonSetting" class="btn btn-default b-delete">
+                    <p>저장</p>
+                </button>
+                <input type="hidden" name="signFilePath" id="signFilePath"/>
+                <input type="hidden" name="signFileName" id="signFileName"/>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- end Contents div -->
+
+<!-- custom bottom js -->
+<th:block layout:fragment="bottomScript">
+    <script type="text/javascript" th:src="@{/js/vendor/croppie.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/views/users/personal-setting.js}"></script>
+</th:block>
+
+</html>
+<!-- modal -->
+<div id="cropModal" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Crop & Upload Image</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-8 text-center">
+                        <div id="targetImage" style="width:350px; margin-top:30px"></div>
+                    </div>
+                    <div class="col-md-4" style="padding-top:30px;">
+                        <br/>
+                        <br/>
+                        <button id="saveCropImage" class="btn btn-success">Crop Image</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default close-modal" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

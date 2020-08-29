@@ -11,9 +11,9 @@ import java.util.Optional;
 @Getter
 @AllArgsConstructor
 public enum NotiType implements IEnum<String> {
-    SMS("SMS", "SMS"),
-    EMAIL("EMAIL", "EMAIL"),
-    PUSH("PUSH", "PUSH");
+    SNS("SNS", "SNS 수신 허용"),
+    EMAIL("EMAIL", "Email 수신 허용"),
+    PUSH("PUSH", "PUSH 수신 허용");
 
     private String code; // db_code
     private String desc; // db_description

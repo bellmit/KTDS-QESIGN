@@ -1,4 +1,4 @@
-const module = (function (global, $, _, moment, moduleUI, thisPage) {
+const module = (function (global, $, _, moment, headerModule, thisPage) {
 
     /***************************************************************************
      * @ 모듈 변수(상수) 선언
@@ -34,7 +34,7 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
      * render code selector
      */
     function renderCodeSelector() {
-        const contentsSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "CONTENTS_TYPE");
+        const contentsSelectHtml = headerModule.getSelectorFromGroupCode(COMMON_CODE, "CONTENTS_TYPE");
         $("#contentsType").html(contentsSelectHtml).selectpicker('refresh');
         // $("#contentsType").val("VIDEO");
         // $("#contentsType").selectpicker('refresh');
@@ -348,4 +348,4 @@ const module = (function (global, $, _, moment, moduleUI, thisPage) {
     };
 
 
-})(window, jQuery, _, moment, moduleUI, thisPage);
+})(window, jQuery, _, moment, headerModule, thisPage);

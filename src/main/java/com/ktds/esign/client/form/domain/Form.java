@@ -1,6 +1,6 @@
 package com.ktds.esign.client.form.domain;
 
-import com.ktds.esign.client.user.domain.User;
+import com.ktds.esign.client.users.domain.User;
 import com.ktds.esign.common.audit.BaseEntity;
 import com.ktds.esign.common.enums.FormType;
 import lombok.*;

@@ -68,19 +68,19 @@ public class EnumFormatter {
     }
 
     /**
-     * enum: NotiDirectType
+     * enum: DirectType
      */
-    @NotiDirectTypeMapper // String(code) -> Enum(type)
+    @DirectTypeMapper // String(code) -> Enum(type)
     public static NotiDirectType getNotiDirectTypeFromCode(String code) {
         return NotiDirectType.getTypeFromCode(code);
     }
 
-    @NotiDirectCodeMapper // Enum(type) -> String(code)
+    @DirectCodeMapper // Enum(type) -> String(code)
     public static String getNotiDirectCodeFromType(NotiDirectType type) {
         return NotiDirectType.getCodeFromType(type);
     }
 
-    @NotiDirectDescMapper // Enum(type) -> String(desc)
+    @DirectDescMapper // Enum(type) -> String(desc)
     public static String getNotiDirectDescFromType(NotiDirectType type) {
         return NotiDirectType.getDescFromType(type);
     }

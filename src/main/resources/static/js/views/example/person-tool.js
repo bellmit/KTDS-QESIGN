@@ -12,7 +12,7 @@ const module = (function (global, $, _, moment, thisPage) {
     function createUserNotiObject() {
         const userNoti = {};
         userNoti.notiType = null;
-        userNoti.notiDirection = null;
+        userNoti.directionType = null;
         return userNoti;
     }
 
@@ -31,7 +31,7 @@ const module = (function (global, $, _, moment, thisPage) {
                 console.log("send.checked====>", $(this).val());
                 const userNoti = createUserNotiObject();
                 userNoti.notiType = $(this).val();
-                userNoti.notiDirection = 'SEND';
+                userNoti.directionType = 'SEND';
                 formData.userNotis.push(userNoti);
             });
 
@@ -39,7 +39,7 @@ const module = (function (global, $, _, moment, thisPage) {
                 console.log("receive.checked====>", $(this).val());
                 const userNoti = createUserNotiObject();
                 userNoti.notiType = $(this).val();
-                userNoti.notiDirection = 'RECEIVE';
+                userNoti.directionType = 'RECEIVE';
                 formData.userNotis.push(userNoti);
             });
 
@@ -48,8 +48,8 @@ const module = (function (global, $, _, moment, thisPage) {
             $.ajaxRest($.reqPost(CTX + 'example/person-tool').setData(formData).build())
                 .done(function (response) {
                     console.log("save response====>", response);
+                    global.alert("개인 설정이 저장되었습니다.");
                 });
-
         });
 
     }

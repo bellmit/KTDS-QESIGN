@@ -1,4 +1,4 @@
-const module = (function (global, $, _, moment, thisPage) {
+const module = (function (global, $, _, moment, headerModule, thisPage) {
 
     /***************************************************************************
      * @ 모듈 변수(상수) 선언
@@ -29,8 +29,8 @@ const module = (function (global, $, _, moment, thisPage) {
      * render code selector
      */
     function renderCodeSelector() {
-        const progsSttusSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "PROGS_STTUS_TYPE");
-        const contentsSelectHtml = moduleUI.getSelectorFromGroupCode(COMMON_CODE, "CONTENTS_TYPE");
+        const progsSttusSelectHtml = headerModule.getSelectorFromGroupCode(COMMON_CODE, "PROGS_STTUS_TYPE");
+        const contentsSelectHtml = headerModule.getSelectorFromGroupCode(COMMON_CODE, "CONTENTS_TYPE");
         $("#progsSttusType").html(progsSttusSelectHtml).selectpicker('refresh');
         $("#contentsType").html(contentsSelectHtml).selectpicker('refresh');
     }
@@ -165,4 +165,4 @@ const module = (function (global, $, _, moment, thisPage) {
     };
 
 
-})(window, jQuery, _, moment, thisPage);
+})(window, jQuery, _, moment, headerModule, thisPage);

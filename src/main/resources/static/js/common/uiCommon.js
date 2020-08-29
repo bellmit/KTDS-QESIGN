@@ -3,8 +3,8 @@
  *    @Description: UI 공통 스크립트
  *    @Author: 91218672
  *****************************************************************************************************/
-const moduleUI = (function(global, $, _, thisPage) {
-    
+const headerModule = (function (global, $, _, thisPage) {
+
     // context path
     const CTX = thisPage['ctxPath'];
 
@@ -13,7 +13,6 @@ const moduleUI = (function(global, $, _, thisPage) {
      **************************************************************************/
 
     function getSelectorFromGroupCode(commonCode, groupCode) {
-        console.log("commonCode=========>", commonCode)
         const codeModels = commonCode.filter(function (content) {
             return content['groupCodeId'] === groupCode;
         });
@@ -24,19 +23,23 @@ const moduleUI = (function(global, $, _, thisPage) {
         return html;
     }
 
-
     /***************************************************************************
      * @ jquery 이벤트 등록
      **************************************************************************/
     function moduleEventHandlers() {
 
         // GNB mouseover event
-        $('.main-menu > li, .sub-menu').hover(function() {
+        $('.main-menu > li, .sub-menu').hover(function () {
             $(this).addClass('on');
             $('.sub-menu').show();
-        }, function() {
+        }, function () {
             $(this).removeClass('on');
             $('.sub-menu').hide();
+        });
+
+        // got to personal setting view
+        $('#personal-setting').on('click', function () {
+            global.location.href = '/users/personal-setting';
         });
 
     }
@@ -47,6 +50,7 @@ const moduleUI = (function(global, $, _, thisPage) {
     function moduleInitializr() {
 
     }
+
     /***************************************************************************
      * @ DOM Ready 실행
      **************************************************************************/

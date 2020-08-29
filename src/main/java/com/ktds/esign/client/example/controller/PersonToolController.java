@@ -1,9 +1,7 @@
 package com.ktds.esign.client.example.controller;
 
 
-import com.ktds.esign.client.example.payload.ExUserNotiReq;
 import com.ktds.esign.client.example.payload.ExUserNotiReq.CreateDto;
-import com.ktds.esign.client.example.payload.ExUserPledgeReq;
 import com.ktds.esign.client.example.service.ExUserNotiService;
 import com.ktds.esign.code.service.CodeService;
 import com.ktds.esign.common.exception.UserNotFoundException;
@@ -27,6 +25,11 @@ public class PersonToolController {
         mav.setViewName("views/example/person-tool");
         mav.addObject("commonCode", codeService.findAllCodeList());
         return mav;
+    }
+
+    @GetMapping("person-tool")
+    public ResponseDto<?> getPersonalSetting() throws UserNotFoundException {
+        return ResponseDto.of(userNotiService.findUserPersonalSetting());
     }
 
     @PostMapping("person-tool")

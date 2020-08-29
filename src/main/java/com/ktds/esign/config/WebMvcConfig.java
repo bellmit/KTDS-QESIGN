@@ -32,7 +32,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**") // every file request
+        registry.addResourceHandler("/upload/files/**") // every file request
                 .addResourceLocations("file://" + uploadFilePath); // find this location
     }
 

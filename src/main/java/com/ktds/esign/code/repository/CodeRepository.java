@@ -1,7 +1,6 @@
 package com.ktds.esign.code.repository;
 
 import com.ktds.esign.code.domain.Code;
-import com.ktds.esign.code.domain.CommonCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
