@@ -111,7 +111,7 @@ const module = (function (global, $, _, moment, thisPage) {
                 console.log("send.checked====>", $(this).val());
                 const userNoti = createPersonalSetting();
                 userNoti.notiType = $(this).val();
-                userNoti.directionType = 'SEND';
+                userNoti.notiDirectType = 'SEND';
                 formData.userNotis.push(userNoti);
             });
 
@@ -119,7 +119,7 @@ const module = (function (global, $, _, moment, thisPage) {
                 console.log("receive.checked====>", $(this).val());
                 const userNoti = createPersonalSetting();
                 userNoti.notiType = $(this).val();
-                userNoti.directionType = 'RECEIVE';
+                userNoti.notiDirectType = 'RECEIVE';
                 formData.userNotis.push(userNoti);
             });
 
@@ -146,7 +146,7 @@ const module = (function (global, $, _, moment, thisPage) {
     function createPersonalSetting() {
         const userNoti = {};
         userNoti.notiType = null;
-        userNoti.directionType = null;
+        userNoti.notiDirectType = null;
         return userNoti;
     }
 
@@ -170,7 +170,7 @@ const module = (function (global, $, _, moment, thisPage) {
         console.log("@renderPersonalSetting.response=====>>", response);
         const userNotis = response['data']['userNotis'];
         const userReceiveNotis = userNotis.filter(function (noti) {
-            return noti.directionType === 'RECEIVE'
+            return noti.notiDirectType === 'RECEIVE'
         });
 
         // 내가 받은 서약
@@ -186,7 +186,7 @@ const module = (function (global, $, _, moment, thisPage) {
         });
 
         const userSendNotis = userNotis.filter(function (noti) {
-            return noti.directionType === 'SEND';
+            return noti.notiDirectType === 'SEND';
         });
 
         // 내가 요청한 서약

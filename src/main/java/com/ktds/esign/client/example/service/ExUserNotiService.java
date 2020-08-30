@@ -5,7 +5,6 @@ import com.ktds.esign.client.example.domain.ExUserNoti;
 import com.ktds.esign.client.example.mapper.PersonToolMapper;
 import com.ktds.esign.client.example.payload.ExUserNotiReq.CreateDto;
 import com.ktds.esign.client.example.payload.ExUserNotiReq.ExUserNotiDto;
-import com.ktds.esign.client.example.payload.ExUserNotiRes;
 import com.ktds.esign.client.example.payload.ExUserNotiRes.ExUserDto;
 import com.ktds.esign.client.example.repository.ExNotiRepository;
 import com.ktds.esign.client.example.repository.ExUserNotiRepository;
@@ -47,7 +46,7 @@ public class ExUserNotiService {
         List<ExUserNotiDto> exUserNotiDtos = createDto.getUserNotis();
         for (ExUserNotiDto exUserNotiDto : exUserNotiDtos) {
             ExUserNoti exUserNoti = ExUserNoti.createExUserNoti(NotiType.getTypeFromCode(exUserNotiDto.getNotiType()),
-                    NotiDirectType.getTypeFromCode(exUserNotiDto.getDirectionType()));
+                    NotiDirectType.getTypeFromCode(exUserNotiDto.getNotiDirectType()));
             exUserNoti.changeUser(user);
             exUserNotis.add(exUserNoti);
         }

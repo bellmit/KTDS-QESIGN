@@ -20,7 +20,7 @@ import static com.ktds.esign.client.example.payload.ExUserNotiRes.*;
 @Mapper(config = MapStructMapperConfig.class, uses = {EnumFormatter.class})
 public interface PersonToolMapper {
 
-    @Mapping(target = "directionType", qualifiedBy = {RootEnumMapper.class, DirectCodeMapper.class})
+    @Mapping(target = "notiDirectType", qualifiedBy = {RootEnumMapper.class, DirectCodeMapper.class})
     @Mapping(target = "notiType", qualifiedBy = {RootEnumMapper.class, NotiCodeMapper.class})
     ExUserNotiDto toDto(ExUserNoti exUserNoti);
 

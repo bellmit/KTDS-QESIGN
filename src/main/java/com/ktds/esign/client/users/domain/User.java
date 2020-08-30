@@ -1,70 +1,66 @@
 package com.ktds.esign.client.users.domain;
 
 import com.ktds.esign.common.audit.BaseEntity;
+import com.ktds.esign.common.enums.UserType;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Builder
 @Getter
-@ToString(exclude = {"company", "department", "roles", "notifications"})
-@EqualsAndHashCode(callSuper = false, of = {"id", "empNo", "email"})
+@ToString(exclude = {"company", "roles", "userNotis"})
+@EqualsAndHashCode(callSuper = false, of = "userId")
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_user",
-        uniqueConstraints =
-        @UniqueConstraint(name = "tb_user_unique", columnNames = {"empNo", "email"})
-)
+@Table(name = "tb_user")
 public class User extends BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(length = 75)
+    private String userId;
 
     @Column(length = 75, nullable = false)
+    private String username;
+
+    @Column(length = 75, unique = true)
     private String empNo;
 
-    @Column(length = 75, nullable = false)
-    private String empName;
+    @Column(length = 75)
+    private String deptId;
 
     @Column(length = 75)
+    private String deptName;
+
+    @Column(length = 75, nullable = false, unique = true)
     private String email;
 
     @Column(length = 75)
     private String phone;
 
-    @Column(length = 75)
-    private String positionId;
-
-    @Column(length = 75)
-    private String positionName;
-
     // 서명 이미지 저장 경로
-    @Column(length = 100)
     private String signFilePath;
 
     // 서명 이미지 이름
-    @Column(length = 40)
     private String signFileName;
 
     // 협력사 여부
-    @Column(columnDefinition = "boolean default false", nullable = false)
-    private String partnerYn;
+    @Column(length = 20, nullable = false, columnDefinition = "varchar(20) default 'STAFF'")
+    @Convert(converter = UserType.Converter.class)
+    private UserType userType;
 
     // 삭제 여부
     @Column(columnDefinition = "boolean default false", nullable = false)
     private String deleteYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cmpn_id", foreignKey = @ForeignKey(name = "fk_tb_user_cmpn_id"))
+    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "fk_tb_use_company_id"))
     private Company company;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "dept_id", foreignKey = @ForeignKey(name = "fk_tb_user_dept_id"))
-    private Department department;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_user_role",
@@ -75,13 +71,23 @@ public class User extends BaseEntity {
     )
     private final Set<Role> roles = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "tb_user_noti",
-            joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_user_noti_user_id")),
-            inverseJoinColumns = @JoinColumn(name = "noti_id", foreignKey = @ForeignKey(name = "fk_tb_user_noti_noti_id")),
-            foreignKey = @ForeignKey(name = "fk_tb_user_noti_user_id"),
-            inverseForeignKey = @ForeignKey(name = "fk_tb_user_noti_noti_id")
-    )
-    private final Set<Notification> notifications = new HashSet<>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<UserNoti> userNotis = new ArrayList<>();
+
+    // utility method
+    public void addUserNoti(UserNoti userNoti) {
+        this.userNotis.add(userNoti);
+        if (userNoti.getUser() != this) {
+            userNoti.changeUser(this);
+        }
+    }
+
+    // save user sign
+    public void saveUserSign(String signFilePath, String signFileName) {
+        if (StringUtils.isNotBlank(signFilePath) && StringUtils.isNoneBlank(signFileName)) {
+            this.signFilePath = signFilePath;
+            this.signFileName = signFileName;
+        }
+    }
 
 }

@@ -12,7 +12,7 @@ const module = (function (global, $, _, moment, thisPage) {
     function createUserNotiObject() {
         const userNoti = {};
         userNoti.notiType = null;
-        userNoti.directionType = null;
+        userNoti.notiDirectType = null;
         return userNoti;
     }
 
@@ -31,7 +31,7 @@ const module = (function (global, $, _, moment, thisPage) {
                 console.log("send.checked====>", $(this).val());
                 const userNoti = createUserNotiObject();
                 userNoti.notiType = $(this).val();
-                userNoti.directionType = 'SEND';
+                userNoti.notiDirectType = 'SEND';
                 formData.userNotis.push(userNoti);
             });
 
@@ -39,7 +39,7 @@ const module = (function (global, $, _, moment, thisPage) {
                 console.log("receive.checked====>", $(this).val());
                 const userNoti = createUserNotiObject();
                 userNoti.notiType = $(this).val();
-                userNoti.directionType = 'RECEIVE';
+                userNoti.notiDirectType = 'RECEIVE';
                 formData.userNotis.push(userNoti);
             });
 

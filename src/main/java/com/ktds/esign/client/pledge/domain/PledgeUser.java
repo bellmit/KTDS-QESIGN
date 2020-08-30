@@ -30,9 +30,9 @@ public class PledgeUser extends BaseEntity {
     @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_pledge_user_user_id"))
     private User user;
 
-    // 서약 대상자의 서약 진행 상태
-    @Enumerated(EnumType.STRING)
-    @Column(length = 20)
+    // 서명 진행 상태
+    @Column(length = 20, nullable = false, columnDefinition = "varchar(20) default 'STANDBY'")
+    @Convert(converter = ProgsSttusType.Converter.class)
     private ProgsSttusType progsSttusType;
 
     // 서약 서명일
@@ -40,6 +40,6 @@ public class PledgeUser extends BaseEntity {
 
     // 비디오 필요 재생 완료 여부
     @Column(columnDefinition = "boolean default false", nullable = false)
-    private boolean playVideoYn;
+    private boolean videoPlayYn;
 
 }

@@ -24,7 +24,7 @@ public class ExUserNotiRes {
     @Data
     public static class ExUserNotiDto {
         private String notiType;
-        private String directionType;
+        private String notiDirectType;
     }
 
     @Data
