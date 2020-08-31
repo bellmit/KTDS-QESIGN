@@ -22,6 +22,7 @@ import java.util.List;
 public class Pledge extends BaseEntity {
 
     @Id
+    @Column(name = "pledge_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -60,10 +61,18 @@ public class Pledge extends BaseEntity {
     private Form form;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_pledge_user_id"))
+    @JoinColumns(value = {
+            @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    }, foreignKey = @ForeignKey(name = "fk_tb_pledge_user_pk"))
     private User user;
 
+    // tb_pledge_user 양방향 관계 설정
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "pledge", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<PledgeUser> pledgeUsers = new ArrayList<>();
+
+    // tb_pledge_item 양방향 관계 설정
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "pledge", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<PledgeItem> pledgeItems = new ArrayList<>();
 
 }

@@ -16,6 +16,7 @@ import javax.persistence.*;
 @Table(name = "tb_role")
 public class Role extends BaseEntity {
     @Id
+    @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

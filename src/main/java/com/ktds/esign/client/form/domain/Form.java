@@ -17,14 +17,17 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_form")
+@Table(name = "tb_form", uniqueConstraints =
+    @UniqueConstraint(name = "uk_tb_form_unique", columnNames = {"formNo"})
+)
 public class Form extends BaseEntity {
 
     @Id
+    @Column(name = "form_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 4, nullable = false, unique = true)
+    @Column(length = 4, nullable = false)
     private String formNo;
 
     @Column(length = 100, nullable = false)
@@ -51,9 +54,16 @@ public class Form extends BaseEntity {
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean deleteYn;
 
+    // 사용 여부
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean useYn;
+
     // form 생성자
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_form_user_id"))
+    @JoinColumns(value = {
+            @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    }, foreignKey = @ForeignKey(name = "fk_tb_form_user_pk"))
     private User user;
 
     // 공통 양식 사용자 지정

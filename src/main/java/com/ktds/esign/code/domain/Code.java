@@ -22,7 +22,7 @@ public class Code extends BaseEntity {
     @Column(length = 50, nullable = false)
     private String codeDesc;
 
-    @Column(length = 2)
+    @Column(length = 10)
     private String displayOrder;
 
     @ManyToOne(fetch=FetchType.LAZY)

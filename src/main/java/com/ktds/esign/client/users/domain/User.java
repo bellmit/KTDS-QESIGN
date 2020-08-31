@@ -13,22 +13,29 @@ import java.util.Set;
 
 @Builder
 @Getter
-@ToString(exclude = {"company", "roles", "userNotis"})
+@ToString(exclude = {"userNotis", "roles", "company"})
 @EqualsAndHashCode(callSuper = false, of = "userId")
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(UserPk.class)
 @Entity
-@Table(name = "tb_user")
+@Table(name = "tb_user", uniqueConstraints =
+@UniqueConstraint(name = "uk_tb_user_unique", columnNames = {"empNo", "email"})
+)
 public class User extends BaseEntity {
 
     @Id
-    @Column(length = 75)
+    @Column(name = "user_id", length = 75)
     private String userId;
+
+    @Id
+    @Column(name = "company_id", length = 75)
+    private String companyId;
 
     @Column(length = 75, nullable = false)
     private String username;
 
-    @Column(length = 75, unique = true)
+    @Column(length = 75)
     private String empNo;
 
     @Column(length = 75)
@@ -37,7 +44,7 @@ public class User extends BaseEntity {
     @Column(length = 75)
     private String deptName;
 
-    @Column(length = 75, nullable = false, unique = true)
+    @Column(length = 75, nullable = false)
     private String email;
 
     @Column(length = 75)
@@ -59,14 +66,17 @@ public class User extends BaseEntity {
     private String deleteYn;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_id", foreignKey = @ForeignKey(name = "fk_tb_use_company_id"))
+    @JoinColumn(name = "company_id", insertable = false, updatable = false, foreignKey = @ForeignKey(name = "fk_tb_use_company_id"))
     private Company company;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "tb_user_role",
-            joinColumns = @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_user_role_user_id")),
-            inverseJoinColumns = @JoinColumn(name = "role_id", foreignKey = @ForeignKey(name = "fk_tb_user_role_role_id")),
-            foreignKey = @ForeignKey(name = "fk_tb_user_role_user_id"),
+            joinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+                    @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+            },
+            inverseJoinColumns = @JoinColumn(name = "role_id"),
+            foreignKey = @ForeignKey(name = "fk_tb_user_role_user_pk"),
             inverseForeignKey = @ForeignKey(name = "fk_tb_user_role_role_id")
     )
     private final Set<Role> roles = new HashSet<>();

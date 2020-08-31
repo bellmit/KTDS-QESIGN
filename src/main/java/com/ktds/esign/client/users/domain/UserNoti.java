@@ -18,6 +18,7 @@ import javax.persistence.*;
 public class UserNoti extends BaseEntity {
 
     @Id
+    @Column(name = "user_noti_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -30,7 +31,10 @@ public class UserNoti extends BaseEntity {
     private NotiType notiType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_user_noti_user_id"))
+    @JoinColumns(value = {
+            @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    }, foreignKey = @ForeignKey(name = "fk_tb_user_noti_user_pk"))
     private User user;
 
     // utility method

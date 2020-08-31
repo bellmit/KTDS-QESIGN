@@ -19,13 +19,10 @@ public class Company extends BaseEntity {
     @Column(length = 75)
     private String companyId;
 
-    @Column(length = 75)
-    private String companyNo;
-
     @Column(length = 75, nullable = false)
     private String companyName;
 
-    @Column(length = 75)
+    @Column(length = 10)
     private String displayOrder;
 
 }

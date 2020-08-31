@@ -20,6 +20,7 @@ import javax.persistence.*;
 public class FormUser extends BaseEntity {
 
     @Id
+    @Column(name = "form_user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
@@ -28,7 +29,10 @@ public class FormUser extends BaseEntity {
     private Form form;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", foreignKey = @ForeignKey(name = "fk_tb_form_user_user_id"))
+    @JoinColumns(value = {
+            @JoinColumn(name = "user_id", referencedColumnName = "user_id"),
+            @JoinColumn(name = "company_id", referencedColumnName = "company_id")
+    }, foreignKey = @ForeignKey(name = "fk_tb_form_user_user_pk"))
     private User user;
 
     // utility method
