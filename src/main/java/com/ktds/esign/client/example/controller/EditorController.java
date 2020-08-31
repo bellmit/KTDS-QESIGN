@@ -39,20 +39,22 @@ public class EditorController {
         return new ResponseEntity<>(editorService.savePost(boardDto), HttpStatus.CREATED);
     }
 
-    @PostMapping(value = "/upload/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "upload/image", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<?> saveImage(@RequestPart MultipartFile upload, HttpServletRequest request) { //CKEditor 에서 "upload" 로 보냄
         log.info("@editor/upload/image======================>{}", upload.getOriginalFilename());
         log.info("@editor/upload/fileUploadPath=============>{}", fileUploadPath);
         String originalFilename = upload.getOriginalFilename();
         String destFilename = commonUtil.storeFile(upload, fileUploadPath, originalFilename);
+        log.info("@editor/upload/destFilename===============>{}", destFilename);
         String imgUrl = request.getScheme().concat("://").concat(request.getServerName()).concat(":")
-                .concat(String.valueOf(request.getServerPort())).concat("/upload/").concat(destFilename);
-        log.info("@editor/upload/imgUrl=====================>{}", imgUrl);
+                .concat(String.valueOf(request.getServerPort())).concat(destFilename);
+        log.info("@upload image url=========================>{}", imgUrl);
         FileUploadDto fileUploadDto = FileUploadDto.builder()
                 .uploaded(1) // 0: fail, 1: success
                 .filename(destFilename)
                 .url(imgUrl)
                 .build();
+        log.info("@fileUploadDto=====================>{}", fileUploadDto);
         return new ResponseEntity<>(fileUploadDto, HttpStatus.OK);
     }
 

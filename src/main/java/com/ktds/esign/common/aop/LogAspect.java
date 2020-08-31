@@ -32,7 +32,9 @@ public class LogAspect {
      */
     private static final List<String> SKIP_ARGS = Collections.unmodifiableList(Arrays.asList(
             "HttpServletRequest",
-            "HttpServletResponse"
+            "HttpServletResponse",
+            "RequestBodyWrapper",
+            "ResponseBodyWrapper"
     ));
 
     /**
@@ -67,6 +69,7 @@ public class LogAspect {
      */
     public void printJsonFormatParamLog(ProceedingJoinPoint pjp, Object arg) {
         for (String skipArg : SKIP_ARGS) {
+            log.info("arg.toString()======================>{}", arg.toString());
             if (arg.toString().contains(skipArg)) {
                 return;
             }
