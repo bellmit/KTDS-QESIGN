@@ -64,7 +64,7 @@ CREATE TABLE tb_pledge
 	 pledge_name      VARCHAR(60) NOT NULL,
      pledge_contents  TEXT NOT NULL,
      pledge_no        VARCHAR(4) NOT NULL,
-     progs_sttus_type VARCHAR(20) DEFAULT 'STANDBY' NOT NULL,
+     progs_sttus      VARCHAR(20) DEFAULT 'STANDBY' NOT NULL,
      end_dt           TIMESTAMP NOT NULL,
 	 start_dt         TIMESTAMP NOT NULL,
      video_play_sec   INTEGER DEFAULT 0 NOT NULL,

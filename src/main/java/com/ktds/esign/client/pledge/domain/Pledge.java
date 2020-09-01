@@ -26,9 +26,6 @@ public class Pledge extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(length = 4, nullable = false)
-    private String pledgeNo;
-
     @Column(length = 60, nullable = false)
     private String pledgeName;
 
@@ -42,7 +39,7 @@ public class Pledge extends BaseEntity {
     // 서약 작업 상태
     @Column(length = 20, nullable = false, columnDefinition = "varchar(20) default 'STANDBY'")
     @Convert(converter = ProgsSttusType.Converter.class)
-    private ProgsSttusType progsSttusType;
+    private ProgsSttusType progsSttus;
 
     // 서약 개시일(요청일)
     @Column(nullable = false)

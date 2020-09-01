@@ -39,6 +39,7 @@ public class LogAspect {
 
     /**
      * InLogExclusion 선언 시 로깅에서 제외
+     *
      * @param pjp
      * @return
      * @throws Throwable
@@ -87,7 +88,7 @@ public class LogAspect {
      * @param result
      */
     @AfterReturning(value = "execution(* com.ktds.esign.*.*.controller.*.*(..)) " +
-            "&& @annotation(com.ktds.esign.common.annos.log.OutLogInclusion))",  returning = "result")
+            "&& @annotation(com.ktds.esign.common.annos.log.OutLogInclusion))", returning = "result")
     public void afterReturning(JoinPoint jp, Object result) {
         log.info("@{} returned with value {}", jp, result);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();

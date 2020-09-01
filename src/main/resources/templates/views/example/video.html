@@ -51,7 +51,8 @@
             <input class="form-control" name="videoName" id="videoName" value="glass" type="text" placeholder="시청할 동영상 제목을 입력하세요." readonly />
         </div>
         <br/>
-        <video id="video2" class="img-fluid" width="500" height="250" style="pointer-events: none;" controls>
+        <div><h4>시청시간:<span id="current">0:00</span></h4></div>
+        <video id="video2" class="img-fluid" width="500" height="250" style="pointer-events: none;" preload="auto" controls>
             <source th:src="@{/upload/files/dawn.mp4}" type="video/mp4">
         </video>
         <div class="card-body">
@@ -64,11 +65,10 @@
         </div>
         <div>
             <h3>15초간 시청 후 서약 진행 가능</h3>
-            <p id="end"></p>
+            <p id="completeMessage"></p>
             <button id="pledge" style="display: none;" type="button">서약하기</button>
         </div>
 <!--        <p>current time</p>-->
-<!--        <div id="current">0:00</div>-->
 <!--        <p>duration time</p>-->
 <!--        <div id="duration">0:00</div>-->
     </div>

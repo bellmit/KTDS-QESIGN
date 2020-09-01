@@ -37,7 +37,7 @@ public class PledgeUser extends BaseEntity {
     // 서명 진행 상태
     @Column(length = 20, nullable = false, columnDefinition = "varchar(20) default 'STANDBY'")
     @Convert(converter = ProgsSttusType.Converter.class)
-    private ProgsSttusType progsSttusType;
+    private ProgsSttusType progsSttus;
 
     // 서약 서명일
     private LocalDateTime pledgeDt;

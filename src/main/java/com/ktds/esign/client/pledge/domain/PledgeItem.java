@@ -36,7 +36,7 @@ public class PledgeItem extends BaseEntity {
     private String itemName;
 
     @Column(columnDefinition = "text", nullable = false)
-    private String itemContent;
+    private String itemContents;
 
     @Column(length = 10, nullable = false)
     private String displayOrder;

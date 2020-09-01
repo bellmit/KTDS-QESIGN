@@ -17,18 +17,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_form", uniqueConstraints =
-    @UniqueConstraint(name = "uk_tb_form_unique", columnNames = {"formNo"})
-)
+@Table(name = "tb_form")
 public class Form extends BaseEntity {
 
     @Id
     @Column(name = "form_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(length = 4, nullable = false)
-    private String formNo;
 
     @Column(length = 100, nullable = false)
     private String formName;
@@ -42,7 +37,7 @@ public class Form extends BaseEntity {
     private ContentsType contentsType;
 
     @Column(columnDefinition = "text")
-    private String formContent;
+    private String formContents;
 
     // 영상 저장 경로
     private String videoFilePath;

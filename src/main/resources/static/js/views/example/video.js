@@ -92,10 +92,12 @@ const module = (function (global, $, _, moment, thisPage) {
         function onTrackedVideoFrame(currentTime, duration) {
             console.log("crrentTime===>", currentTime, "totalTime===>", duration);
             if (currentTime > videoPlaySec) {
-                $('#end').html("필수 시청 시간 시청을 완료하였습니다.");
+                console.log("==============================================");
+                $('#completeMessage').html("필수 시청 시간 시청을 완료하였습니다.");
                 $('#pledge').show();
+                $("#video2").removeAttr("style")
             }
-            // $("#current").text(currentTime); //Change #current to currentTime
+            $("#current").text(Math.floor(currentTime)); //Change #current to currentTime
             // $("#duration").text(duration)
         }
 
