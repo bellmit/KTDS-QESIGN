@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-    layout:decorator="layouts/default_layout">
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default_layout">
 <!--
 #####################################################################################################
 #    @author  stoneberg
@@ -11,157 +11,157 @@
 #####################################################################################################
 -->
 
-    <!-- page title -->
-    <th:block layout:fragment="title">
-        <title>Main</title>
-    </th:block>
-    
-    <!-- custom css -->
-    <th:block layout:fragment="css">
-        <style th:inline="text">
-        </style>
-    </th:block>
-    
-    <!-- custom top js -->
-    <th:block layout:fragment="topScript">
-        <script th:inline="javascript">
+<!-- page title -->
+<th:block layout:fragment="title">
+    <title>Main</title>
+</th:block>
+
+<!-- custom css -->
+<th:block layout:fragment="css">
+    <style th:inline="text">
+    </style>
+</th:block>
+
+<!-- custom top js -->
+<th:block layout:fragment="topScript">
+    <script th:inline="javascript">
         /*<![CDATA[*/
         let thisPage = {};
         thisPage['ctxPath'] = /*[[@{/}]]*/ '/';
         console.log("thisPage", thisPage);
         /*]]>*/
-        </script>
-    </th:block>
-    
-    <!-- Contents div -->
-    <div id="contents" layout:fragment="contents">
-        <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
-            <div class="col-md-6 px-0">
-                <h1 class="display-4 font-italic">So live your life that the fear of death can never enter your heart.</h1>
-                <p class="lead my-3">When it comes your time to die, be not like those whose hearts are filled with the fear of death,
-                    so that when their time comes they weep and pray for a little more time to live their lives over again in a different way.</p>
-            </div>
-        </div>
+    </script>
+</th:block>
 
-        <div class="row mb-2">
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #1</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" th:href="@{/example/crop}">Image Crop And Upload</a>
-                        </h3>
-                        <a th:href="@{/example/crop}">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #2</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" th:href="@{/example/video}">Local Video Play</a>
-                        </h3>
-                        <a th:href="@{/example/video}">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #3</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" th:href="@{/example/editor}">CKEditor Demo</a>
-                        </h3>
-                        <a th:href="@{/example/editor}">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #4</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" th:href="@{/example/user/pledges}">List & Pagination Demo</a>
-                        </h3>
-                        <a th:href="@{/example/user/pledges}">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #5</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" th:href="@{/example/user/pledge}">Create Data Demo</a>
-                        </h3>
-                        <a th:href="@{/example/user/pledge}">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #6</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" th:href="@{/example/err}">Make Error</a>
-                        </h3>
-                        <a th:href="@{/example/err}">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #7</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" th:href="@{/example/person-tool}">Person Tool</a>
-                        </h3>
-                        <a th:href="@{/example/person-tool}">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #n</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" href="#">Coming soon...</a>
-                        </h3>
-                        <a href="#">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #n</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" href="#">Coming soon...</a>
-                        </h3>
-                        <a href="#">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card flex-md-row mb-4 shadow-sm h-md-230">
-                    <div class="card-body d-flex flex-column align-items-start">
-                        <strong class="d-inline-block mb-2 text-primary">Example #n</strong>
-                        <h3 class="mb-0">
-                            <a class="text-dark" href="#">Coming soon...</a>
-                        </h3>
-                        <a href="#">Continue reading</a>
-                    </div>
-                </div>
-            </div>
-            <!-- end -->
+<!-- Contents div -->
+<div id="contents" layout:fragment="contents">
+    <div class="jumbotron p-3 p-md-5 text-white rounded bg-dark">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 font-italic">So live your life that the fear of death can never enter your heart.</h1>
+            <p class="lead my-3">When it comes your time to die, be not like those whose hearts are filled with the fear of death,
+                so that when their time comes they weep and pray for a little more time to live their lives over again in a different way.</p>
         </div>
     </div>
-    <!-- end Contents div -->
-    
-    <!-- custom bottom js -->
-    <th:block layout:fragment="bottomScript">
-        <script type="text/javascript" th:src="@{/js/views/main/main.js}"></script>
-    </th:block>
+
+    <div class="row mb-2">
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #1</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="@{/example/crop/view}">Image Crop And Upload</a>
+                    </h3>
+                    <a th:href="@{/example/crop/view}">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #2</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="@{/example/video/view}">Local Video Play</a>
+                    </h3>
+                    <a th:href="@{/example/video/view}">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #3</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="@{/example/editor/view}">CKEditor Demo</a>
+                    </h3>
+                    <a th:href="@{/example/editor/view}">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #4</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="@{/example/user/pledges/view}">List & Pagination Demo</a>
+                    </h3>
+                    <a th:href="@{/example/user/pledges/view}">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #5</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="@{/example/user/pledge/view}">Create Data Demo</a>
+                    </h3>
+                    <a th:href="@{/example/user/pledge/view}">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #6</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="@{/example/err/view}">Make Error</a>
+                    </h3>
+                    <a th:href="@{/example/err/view}">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #7</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="@{/example/person-tool/view}">Person Tool</a>
+                    </h3>
+                    <a th:href="@{/example/person-tool/view}">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #8</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" th:href="@{/example/video/view2}">Local Video Play</a>
+                    </h3>
+                    <a th:href="@{/example/video/view2}">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #n</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" href="#">Coming soon...</a>
+                    </h3>
+                    <a href="#">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card flex-md-row mb-4 shadow-sm h-md-230">
+                <div class="card-body d-flex flex-column align-items-start">
+                    <strong class="d-inline-block mb-2 text-primary">Example #n</strong>
+                    <h3 class="mb-0">
+                        <a class="text-dark" href="#">Coming soon...</a>
+                    </h3>
+                    <a href="#">Continue reading</a>
+                </div>
+            </div>
+        </div>
+        <!-- end -->
+    </div>
+</div>
+<!-- end Contents div -->
+
+<!-- custom bottom js -->
+<th:block layout:fragment="bottomScript">
+    <script type="text/javascript" th:src="@{/js/views/main/main.js}"></script>
+</th:block>
 
 </html>

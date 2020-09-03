@@ -25,7 +25,7 @@ public class RequestBodyFilter implements Filter {
     private static final List<String> SKIP_URLS = Collections.unmodifiableList(Arrays.asList(
             "/editor/save"
     ));
-    
+
     @Override
     public void destroy() {
         // filter destroy
@@ -33,7 +33,7 @@ public class RequestBodyFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        
+
         boolean isJson = isJsonContentType(request);
         String path = ((HttpServletRequest) request).getRequestURI();
 
@@ -42,27 +42,26 @@ public class RequestBodyFilter implements Filter {
                 if (!path.contains(skipUrl) && isJson) {
                     RequestBodyWrapper reqWrapper = new RequestBodyWrapper((HttpServletRequest) request);
                     chain.doFilter(reqWrapper, response);
-                } else {
-                    chain.doFilter(request, response);
                 }
             }
+            chain.doFilter(request, response);
         } catch (IOException e) {
             chain.doFilter(request, response);
         }
 
     }
-    
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         log.error("{}", filterConfig);
     }
-    
+
     private boolean isJsonContentType(ServletRequest request) {
         String contentType = request.getContentType();
         return (contentType != null && contentType.toLowerCase().contains("json"));
     }
-    
-    private boolean isAjaxRequest(HttpServletRequest req){
+
+    private boolean isAjaxRequest(HttpServletRequest req) {
         return "XMLHttpRequest".equals(req.getHeader("X-Requested-With"));
     }
 

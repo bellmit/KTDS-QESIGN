@@ -1,0 +1,12 @@
+header:
+ title1: "내가 받은 요청"
+ title2: "양식 관리"
+ title3: "서약 관리"
+ title4: "<span class=\"icon-area\"></span>개인설정"
+ title1-menu1: "요청 받은 서약"
+ title1-menu2: "진행 중인 서약"
+ title1-menu3: "완료된 서약"
+ title2-menu1: "양식 조회"
+ title2-menu2: "개인 양식 등록"
+ title3-menu1: "서약 조회"
+ title3-menu2: "서약 업무 만들기"

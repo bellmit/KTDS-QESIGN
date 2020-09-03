@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default_layout">
+<!--
+#####################################################################################################
+#    @author  stoneberg
+#    @since   2020. 08. 16.
+#    @version 1.0.0
+#    @Description : video
+#####################################################################################################
+-->
+
+<!-- page title -->
+<th:block layout:fragment="title">
+    <title>Video</title>
+</th:block>
+
+<!-- custom css -->
+<th:block layout:fragment="css">
+    <style th:inline="text">
+    </style>
+</th:block>
+
+<!-- custom top js -->
+<th:block layout:fragment="topScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let thisPage = {};
+        thisPage['ctxPath'] = /*[[@{/}]]*/ '/';
+        console.log("thisPage", thisPage);
+        /*]]>*/
+    </script>
+</th:block>
+
+<!-- Contents div -->
+<div id="contents" layout:fragment="contents">
+
+    <div class="cont-title-wrap">
+        <h2 class="cont-title">개인 양식 등록</h2>
+    </div>
+
+    <nav class="breadcrumb-wrap clearboth" aria-label="breadcrumb">
+        <ol class="breadcrumb justify-content-end align-items-center">
+            <li class="breadcrumb-item home"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="#">양식 관리</a></li>
+            <li class="breadcrumb-item active" aria-current="page">개인 양식 등록</li>
+        </ol>
+    </nav>
+
+    <div class="content-wrap">
+        <div class="box-wrap detail-box pb-5">
+            <ul class="input-wrap">
+                <li class="d-block">
+                    <p class="input-label d-inline-block w-10 necessary">양식명</p>
+                    <div class="input-default">
+                        <input class="form-control" id="formName" type="text" placeholder="양식명을 입력하세요.">
+                    </div>
+                </li>
+                <li class="d-block">
+                    <p class="input-label d-inline-block w-10">양식설명</p>
+                    <div class="input-default">
+                        <input class="form-control" id="formDesc" type="text" placeholder="양식에 대한 설명을 입력하세요.">
+                    </div>
+                </li>
+                <li class="d-block">
+                    <p class="input-label d-inline-block w-10 necessary">유형</p>
+                    <div class="radio-wrap w-90">
+                        <label class="radio-custom" for="normal">
+                            <input type="radio" id="normal" name="type" checked="true">
+                            <span class="icon-area"></span>
+                            <p>일반</p>
+                            <p class="warning-text font-red">
+                                * 에디터 영역에서 서약서를 생성할 수 있습니다.
+                            </p>
+                        </label>
+                        <label class="radio-custom" for="video">
+                            <input type="radio" id="video" name="type" class="viedo" checked="">
+                            <span class="icon-area"></span>
+                            <p>동영상</p>
+                            <form class="d-inline-block align-middle position-relative" id="videoUploadForm" enctype="multipart/form-data">
+                                <div class="filebox position-absolute">
+                                    <label for="videoFile" class="btn b-line-s">
+                                        <p>동영상 불러오기</p>
+                                    </label>
+                                    <input type="file" id="videoFile" name="file" class="form-control-file">
+                                </div>
+                            </form>
+                            <p class="warning-text font-red">
+                                * AVI, MPEG 확장자의 동영상을 등록할 수 있습니다.
+                            </p>
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <div class="pledge-form-wrap">
+                <div class="pledge-form">
+                    <!-- 서약양식노출 영역-->
+                    <video id="preview" class="img-thumbnail image" src="" width="800" height="600" controls></video>
+                    <!--<img id="preview" class="img-thumbnail image" src="" width="800" height="600" />-->
+                </div>
+            </div>
+            <br />
+            <div class="pledge-form-wrap" id="savedVideo" style="display: none">
+                <div class="pledge-form">
+                    <!-- 서약양식노출 영역-->
+                    <video id="preview2" class="img-thumbnail image" src="" width="800" height="600" controls></video>
+                    <!--<img id="preview" class="img-thumbnail image" src="" width="800" height="600" />-->
+                </div>
+            </div>
+            <button type="button" class="btn line btn-s btn-icon icon_list">
+                <p>목록</p>
+            </button>
+            <button type="button" class="btn line btn-s line float-right" data-toggle="modal"
+                    data-target=".bd-example-modal-xl">
+                <p>미리보기</p>
+            </button>
+        </div>
+        <div class="btn-wrap text-center clearboth">
+            <button type="button" id="save" class="btn btn-default">
+                <p>저장</p>
+            </button>
+        </div>
+    </div>
+</div>
+<!-- end Contents div -->
+
+<!-- custom bottom js -->
+<th:block layout:fragment="bottomScript">
+    <script type="text/javascript" th:src="@{/js/views/example/video2.js}"></script>
+</th:block>
+
+</html>

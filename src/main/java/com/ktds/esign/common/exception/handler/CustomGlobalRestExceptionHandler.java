@@ -24,6 +24,8 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.multipart.MultipartException;
 
 @Slf4j
 @RestControllerAdvice
@@ -130,11 +132,17 @@ public class CustomGlobalRestExceptionHandler {
     	return buildError(ErrorCode.METHOD_NOT_ALLOWED, request);
     }
     
+    @ExceptionHandler(MultipartException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST) // 500
+    protected ResponseError handleMultipartException(MultipartException ex, WebRequest request) {
+        log.error("@MultipartException::{}", ExceptionUtils.getMessage(ex));
+        return buildError(ErrorCode.FILE_PROCESS_FAILED, ex.getMessage(), request);
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR) // 500
     protected ResponseError handleAnyException(Exception ex, WebRequest request) {
         log.error("@Exception::{}", ExceptionUtils.getMessage(ex));
-        ex.printStackTrace();
         return buildError(ErrorCode.UNKNOWN_EXCEPTION, request);
     }
 

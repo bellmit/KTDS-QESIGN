@@ -1,14 +1,14 @@
 package com.ktds.esign.client.example.controller;
 
 import com.ktds.esign.client.example.payload.VideoReq.VideoDto;
+import com.ktds.esign.client.example.payload.VideoReq.VideoUploadDto;
 import com.ktds.esign.common.response.ResponseDto;
+import com.ktds.esign.common.utils.FileUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +21,8 @@ public class VideoController {
 
     @Value("${app.file.location}")
     private String fileUploadPath;
+
+    private final FileUtil commonUtil;
 
     @GetMapping("view")
     public ModelAndView video(ModelAndView mav) {
@@ -42,6 +44,34 @@ public class VideoController {
                 .build();
 
         return ResponseDto.of(videoDto);
+    }
+
+    @GetMapping("view2")
+    public ModelAndView video2(ModelAndView mav) {
+        mav.setViewName("views/example/video2");
+        return mav;
+    }
+
+    /**
+     * 영상 저장
+     * 
+     * @param videoUploadDto
+     * @return
+     */
+    @PostMapping(value = "upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseDto<?> saveVideo(@ModelAttribute final VideoUploadDto videoUploadDto, HttpServletRequest request) {
+        log.info("@videoUploadDto========================>{}", videoUploadDto);
+        log.info("@videoUploadDto========================>{}", videoUploadDto.getFile());
+        log.info("@videoUploadDto========================>{}", videoUploadDto.getFile().getSize());
+        log.info("@videoUploadDto========================>{}", videoUploadDto.getFormName());
+        log.info("@videoUploadDto========================>{}", videoUploadDto.getFormDesc());
+        log.info("@videoUploadDto========================>{}", videoUploadDto.getFormType());
+
+        String destFilename = commonUtil.storeVideoFile(videoUploadDto.getFile(), fileUploadPath, videoUploadDto.getFile().getOriginalFilename());
+        String videoUrl = request.getScheme().concat("://").concat(request.getServerName()).concat(":")
+                .concat(String.valueOf(request.getServerPort())).concat(fileUploadPath).concat(destFilename);
+        log.info("@request videoUrl==============>{}", videoUrl);
+        return ResponseDto.of(videoUrl);
     }
 
 }

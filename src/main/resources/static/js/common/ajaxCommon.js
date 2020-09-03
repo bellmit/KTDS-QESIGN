@@ -141,7 +141,7 @@
                 processData: false, //prevent jQuery from automatically transforming the data into a query string
                 contentType: false,
                 cache: false,
-                timeout: 10000, // 10 seconds
+                timeout: 30000, // 30 seconds
             };
 
             return $.ajax(options).always(function () {

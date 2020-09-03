@@ -52,8 +52,36 @@ public class FileUtil {
         }
 
         Files.copy(file.getInputStream(), Paths.get(fileUploadPath + destFilename), StandardCopyOption.REPLACE_EXISTING);
-
         return fileUploadPath + destFilename;
+    }
+
+    /**
+     *  단건 파일 저장
+     *
+     * @param file
+     * @param fileUploadPath
+     * @param originalFilename
+     */
+    @SneakyThrows
+    public String storeVideoFile(MultipartFile file, String fileUploadPath, String originalFilename) {
+
+        if (file.isEmpty()) {
+            throw new StorageException("Failed to store empty file ");
+        }
+
+        String extension = FilenameUtils.getExtension(originalFilename);
+        String destFilename = RandomStringUtils.randomAlphabetic(10)
+                .concat(String.valueOf(System.currentTimeMillis()))
+                .concat(".").concat(extension);
+
+        File dir = new File(fileUploadPath);
+
+        if (!dir.exists()) {
+            dir.mkdirs();
+        }
+
+        Files.copy(file.getInputStream(), Paths.get(fileUploadPath + destFilename), StandardCopyOption.REPLACE_EXISTING);
+        return destFilename;
     }
 
     /**

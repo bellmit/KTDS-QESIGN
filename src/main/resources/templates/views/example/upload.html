@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default_layout">
+<!--
+#####################################################################################################
+#    @author  stoneberg
+#    @since   2020. 08. 15.
+#    @version 1.0.0
+#    @Description : upload
+#####################################################################################################
+-->
+
+<!-- page title -->
+<th:block layout:fragment="title">
+    <title>Croppie</title>
+</th:block>
+
+<!-- custom css -->
+<th:block layout:fragment="css">
+    <style th:inline="text">
+    </style>
+</th:block>
+
+<!-- custom top js -->
+<th:block layout:fragment="topScript">
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        let thisPage = {};
+        thisPage['ctxPath'] = /*[[@{/}]]*/ '/';
+        console.log("thisPage", thisPage);
+        /*]]>*/
+    </script>
+</th:block>
+
+<!-- Contents div -->
+<div id="contents" layout:fragment="contents">
+    <h1>Spring Boot - Multiple file upload example - AJAX</h1>
+
+    <form method="POST" enctype="multipart/form-data" id="fileUploadForm">
+        <input type="text" name="extraField"/><br/><br/>
+        <input type="file" name="files"/><br/><br/>
+        <input type="file" name="files"/><br/><br/>
+        <input type="submit" value="Submit" id="btnSubmit"/>
+    </form>
+
+    <h1>Ajax Post Result</h1>
+    <pre>
+        <span id="result"></span>
+    </pre>
+</div>
+<!-- end Contents div -->
+
+<!-- custom bottom js -->
+<th:block layout:fragment="bottomScript">
+    <script type="text/javascript" th:src="@{/js/views/example/upload.js}"></script>
+</th:block>
+
+</html>
+
