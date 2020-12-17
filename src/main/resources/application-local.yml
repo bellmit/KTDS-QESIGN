@@ -7,10 +7,10 @@ spring:
     encoding: UTF-8
 
   datasource:
-    url: jdbc:p6spy:postgresql://localhost:5432/dswc
+    url: jdbc:p6spy:postgresql://localhost:5432/wsc_ktds?currentSchema=esign
     driver-class-name: com.p6spy.engine.spy.P6SpyDriver
-    username: devops
-    password: new1234@
+    username: wscadmin
+    password: Wscadmin1234!
 
     hikari:
       connection-timeout: 30000
@@ -19,7 +19,7 @@ spring:
 
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate.ddl-auto: update
+    hibernate.ddl-auto: create-drop
     properties:
       hibernate:
         jdbc.lob.non_contextual_creation: true
