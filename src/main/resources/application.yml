@@ -5,6 +5,9 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+    context-path: /esign
+  tomcat:
+    max-swallow-size: -1
 
 logging:
   config: classpath:logback/logback-spring.xml
